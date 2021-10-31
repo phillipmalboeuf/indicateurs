@@ -22,8 +22,12 @@
 </script>
 
 <script lang="ts">
+  import Chart from '$lib/components/Chart.svelte'
+
 	export let indicateur: Entry<Indicateur>
 </script>
 
 <a href="/categories/{indicateur.fields.categorie.fields.id}">{indicateur.fields.categorie.fields.titre}</a>
 <h1>{indicateur.fields.titre}</h1>
+
+<Chart {...indicateur.fields} />
