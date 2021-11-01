@@ -8,5 +8,5 @@ export const contentful = createClient({
 })
 
 export async function entries<T>(content_type: string, locale: string, query: {[key: string]: any}={}, include=2) {
-  return contentful.getEntries<T>({ content_type, include, locale, ...query })
+  return (await contentful.getEntries<T>({ content_type, include, locale, ...query })).items
 }

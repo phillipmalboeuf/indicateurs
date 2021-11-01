@@ -8,19 +8,19 @@
 </script>
 
 <script lang="ts">
-  import type { EntryCollection } from 'contentful'
+  import type { Entry, EntryCollection } from 'contentful'
   
-  import type { Indicateur } from './indicateurs/[id].svelte'
-  import type { Categorie } from './categories/[id].svelte'
+  import type { Indicateur } from '$routes/indicateurs/[id].svelte'
+  import type { Categorie } from '$routes/categories/[id].svelte'
 
   import Chart from '$lib/components/Chart.svelte'
   import Donut from '$lib/components/Donut.svelte'
+  import Filters from '$lib/components/Filters.svelte'
+  import Card from '$lib/components/Card.svelte'
+  import Indicateurs from '$lib/components/Indicateurs.svelte'
 
-  export let categories: EntryCollection<Categorie>
-  export let indicateurs: EntryCollection<Indicateur>
-
-  console.log(categories)
-  console.log(indicateurs)
+  export let categories: Entry<Categorie>[]
+  export let indicateurs: Entry<Indicateur>[]
 </script>
 
 <h1>Les Indicateurs</h1>
@@ -28,9 +28,10 @@
 <figure>
   <!-- <Donut />
   <Chart /> -->
+</figure>
 
-  <ul>
-  {#each categories.items.filter(categorie => categorie.fields.sousCategories?.length > 0) as categorie}
+  <!-- <ul>
+  {#each categories.filter(categorie => categorie.fields.sousCategories?.length > 0) as categorie}
   <li>
     <a href="/categories/{categorie.fields.id}">{categorie.fields.titre}</a>
     <ul>
@@ -40,11 +41,8 @@
     </ul>
   </li>
   {/each}
-  </ul>
+  </ul> -->
 
-  <ul>
-  {#each indicateurs.items as indicateur}
-  <li><a href="/indicateurs/{indicateur.fields.id}">{indicateur.fields.titre}</a></li>
-  {/each}
-  </ul>
-</figure>
+<Filters categories={categories.filter(c => c.fields.sousCategories)} {indicateurs} on:update={event => indicateurs = event.detail} />
+
+<Indicateurs {indicateurs} />

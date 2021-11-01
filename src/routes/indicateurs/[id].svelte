@@ -25,9 +25,13 @@
   import Chart from '$lib/components/Chart.svelte'
 
 	export let indicateur: Entry<Indicateur>
+  export let pilier: Entry<Categorie>
 </script>
 
+{#key indicateur.fields.id}
+<a href="/categories/{pilier.fields.id}">{pilier.fields.titre}</a>
 <a href="/categories/{indicateur.fields.categorie.fields.id}">{indicateur.fields.categorie.fields.titre}</a>
-<h1>{indicateur.fields.titre}</h1>
+<h1 style="color: {indicateur.fields.categorie.fields.couleur}">{indicateur.fields.titre}</h1>
 
 <Chart {...indicateur.fields} />
+{/key}
