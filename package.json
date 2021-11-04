@@ -11,6 +11,7 @@
   "devDependencies": {
     "@amcharts/amcharts4": "^4.10.22",
     "@sveltejs/kit": "next",
+    "@sveltejs/adapter-vercel": "next",
     "chart.js": "^3.5.1",
     "svelte": "^3.42.6",
     "svelte-check": "^2.2.6",
