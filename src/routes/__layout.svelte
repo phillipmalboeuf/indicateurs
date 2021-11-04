@@ -8,4 +8,13 @@
 	<a href="/a-propos">À propos</a>
 </nav>
 
-<slot></slot>
+<main id="main">
+	<slot></slot>
+</main>
+
+<style>
+	main {
+    min-height: 100vh;
+    padding: var(--gutter);
+	}
+</style>

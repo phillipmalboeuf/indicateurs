@@ -21,5 +21,11 @@
   ul {
     list-style: none;
     padding-left: 0;
+
+    display: grid;
+    /* grid-template-rows: auto; */
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: var(--gutter);
+    row-gap: var(--gutter);
   }
 </style>

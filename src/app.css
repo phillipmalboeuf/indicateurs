@@ -1,11 +1,15 @@
 :root {
-
   --gutter: 2rem;
+  --corner: 1rem;
 
   --dark: #1D1F27;
   --light: #EDF5E2;
   --muted: #7D7D7D;
   --highlight: #F7D152;
+}
+
+* {
+	box-sizing: border-box;
 }
 
 html {

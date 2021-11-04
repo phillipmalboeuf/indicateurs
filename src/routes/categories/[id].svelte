@@ -11,8 +11,8 @@
 
   import type { Load } from '@sveltejs/kit'
   import { respond } from '$lib/responses'
-  import Filters from '$lib/components/Filters.svelte';
-  import Indicateurs from '$lib/components/Indicateurs.svelte';
+  import Filters from '$lib/components/Filters.svelte'
+  import Indicateurs from '$lib/components/Indicateurs.svelte'
 
   export const load: Load = async ({ page, fetch, session, stuff }) => {
 		return respond(fetch, `./${page.params.id}.json`)

@@ -6,6 +6,7 @@
     titre: string
     id: string
     lead: string
+    titreDeLaxe: string
     type: string
     data: string
     minimum: number
@@ -33,5 +34,5 @@
 <a href="/categories/{indicateur.fields.categorie.fields.id}">{indicateur.fields.categorie.fields.titre}</a>
 <h1 style="color: {indicateur.fields.categorie.fields.couleur}">{indicateur.fields.titre}</h1>
 
-<Chart {...indicateur.fields} />
+<Chart {...indicateur.fields} couleur={indicateur.fields.categorie.fields.couleur} />
 {/key}
