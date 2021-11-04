@@ -19,122 +19,221 @@ function csvToArray(str: string, delimiter = ",") {
   return arr;
 }
 
-import { color, create, createFromConfig, percent, Sprite, Tooltip } from "@amcharts/amcharts4/core"
-import { CategoryAxis, ColumnSeries, Cursor, Legend, LineSeries, PieChart, PieSeries, SerialChart, ValueAxis, XYChart, XYCursor } from "@amcharts/amcharts4/charts"
+// import { color, create, createFromConfig, percent, Sprite, Tooltip } from "@amcharts/amcharts4/core"
+// import { XYChart as XYChart4, CategoryAxis as CategoryAxis4, Cursor, Legend as Legend4, LineSeries, PieChart, PieSeries, SerialChart, ValueAxis as ValueAxis4, XYCursor } from "@amcharts/amcharts4/charts"
 
-export function createHistogramme(element: HTMLElement, data: string, minimum: number, maximum: number, title: string, couleur: string) {
-  let chart = create(element, XYChart)
-  chart.logo.disabled = true
-  chart.data = csvToChartData(data)
+import { Bullet, Circle, color, DataProcessor, Label, Legend, percent, Root, Tooltip } from '@amcharts/amcharts5'
+import { XYChart, ValueAxis, CategoryAxis, AxisRendererX, ColumnSeries, AxisRendererY, LineSeries, AxisLabel, XYCursor } from '@amcharts/amcharts5/xy'
+import am5themes_Animated from "@amcharts/amcharts5/themes/Animated"
+import am5themes_Micro from "@amcharts/amcharts5/themes/Micro"
+import { PieChart, PieSeries } from '@amcharts/amcharts5/percent'
 
-  let categoryAxis = chart.xAxes.push(new CategoryAxis())
-  categoryAxis.dataFields.category = "Date"
 
-  let valueAxis = chart.yAxes.push(new ValueAxis())
-  valueAxis.title.text = title
+function init(element: HTMLElement) {
+  let root = Root.new(element)
+  root._logo.dispose()
 
-  valueAxis.min = minimum
-  valueAxis.max = maximum
+  root.setThemes([
+    am5themes_Animated.new(root),
+    // am5themes_Micro.new(root)
+  ]);
 
-  const keys = Object.keys(chart.data[0]).filter(key => !['Date', 'Région'].includes(key))
-
-  keys.forEach((key, i) => {
-    let series = chart.series.push(new ColumnSeries())
-    series.dataFields.valueY = key
-    series.name = key
-    series.dataFields.categoryX = "Date"
-    series.columns.template.tooltipText = `${key}: {categoryX}: {valueY}`
-
-    series.columns.template.fill = color(couleur, 1 - (i * 0.1))
-    series.columns.template.strokeWidth = 0
-
-    if (keys.length > 1) { series.stacked = true }
-  })
-
-  if (keys.length > 1) {
-    chart.legend = new Legend()
-  }
-
-  return chart
+  return root
 }
 
-export function createCourbe(element: HTMLElement, data: string, minimum: number, maximum: number, title: string, couleur: string) {
-  let courbe = create(element, XYChart)
-  courbe.logo.disabled = true
-  courbe.data = csvToChartData(data)
-
-  let categoryAxis = courbe.xAxes.push(new CategoryAxis())
-  categoryAxis.dataFields.category = "Date"
-
-  let valueAxis = courbe.yAxes.push(new ValueAxis())
-  valueAxis.title.text = title
-
-  valueAxis.min = minimum
-  valueAxis.max = maximum
 
 
-  const keys = Object.keys(courbe.data[0]).filter(key => !['Date', 'Région'].includes(key))
+export function createHistogramme(element: HTMLElement, data: string, min: number, max: number, title: string, couleur: string) {
+  let root = init(element)
+  let chart = root.container.children.push(
+    XYChart.new(root, {
+      panY: false,
+      layout: root.verticalLayout
+    })
+  )
 
-  keys.forEach((key, i) => {
-    let series = courbe.series.push(new LineSeries())
-    series.dataFields.valueY = key
-    series.name = key
-    series.dataFields.categoryX = "Date"
-    series.tooltipText = `${key}: {categoryX}: {valueY}`
-    series.strokeWidth = 6
-    series.strokeLinecap = 'round'
-    series.stroke = color(couleur, 1 - (i * 0.1))
-  })
+  const seriesData = csvToChartData(data)
 
-  // courbe.cursor = new XYCursor()
+  let yAxis = chart.yAxes.push(
+    ValueAxis.new(root, {
+      min,
+      max,
+      renderer: AxisRendererY.new(root, {})
+    })
+  )
+  // title && chart.leftAxesContainer.children.push(Label.new(root, {
+  //   text: title,
+  //   layout: root.verticalLayout
+  // }))
 
-  if (keys.length > 1) {
-    courbe.legend = new Legend()
-  }
 
-  return courbe
-}
+  let xAxis = chart.xAxes.push(
+    CategoryAxis.new(root, {
+      renderer: AxisRendererX.new(root, {}),
+      categoryField: "Date",
+    })
+  )
+  xAxis.data.setAll(seriesData)
 
-export function createTarte(element: HTMLElement, data: string, minimum: number, maximum: number, title: string, couleur: string) {
-  let chart = create(element, PieChart)
-  chart.logo.disabled = true
-  chart.data = csvToChartData(data)
+
+  const keys = Object.keys(seriesData[0]).filter(key => !['Date', 'Région'].includes(key))
   
-  // let categoryAxis = courbe.xAxes.push(new CategoryAxis())
-  // categoryAxis.dataFields.category = "Date"
 
-  // let valueAxis = courbe.yAxes.push(new ValueAxis())
-  // valueAxis.title.text = title
+  keys.forEach((name, i) => {
+    let series = chart.series.push(ColumnSeries.new(root, {
+      name,
+      xAxis,
+      yAxis,
+      valueYField: name,
+      categoryXField: "Date",
+      stacked: keys.length > 1,
+      tooltip: Tooltip.new(root, {})
+    }))
 
-  // valueAxis.min = minimum
-  // valueAxis.max = maximum
+    series.columns.template.setAll({
+      fill: color(couleur),
+      fillOpacity: 1 - (i * 0.1),
+      stroke: color(couleur),
+      tooltipText: `${keys.length > 1 ? '{name}, ' : ''}{categoryX}: {valueY}`
+    })
 
-  chart.innerRadius = percent(40)
-
-
-  const keys = Object.keys(chart.data[0]).filter(key => !['Date', 'Région', 'Catégorie'].includes(key))
-
-  keys.forEach((key, i) => {
-    let series = chart.series.push(new PieSeries())
-    series.dataFields.value = key
-    series.name = key
-    series.dataFields.category = "Catégorie"
-    series.alignLabels = false;
-    // series.labels.template.inside = true
-    series.labels.template.text = "{category}"
-    series.labels.template.bent = true
-    series.slices.template.fill = color(couleur, 1 - (i * 0.1))
-
-    series.slices.template.stroke = color("#fff");
-    series.slices.template.strokeWidth = 2;
-    series.slices.template.strokeOpacity = 1;
+    series.data.processor = DataProcessor.new(root, {
+      numericFields: [name]
+    })
+    
+    series.data.setAll(seriesData)
   })
 
-  // // courbe.cursor = new XYCursor()
+  if (keys.length > 1) {
+    let legend = chart.children.push(Legend.new(root, {}));
+    legend.data.setAll(chart.series.values)
+  }
 
-  // if (keys.length > 1) {
-  //   courbe.legend = new Legend()
-  // }
+  return root
+}
 
-  return chart
+export function createCourbe(element: HTMLElement, data: string, min: number, max: number, title: string, couleur: string) {
+  let root = init(element)
+  let chart = root.container.children.push(
+    XYChart.new(root, {
+      panY: false,
+      layout: root.verticalLayout,
+      cursor: XYCursor.new(root, {})
+    })
+  )
+  
+  const seriesData = csvToChartData(data)
+
+  let yAxis = chart.yAxes.push(
+    ValueAxis.new(root, {
+      min,
+      max,
+      renderer: AxisRendererY.new(root, {})
+    })
+  )
+  // title && chart.leftAxesContainer.children.push(Label.new(root, {
+  //   text: title,
+  //   layout: root.verticalLayout
+  // }))
+
+
+  let xAxis = chart.xAxes.push(
+    CategoryAxis.new(root, {
+      renderer: AxisRendererX.new(root, {}),
+      categoryField: "Date",
+    })
+  )
+  xAxis.data.setAll(seriesData)
+
+
+  const keys = Object.keys(seriesData[0]).filter(key => !['Date', 'Région'].includes(key))
+  
+
+  keys.forEach((name, i) => {
+    let series = chart.series.push(LineSeries.new(root, {
+      name,
+      xAxis,
+      yAxis,
+      valueYField: name,
+      categoryXField: "Date",
+      fill: color(couleur),
+      stroke: color(couleur),
+      tooltip: Tooltip.new(root, {}),
+      tooltipText: `${keys.length > 1 ? '{name}, ' : ''}{categoryX}: {valueY}`
+    }))
+
+    series.strokes.template.setAll({
+      // stroke: color(couleur),
+      
+      strokeWidth: 3,
+      
+    })
+
+    series.bullets.push(function() {
+      return Bullet.new(root, {
+        sprite: Circle.new(root, {
+          radius: 4,
+          fill: series.get("fill")
+        })
+      })
+    })
+
+    series.data.processor = DataProcessor.new(root, {
+      numericFields: [name]
+    })
+    
+    series.data.setAll(seriesData)
+  })
+
+  if (keys.length > 1) {
+    let legend = chart.children.push(Legend.new(root, {}));
+    legend.data.setAll(chart.series.values)
+  }
+
+  return root
+}
+
+export function createTarte(element: HTMLElement, data: string, min: number, max: number, title: string, couleur: string) {
+  let root = init(element)
+  let chart = root.container.children.push(
+    PieChart.new(root, {
+      layout: root.verticalLayout,
+      innerRadius: percent(40)
+    })
+  )
+  
+  const seriesData = csvToChartData(data)
+
+
+  const keys = Object.keys(seriesData[0]).filter(key => !['Date', 'Région', 'Catégorie'].includes(key))
+
+  keys.forEach((name, i) => {
+    let series = chart.series.push(PieSeries.new(root, {
+      name,
+      categoryField: "Catégorie",
+      valueField: name,
+      alignLabels: false
+    }))
+
+    series.data.processor = DataProcessor.new(root, {
+      numericFields: [name]
+    })
+    
+    series.data.setAll(seriesData)
+
+    series.slices.template.setAll({
+      fill: color(couleur),
+      stroke: color('#fff'),
+      strokeWidth: 2
+    })
+
+    series.labels.template.setAll({
+      text: "{category}",
+      textType: "circular",
+      inside: false,
+      radius: 10
+    });
+  })
+
+  return root
 }

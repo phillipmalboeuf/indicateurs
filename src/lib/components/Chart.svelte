@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte'
-  import type { SerialChart } from '@amcharts/amcharts4/charts'
+  import type { Root } from '@amcharts/amcharts5'
   import { createCourbe, createHistogramme, createTarte } from '$lib/charts'
 
-  let chart: SerialChart
+  let chart: Root
   let element: HTMLElement
   let image: string
 
@@ -26,9 +26,9 @@
         chart = createCourbe(element, data, minimum, maximum, titreDeLaxe, couleur)
         break
 
-      case 'Pyramide':
-        chart = createCourbe(element, data, minimum, maximum, titreDeLaxe, couleur)
-        break
+      // case 'Pyramide':
+      //   chart = createCourbe(element, data, minimum, maximum, titreDeLaxe, couleur)
+      //   break
       
       case 'Tarte':
         chart = createTarte(element, data, minimum, maximum, titreDeLaxe, couleur)
@@ -38,9 +38,9 @@
         break
     }
 
-    chart?.exporting.getImage("png").then(function(imgData) {
-      image = imgData
-    })
+    // chart?.exporting.getImage("png").then(function(imgData) {
+    //   image = imgData
+    // })
   })
 
   onDestroy(() => {

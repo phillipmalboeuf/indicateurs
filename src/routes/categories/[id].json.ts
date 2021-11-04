@@ -15,10 +15,10 @@ export const get: RequestHandler = async ({ params, query }) => {
   const indicateurs = sousCategories
     ? (await entries<{ categorie: Entry<{ id: string }> }>('indicateur', locale))
       .filter(i => sousCategories.includes(i.fields.categorie.fields.id))
-    : await entries('indicateur', locale,
+    : await entries<{ categorie: Entry<{ id: string }> }>('indicateur', locale,
       { 'fields.categorie.fields.id': params.id, 'fields.categorie.sys.contentType.sys.id': 'categorie' })
 
-  
+  indicateurs.sort((a, b) => a.fields.categorie.fields.id.localeCompare(b.fields.categorie.fields.id))
 
   if (categorie) {
     return {
