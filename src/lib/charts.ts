@@ -29,7 +29,7 @@ import am5themes_Micro from "@amcharts/amcharts5/themes/Micro"
 import { PieChart, PieSeries } from '@amcharts/amcharts5/percent'
 
 
-function init(element: HTMLElement) {
+export function init(element: HTMLElement) {
   let root = Root.new(element)
   root._logo.dispose()
 

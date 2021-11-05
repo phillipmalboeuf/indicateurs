@@ -1,19 +1,23 @@
 <script lang="ts">
-  import { onMount, onDestroy } from 'svelte'
-  import { color, Container, create, createFromConfig, percent, Sprite, Tooltip } from "@amcharts/amcharts4/core"
-  import { CategoryAxis, ColumnSeries, Cursor, Legend, LineSeries, ValueAxis, RadarChart, RadarSeries, RadarColumnSeries, PieChart, PieSeries } from "@amcharts/amcharts4/charts"
+  import { color, Percent, percent, Root } from '@amcharts/amcharts5'
+  import { PieChart, PieSeries } from '@amcharts/amcharts5/percent'
+  import { RadarChart, RadarColumnSeries } from '@amcharts/amcharts5/radar'
 
-  let chart: PieChart
+  import { onMount, onDestroy } from 'svelte'
+  // import { color, Container, create, createFromConfig, percent, Sprite, Tooltip } from "@amcharts/amcharts4/core"
+  // import { CategoryAxis, ColumnSeries, Cursor, Legend, LineSeries, ValueAxis, RadarChart, RadarSeries, RadarColumnSeries, PieChart, PieSeries } from "@amcharts/amcharts4/charts"
+
+  let root: Root
   let element: HTMLElement
   let image: string
 
   const donut = {
     'Out': {
-      'Qualité de l’air et climat': 100,
+      'Qualité de l’air et climat': 10,
       'Utilisation des terres': 20,
       'Eau': 10,
       'Biodiversité': 10,
-      'Soutenabilité': 30,
+      'Soutenabilité': 100,
       'Énergie': 10,
     },
     'Plafond': {
@@ -34,69 +38,95 @@
       'Égalité': 7,
       'Culture': 5,
       'Prospérité': 12,
-      'Emploi': 5,
+      'Emploi': -10,
       'Innovation': 5,
       'Talent et compétences': 5,
     }
   }
 
-  function renderChart(category: string, height?) {
-    let series = chart.series.push(new PieSeries())
+  function renderChart(chart: PieChart, name: string, innerRadius: number | Percent, radius: number | Percent, inverted?: boolean) {
+    const data = Object.keys(donut[name]).map(key => ({
+      Catégorie: key,
+      Valeur: donut[name][key],
+      Width: 1,
+      template: {
+        ...inverted ? { dInnerRadius: -donut[name][key] } : { dRadius: donut[name][key] },
+        fill: color('#069550')
+      }
+    }))
 
-    series.data = Object.keys(donut[category]).map(sousCatégorie => ({
-        [category]: sousCatégorie,
-        value: 1,
-        radiusValue: donut[category][sousCatégorie]
-      })).flat()
+    let series = chart.series.push(PieSeries.new(root, {
+      name,
+      categoryField: "Catégorie",
+      idField: "Catégorie",
+      valueField: "Width",
+      alignLabels: false,
+      radius,
+      innerRadius,
+      // radius: percent(radius),
+      // innerRadius: percent(radius)
+    }))
 
-    series.dataFields.value = "value"
-    series.dataFields.radiusValue = "radiusValue"
-    series.dataFields.category = category
+    console.log(data)
+    // series.slices
+    
+    // series.slices.template.adapters.add("dInnerRadius", (arc, target) => {
+    //   console.log(target.uid)
+    //   console.log(series.dataItems)
+    //   // target.dataItem
+    //   return series.dataItems.find(i => i.uid === target.uid).dataContext['Valeur']
+    // })
+    
 
-    // series.height = percent(height)
+    series.slices.template.setAll({
+      // fill: color('#069550'),
+      stroke: color('#fff'),
+      strokeWidth: 2,
+      toggleKey: "disabled",
+      tooltipPosition: "pointer",
+      templateField: "template"
+    })
 
-    // if(height) { series.radius = height}
+    series.labels.template.setAll({
+      text: "{category}",
+      textType: "circular",
+      inside: true,
+      fill: color('#fff'),
+      oversizedBehavior: "wrap",
+      maxWidth: 20
+    });
 
-    series.ticks.template.disabled = true;
-    series.alignLabels = false;
-    series.labels.template.inside = true
-    series.labels.template.text = "{category}"
-    series.labels.template.bent = true
-    series.labels.template.contentValign = 'bottom'
-
-    series.slices.template.stroke = color("#fff");
-    series.slices.template.strokeWidth = 2;
-    series.slices.template.strokeOpacity = 1;
-    series.colors.step = 2;
-
-    series.tooltip.disabled = true
-    series.interactionsEnabled = false
+    series.data.setAll(data)
   }
 
   onMount(() => {
+    root = Root.new(element)
+    root._logo.dispose()
 
-    chart = create(element, PieChart)
-    chart.logo.disabled = true
-
-    chart.innerRadius = percent(30)
+    let chart = root.container.children.push(
+      PieChart.new(root, {
+        layout: root.verticalLayout,
+        innerRadius: percent(20),
+      })
+    )
     
 
     
-    renderChart('In')
-    renderChart('Plancher', percent(1))
-    renderChart('Milieu')
-    renderChart('Plafond', percent(1))
-    renderChart('Out')
+    renderChart(chart, 'In', percent(0), percent(35), true)
+    renderChart(chart, 'Plancher', percent(35), percent(45))
+    renderChart(chart, 'Milieu', percent(45), percent(65))
+    renderChart(chart, 'Plafond', percent(65), percent(75))
+    renderChart(chart, 'Out', percent(75), percent(100))
     // renderChart('Économie')
 
 
-    chart.exporting.getImage("png").then(function(imgData) {
-      image = imgData
-    })
+    // chart.exporting.getImage("png").then(function(imgData) {
+    //   image = imgData
+    // })
   })
 
   onDestroy(() => {
-    chart?.dispose()
+    root?.dispose()
   })
 </script>
 
