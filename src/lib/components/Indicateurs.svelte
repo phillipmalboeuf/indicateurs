@@ -28,4 +28,22 @@
     column-gap: var(--gutter);
     row-gap: var(--gutter);
   }
+
+  @media (max-width: 1400px) {
+    ul {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 1000px) {
+    ul {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 800px) {
+    ul {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
