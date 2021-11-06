@@ -1,3 +1,30 @@
+@font-face {
+	font-family: 'PP Neue Montreal';
+	src: url('/fonts/PPNeueMontreal-Book.woff2') format('woff2'),
+		url('/fonts/PPNeueMontreal-Book.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'PP Neue Montreal';
+	src: url('/fonts/PPNeueMontreal-Medium.woff2') format('woff2'),
+		url('/fonts/PPNeueMontreal-Medium.woff') format('woff');
+	font-weight: bold;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'PP Neue Machina';
+	src: url('/fonts/PP Neue Machina-Bold.woff2') format('woff2'),
+		url('/fonts/PP Neue Machina-Bold.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
 :root {
   --gutter: 2rem;
   --corner: 1rem;
@@ -25,6 +52,10 @@ body {
 
   color: var(--light);
   background: var(--dark);
+}
+
+h1, h2, h3, em {
+  font-family: "PP Neue Machina", monospace;
 }
 
 a {

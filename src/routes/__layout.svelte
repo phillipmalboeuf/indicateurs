@@ -1,5 +1,5 @@
-<script lang="ts">
-	import '../app.css';
+<script context="module" lang="ts">
+	import '../app.css'
 </script>
 
 <nav>
