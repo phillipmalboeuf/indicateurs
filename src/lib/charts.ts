@@ -109,7 +109,7 @@ export function createHistogramme(element: HTMLElement, data: string, min: numbe
     legend.data.setAll(chart.series.values)
   }
 
-  return root
+  return chart
 }
 
 export function createCourbe(element: HTMLElement, data: string, min: number, max: number, title: string, couleur: string) {
@@ -190,7 +190,7 @@ export function createCourbe(element: HTMLElement, data: string, min: number, ma
     legend.data.setAll(chart.series.values)
   }
 
-  return root
+  return chart
 }
 
 export function createTarte(element: HTMLElement, data: string, min: number, max: number, title: string, couleur: string) {
@@ -235,5 +235,5 @@ export function createTarte(element: HTMLElement, data: string, min: number, max
     });
   })
 
-  return root
+  return chart
 }

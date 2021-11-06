@@ -1,11 +1,20 @@
+<script context="module" lang="ts">
+  
+
+</script>
+
+
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte'
   import type { Root } from '@amcharts/amcharts5'
   import { createCourbe, createHistogramme, createTarte } from '$lib/charts'
+  import { Exporting, ExportingMenu } from '@amcharts/amcharts5/plugins/exporting'
+  import type { Chart } from '@amcharts/amcharts5/.internal/core/render/Chart'
 
-  let chart: Root
+  let chart: Chart
   let element: HTMLElement
-  let image: string
+  let observer: IntersectionObserver
+  let exporting: Exporting
 
   export let id: string
   export let data: string
@@ -16,7 +25,10 @@
   export let couleur: string
   export let small: boolean = false
 
-  onMount(() => {
+
+  function createChart() {
+    observer?.disconnect()
+
     switch (type) {
       case 'Histogramme':
         chart = createHistogramme(element, data, minimum, maximum, titreDeLaxe, couleur)
@@ -38,18 +50,39 @@
         break
     }
 
-    // chart?.exporting.getImage("png").then(function(imgData) {
-    //   image = imgData
-    // })
+    if (chart) {
+      exporting = Exporting.new(chart._root, {
+        filePrefix: id
+        // menu: ExportingMenu.new(chart._root, {})
+      })
+    }
+  }
+  
+
+  onMount(() => {
+    observer = new IntersectionObserver( 
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            createChart()
+          }
+        })
+      },
+      { threshold: [0] }
+    )
+
+
+    observer.observe(element)
   })
 
   onDestroy(() => {
-    chart?.dispose()
+    observer?.disconnect()
+    chart?._root.dispose()
   })
 </script>
 
 <figure class:small bind:this={element}></figure>
-{#if image}<a download="{id}.png" href={image}>Export</a>{/if}
+{#if exporting}<button on:click={() => exporting.download('png')}>Export</button>{/if}
 
 <style>
   figure {
