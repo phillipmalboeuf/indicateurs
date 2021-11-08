@@ -9,11 +9,12 @@
 
   import type { Entry } from 'contentful'
   import type { Categorie } from '$routes/categories/[id].svelte'
+  import { Exporting } from '@amcharts/amcharts5/plugins/exporting'
 
   export let categories: Entry<Categorie>[]
   let root: Root
   let element: HTMLElement
-  let image: string
+  let exporting: Exporting
 
   const donut = {
     'Out': {
@@ -56,7 +57,10 @@
       Width: 1,
       template: {
         // ...inverted ? { dInnerRadius: -donut[name][key] } : { dRadius: donut[name][key] },
-        fill: color(categories.find(c => c.fields.titre === key)?.fields.couleur || '#1C47A4')
+        fill: color(categories.find(c => c.fields.titre === key)?.fields.couleur || {
+          'Plafond': '#1D2723',
+          'Plancher': '#231D27'
+        }[name] || '#1D1F27')
       }
     }))
 
@@ -97,13 +101,14 @@
     })
 
     series.labels.template.setAll({
+      fontSize: '1.4vw',
       text: "{category}",
       textType: inverted ? "radial" : "circular",
       centerX: percent(100),
       inside: true,
       fill: color('#fff'),
       oversizedBehavior: "wrap",
-      maxWidth: 150,
+      maxWidth: 200,
       textAlign: inverted ? 'left' : 'center'
     });
 
@@ -131,9 +136,10 @@
     // renderChart('Économie')
 
 
-    // chart.exporting.getImage("png").then(function(imgData) {
-    //   image = imgData
-    // })
+    exporting = Exporting.new(root, {
+      filePrefix: 'donut'
+      // menu: ExportingMenu.new(chart._root, {})
+    })
   })
 
   onDestroy(() => {
@@ -142,7 +148,7 @@
 </script>
 
 <figure bind:this={element}></figure>
-{#if image}<a download="download.png" href={image}>Export</a>{/if}
+{#if exporting}<button on:click={() => exporting.download('png')}>Export</button>{/if}
 
 <style>
   figure {
