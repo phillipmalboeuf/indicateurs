@@ -7,18 +7,23 @@
   // import { color, Container, create, createFromConfig, percent, Sprite, Tooltip } from "@amcharts/amcharts4/core"
   // import { CategoryAxis, ColumnSeries, Cursor, Legend, LineSeries, ValueAxis, RadarChart, RadarSeries, RadarColumnSeries, PieChart, PieSeries } from "@amcharts/amcharts4/charts"
 
+  import type { Entry } from 'contentful'
+  import type { Categorie } from '$routes/categories/[id].svelte'
+
+  export let categories: Entry<Categorie>[]
   let root: Root
   let element: HTMLElement
   let image: string
 
   const donut = {
     'Out': {
-      'Qualité de l’air et climat': 10,
-      'Utilisation des terres': 20,
-      'Eau': 10,
       'Biodiversité': 10,
+      'Mobilité durable': 10,
+      'Utilisation des terres': 20,
       'Soutenabilité': 100,
       'Énergie': 10,
+      'Eau': 10,
+      'Qualité de l’air et climat': 10,
     },
     'Plafond': {
       'Plafond environnemental': 10
@@ -31,16 +36,16 @@
       'Plancher économique et social': 10
     },
     'In': {
-      'Logement': 5,
-      'Pauvreté': 5,
-      'Santé et sécurité': 5,
-      'Qualité de vie': 5,
-      'Égalité': 7,
-      'Culture': 5,
-      'Prospérité': 12,
+      'Talent et compétences': 5,
       'Emploi': -10,
       'Innovation': 5,
-      'Talent et compétences': 5,
+      'Prospérité': 12,
+      'Pauvreté': 5,
+      'Qualité de vie': 5,
+      'Santé et sécurité': 5,
+      'Logement': 5,
+      'Égalité': 7,
+      'Culture': 5
     }
   }
 
@@ -50,8 +55,8 @@
       Valeur: donut[name][key],
       Width: 1,
       template: {
-        ...inverted ? { dInnerRadius: -donut[name][key] } : { dRadius: donut[name][key] },
-        fill: color('#069550')
+        // ...inverted ? { dInnerRadius: -donut[name][key] } : { dRadius: donut[name][key] },
+        fill: color(categories.find(c => c.fields.titre === key)?.fields.couleur || '#1C47A4')
       }
     }))
 
@@ -63,11 +68,14 @@
       alignLabels: false,
       radius,
       innerRadius,
+      startAngle: 0,
+      endAngle: 360,
+      interactiveChildren: false
       // radius: percent(radius),
       // innerRadius: percent(radius)
     }))
 
-    console.log(data)
+    // console.log(data)
     // series.slices
     
     // series.slices.template.adapters.add("dInnerRadius", (arc, target) => {
@@ -80,20 +88,23 @@
 
     series.slices.template.setAll({
       // fill: color('#069550'),
-      stroke: color('#fff'),
-      strokeWidth: 2,
+      stroke: color('#1D1F27'),
+      strokeWidth: 3,
       toggleKey: "disabled",
-      tooltipPosition: "pointer",
-      templateField: "template"
+      // tooltipPosition: "pointer",
+      templateField: "template",
+      shiftRadius: 0
     })
 
     series.labels.template.setAll({
       text: "{category}",
-      textType: "circular",
+      textType: inverted ? "radial" : "circular",
+      centerX: percent(100),
       inside: true,
       fill: color('#fff'),
       oversizedBehavior: "wrap",
-      maxWidth: 20
+      maxWidth: 150,
+      textAlign: inverted ? 'left' : 'center'
     });
 
     series.data.setAll(data)
@@ -106,7 +117,7 @@
     let chart = root.container.children.push(
       PieChart.new(root, {
         layout: root.verticalLayout,
-        innerRadius: percent(20),
+        innerRadius: percent(20)
       })
     )
     
@@ -135,6 +146,8 @@
 
 <style>
   figure {
-    height: 50vh;
+    margin: 0;
+    height: 100vw;
+    pointer-events: none;
   }
 </style>
