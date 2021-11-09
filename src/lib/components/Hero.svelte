@@ -1,11 +1,21 @@
 <script lang="ts">
   import type { Asset } from 'contentful'
+  import { onMount } from 'svelte'
   import Picture from './Picture.svelte'
 
   export let media: Asset
+
+  let scrollY: number
+  let height: number
+
+  onMount(() => {
+    height = window.innerHeight / 2
+  })
 </script>
 
-<figure>
+<svelte:window bind:scrollY on:resize={() => height = window.innerHeight / 2} />
+
+<figure style="--opacity: {(height - scrollY) / height}">
   <Picture {media} ar={1 / 2} />
   <figcaption>
     <slot />
@@ -31,6 +41,6 @@
     object-fit: cover;
 
     z-index: -1;
-    opacity: 0.3;
+    opacity: calc(0.3 * var(--opacity));
   }
 </style>
