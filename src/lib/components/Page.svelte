@@ -39,11 +39,15 @@
 {/key}
 
 
-<style>
+<style lang="scss">
   h1 {
     text-align: center;
     font-size: 3rem;
     color: var(--highlight);
     max-width: calc(var(--width) / 2);
+
+    @media (max-width: 888px) {
+      font-size: 2rem;
+    }
   }
 </style>

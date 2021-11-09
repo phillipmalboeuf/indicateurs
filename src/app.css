@@ -40,6 +40,12 @@
   --alt: "PP Neue Machina", monospace;
 }
 
+@media (max-width: 888px) {
+  :root {
+    --gutter: 1rem;
+  }
+}
+
 * {
 	box-sizing: border-box;
 }

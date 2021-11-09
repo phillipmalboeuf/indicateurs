@@ -95,6 +95,11 @@
       justify-content: center;
       column-gap: var(--gutter);
       margin-bottom: calc(var(--gutter) * 2);
+
+      @media (max-width: 888px) {
+        flex-direction: column;
+        row-gap: var(--gutter)
+      }
       
       > li {
         position: relative;
@@ -115,6 +120,7 @@
 
         > ul {
           position: absolute;
+          z-index: 2;
           top: 100%;
           left: -1rem;
           width: 14rem;

@@ -63,6 +63,10 @@
       justify-content: space-between;
       column-gap: var(--gutter);
 
+      @media (max-width: 888px) {
+        flex-direction: column;
+      }
+
       a {
         display: block;
         margin-bottom: 1rem;
