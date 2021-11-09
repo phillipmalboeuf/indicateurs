@@ -13,6 +13,7 @@
   import { respond } from '$lib/responses'
   import Filters from '$lib/components/Filters.svelte'
   import Indicateurs from '$lib/components/Indicateurs.svelte'
+  import { page } from '$app/stores'
 
   export const load: Load = async ({ page, fetch, session, stuff }) => {
 		return respond(fetch, `./${page.params.id}.json`)
@@ -23,6 +24,8 @@
 	export let categorie: Entry<Categorie>
   export let indicateurs: Entry<Indicateur>[]
   export let pilier: Entry<Categorie>
+
+  let checked: string[] = $page.query.get('categories')?.split(',') || []
 </script>
 
 {#key categorie.fields.id}
@@ -32,8 +35,10 @@
 <h1>{categorie.fields.titre}</h1>
 
 {#if categorie.fields.sousCategories}
-<Filters categories={categorie.fields.sousCategories} {indicateurs} on:update={event => indicateurs = event.detail} />
+<Filters categories={categorie.fields.sousCategories} {checked} on:update={event => checked = event.detail} />
 {/if}
 
-<Indicateurs {indicateurs} />
+<Indicateurs indicateurs={indicateurs = checked.length
+  ? indicateurs.map(i => ({ ...i, hidden: !checked.find(id => i.fields.categorie.fields.id === id) }))
+  : indicateurs.map(i => ({ ...i, hidden: false }))} />
 {/key}

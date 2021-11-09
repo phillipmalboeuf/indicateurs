@@ -3,56 +3,58 @@
   
   import type { Indicateur } from '$routes/indicateurs/[id].svelte'
   import type { Categorie } from '$routes/categories/[id].svelte'
-  import { createEventDispatcher } from 'svelte'
+
+  import { afterUpdate, createEventDispatcher } from 'svelte'
 
   export let categories: Entry<Categorie>[]
-  export let indicateurs: Entry<Indicateur>[]
+  export let checked: string[] = []
 
-  let checked: {[key: string]: Categorie} = {}
-  let form: HTMLFormElement
-  // let timeout: NodeJS.Timeout
+  const all = [
+    ...categories,
+    ...categories.filter(categorie => categorie.fields.sousCategories).map(categorie => categorie.fields.sousCategories.flat()).flat()
+  ]
 
   const dispatch = createEventDispatcher<{
-    update: Entry<Indicateur>[]
+    update: string[]
   }>()
 
-  function toggle(value: boolean, categorie: Categorie) {
-    checked[categorie.id] = value ? categorie : undefined
+  // function toggle(value: boolean, categorie: Categorie) {
+  //   checked[categorie.id] = value ? categorie : undefined
     
-    // clearTimeout(timeout)
-    // timeout = setTimeout(() => {
-      const checkedIds = Object.keys(checked).filter(c => checked[c])
+  //   // const checkedIds = Object.keys(checked).filter(c => checked[c])
 
-      categories.filter(categorie => checkedIds.includes(categorie.fields.id) && categorie.fields.sousCategories).forEach(categorie => {
-        categorie.fields.sousCategories.forEach(s => checkedIds.push(s.fields.id))
-      })
+    
 
-      indicateurs = checkedIds.length
-        ? indicateurs.map(i => ({ ...i, hidden: !checkedIds.includes(i.fields.categorie.fields.id) }))
-        : indicateurs.map(i => ({ ...i, hidden: false }))
+  //   // categories.filter(categorie => checkedIds.includes(categorie.fields.id) && categorie.fields.sousCategories).forEach(categorie => {
+  //   //   categorie.fields.sousCategories.forEach(s => checkedIds.push(s.fields.id))
+  //   // })
 
-      dispatch('update', indicateurs)
-    // }, 333)
+    
+  // }
+  afterUpdate(change)
+
+  function change() {
+    window.history.pushState({ }, null, checked.length ? `?categories=${checked.join(',')}` : `?`)
+
+    dispatch('update', checked)
+  }
+
+  function click(e) {
+    e.currentTarget.blur()
   }
 </script>
 
-<form bind:this={form}>
+<form>
   <ul class="piliers">
     {#each categories as categorie}
     {#if categorie.fields.sousCategories?.length > 0}
     <li style="--color: {categorie.fields.couleur}">
-      <input on:input={(e) => {
-        e.currentTarget.blur()
-        toggle(e.currentTarget.checked, categorie.fields)
-      }} type="checkbox" name={categorie.fields.id} id={categorie.fields.id} />
+      <input on:click={click} bind:group={checked} type="checkbox" name={categorie.fields.id} id={categorie.fields.id} value={categorie.fields.id} />
       <label for={categorie.fields.id}>{categorie.fields.titre}</label>
       <ul>
         {#each categorie.fields.sousCategories as sousCategorie}
         <li style="--color: {sousCategorie.fields.couleur}">
-          <input on:input={(e) => {
-            e.currentTarget.blur()
-            toggle(e.currentTarget.checked, sousCategorie.fields)
-          }} type="checkbox" name={sousCategorie.fields.id} id={sousCategorie.fields.id} />
+          <input on:click={click} bind:group={checked} type="checkbox" name={sousCategorie.fields.id} id={sousCategorie.fields.id} value={sousCategorie.fields.id} />
           <label for={sousCategorie.fields.id}>{sousCategorie.fields.titre}</label>
         </li>
         {/each}
@@ -60,10 +62,7 @@
     </li>
     {:else}
     <li style="--color: {categorie.fields.couleur}">
-      <input on:input={(e) => {
-        e.currentTarget.blur()
-        toggle(e.currentTarget.checked, categorie.fields)
-      }} type="checkbox" name={categorie.fields.id} id={categorie.fields.id} />
+      <input on:click={click} bind:group={checked} type="checkbox" name={categorie.fields.id} id={categorie.fields.id} value={categorie.fields.id} />
       <label for={categorie.fields.id}>{categorie.fields.titre}</label>
     </li>
     {/if}
@@ -72,11 +71,10 @@
 </form>
 
 <div>
-{#each Object.values(checked).filter(c => c) as categorie}
+{#each checked.map(id => all.find(c => c.fields.id === id)) as categorie}
   <button on:click={() => {
-    form[categorie.id].checked = false
-    toggle(false, categorie)
-  }} style="--color: {categorie.couleur}">✕ {categorie.titre}</button>
+    checked = [...checked.filter(id => id !== categorie.fields.id)]
+  }} style="--color: {categorie.fields.couleur}">✕ {categorie.fields.titre}</button>
 {/each}
 </div>
 

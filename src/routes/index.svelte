@@ -9,6 +9,7 @@
 
 <script lang="ts">
   import type { Entry, EntryCollection } from 'contentful'
+  import { page as query } from '$app/stores'
   
   import type { Indicateur } from '$routes/indicateurs/[id].svelte'
   import type { Categorie } from '$routes/categories/[id].svelte'
@@ -24,10 +25,15 @@
   export let categories: Entry<Categorie>[]
   export let indicateurs: Entry<Indicateur>[]
   export let page: Entry<PageDocument>
+
+  let checked: string[] = $query.query.get('categories')?.split(',') || []
 </script>
 
 <Page {page} hero />
 
-<Filters categories={categories.filter(c => c.fields.sousCategories)} {indicateurs} on:update={event => indicateurs = event.detail} />
+<Filters categories={categories.filter(c => c.fields.sousCategories)} {checked} on:update={event => checked = event.detail} />
 
-<Indicateurs {indicateurs} />
+<Indicateurs indicateurs={indicateurs = checked.length
+  ? indicateurs.map(i => ({ ...i, hidden: !checked.find(id => i.fields.categorie.fields.id === id
+    || categories.find(c => c.fields.id === id)?.fields.sousCategories?.find(s => s.fields.id === i.fields.categorie.fields.id)) }))
+  : indicateurs.map(i => ({ ...i, hidden: false }))} />
