@@ -10,9 +10,11 @@
   },
   "devDependencies": {
     "@amcharts/amcharts4": "^4.10.22",
-    "@sveltejs/kit": "next",
     "@sveltejs/adapter-vercel": "next",
+    "@sveltejs/kit": "next",
     "chart.js": "^3.5.1",
+    "node-sass": "^6.0.1",
+    "sass": "^1.43.4",
     "svelte": "^3.42.6",
     "svelte-check": "^2.2.6",
     "svelte-preprocess": "^4.9.4",

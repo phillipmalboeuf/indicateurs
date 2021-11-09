@@ -26,6 +26,8 @@
 }
 
 :root {
+  --width: 1366px;
+
   --gutter: 2rem;
   --corner: 1rem;
 
@@ -33,6 +35,9 @@
   --light: #EDF5E2;
   --muted: #7D7D7D;
   --highlight: #F7D152;
+
+  --font: "PP Neue Montreal", Helvetica, sans-serif;
+  --alt: "PP Neue Machina", monospace;
 }
 
 * {
@@ -40,7 +45,7 @@
 }
 
 html {
-  font-family: "PP Neue Montreal", Helvetica, sans-serif;
+  font-family: var(--font);
   font-size: 20px;
   line-height: 1.35;
 }
@@ -54,8 +59,8 @@ body {
   background: var(--dark);
 }
 
-h1, h2, h3, em {
-  font-family: "PP Neue Machina", monospace;
+h1, h2, h3 {
+  font-family: var(--alt);
 }
 
 a {
@@ -65,11 +70,16 @@ a {
 
 a:hover,
 a:focus {
-  text-decoration: underline;
+  color: var(--highlight);
 }
 
 label {
   cursor: pointer;
+}
+
+label:hover,
+label:focus {
+  color: var(--color);
 }
 
 button {
@@ -77,4 +87,36 @@ button {
   border: none;
   color: currentColor;
   background: var(--light);
+  font-size: 0.88em;
+  line-height: 1;
+}
+
+input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  margin: 0;
+  margin-right: 0.25em;
+  font: inherit;
+  color: currentColor;
+
+  width: 1em;
+  height: 1em;
+  border: 2px solid var(--color);
+  border-radius: 0.25em;
+  transform: translateY(0.15em);
+
+  position: relative;
+}
+
+input[type="checkbox"]:checked:before {
+  content: "";
+  background-color: var(--color);
+  width: 0.70em;
+  height: 0.70em;
+  border-radius: 0.33em;
+
+  position: absolute;
+  top: 0.05em;
+  left: 0.05em;
 }

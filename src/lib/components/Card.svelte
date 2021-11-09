@@ -26,7 +26,7 @@
 <style>
   article {
     height: 100%;
-    /* background: white; */
+    background: var(--dark);
     padding: calc(var(--gutter) / 2);
     border-radius: var(--corner);
   }
