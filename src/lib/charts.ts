@@ -22,10 +22,11 @@ function csvToArray(str: string, delimiter = ",") {
 // import { color, create, createFromConfig, percent, Sprite, Tooltip } from "@amcharts/amcharts4/core"
 // import { XYChart as XYChart4, CategoryAxis as CategoryAxis4, Cursor, Legend as Legend4, LineSeries, PieChart, PieSeries, SerialChart, ValueAxis as ValueAxis4, XYCursor } from "@amcharts/amcharts4/charts"
 
-import { Bullet, Circle, color, DataProcessor, Label, Legend, percent, Root, Tooltip } from '@amcharts/amcharts5'
+import { Bullet, Circle, color, DataProcessor, Label, Legend, percent, Root, Theme, Tooltip } from '@amcharts/amcharts5'
 import { XYChart, ValueAxis, CategoryAxis, AxisRendererX, ColumnSeries, AxisRendererY, LineSeries, AxisLabel, XYCursor } from '@amcharts/amcharts5/xy'
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated"
 import am5themes_Micro from "@amcharts/amcharts5/themes/Micro"
+import am5themes_Dark from "@amcharts/amcharts5/themes/Dark"
 import { PieChart, PieSeries } from '@amcharts/amcharts5/percent'
 
 
@@ -33,9 +34,17 @@ export function init(element: HTMLElement) {
   let root = Root.new(element)
   root._logo.dispose()
 
+  const myTheme = Theme.new(root);
+
+  myTheme.rule("Label").setAll({
+    fill: color("#EDF5E2"),
+    fontSize: "0.88em"
+  })
+
   root.setThemes([
     am5themes_Animated.new(root),
-    // am5themes_Micro.new(root)
+    am5themes_Dark.new(root),
+    myTheme
   ]);
 
   return root
@@ -87,7 +96,7 @@ export function createHistogramme(element: HTMLElement, data: string, min: numbe
       valueYField: name,
       categoryXField: "Date",
       stacked: keys.length > 1,
-      tooltip: Tooltip.new(root, {})
+      tooltip: Tooltip.new(root, {}),
     }))
 
     series.columns.template.setAll({
@@ -223,8 +232,8 @@ export function createTarte(element: HTMLElement, data: string, min: number, max
 
     series.slices.template.setAll({
       fill: color(couleur),
-      stroke: color('#fff'),
-      strokeWidth: 2
+      stroke: color('#1D1F27'),
+      strokeWidth: 3
     })
 
     series.labels.template.setAll({
