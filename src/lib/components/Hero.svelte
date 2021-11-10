@@ -15,7 +15,7 @@
 
 <svelte:window bind:scrollY on:resize={() => height = window.innerHeight / 2} />
 
-<figure style="--opacity: {(height - scrollY) / height}">
+<figure style="--opacity: {((height - scrollY) / height) || 1}">
   <Picture {media} ar={1 / 2} />
   <figcaption>
     <slot />
