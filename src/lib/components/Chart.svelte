@@ -7,7 +7,7 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte'
   import type { Root } from '@amcharts/amcharts5'
-  import { createCourbe, createHistogramme, createTarte } from '$lib/charts'
+  import { createCourbe, createHistogramme, createPyramide, createTarte } from '$lib/charts'
   import { Exporting, ExportingMenu } from '@amcharts/amcharts5/plugins/exporting'
   import type { Chart } from '@amcharts/amcharts5/.internal/core/render/Chart'
 
@@ -38,9 +38,9 @@
         chart = createCourbe(element, data, minimum, maximum, titreDeLaxe, couleur)
         break
 
-      // case 'Pyramide':
-      //   chart = createCourbe(element, data, minimum, maximum, titreDeLaxe, couleur)
-      //   break
+      case 'Pyramide':
+        chart = createPyramide(element, data, minimum, maximum, titreDeLaxe, couleur)
+        break
       
       case 'Tarte':
         chart = createTarte(element, data, minimum, maximum, titreDeLaxe, couleur)

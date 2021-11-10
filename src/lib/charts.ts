@@ -27,7 +27,8 @@ import { XYChart, ValueAxis, CategoryAxis, AxisRendererX, ColumnSeries, AxisRend
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated"
 import am5themes_Micro from "@amcharts/amcharts5/themes/Micro"
 import am5themes_Dark from "@amcharts/amcharts5/themes/Dark"
-import { PieChart, PieSeries } from '@amcharts/amcharts5/percent'
+import am5locales_fr from "@amcharts/amcharts5/locales/fr_FR"
+import { FunnelSeries, PieChart, PieSeries, PyramidSeries, SlicedChart } from '@amcharts/amcharts5/percent'
 
 
 export function init(element: HTMLElement) {
@@ -40,6 +41,8 @@ export function init(element: HTMLElement) {
     fill: color("#EDF5E2"),
     fontSize: "0.88em"
   })
+
+  root.locale = am5locales_fr
 
   root.setThemes([
     am5themes_Animated.new(root),
@@ -70,11 +73,14 @@ export function createHistogramme(element: HTMLElement, data: string, min: numbe
       renderer: AxisRendererY.new(root, {})
     })
   )
-  // title && chart.leftAxesContainer.children.push(Label.new(root, {
-  //   text: title,
-  //   layout: root.verticalLayout
-  // }))
 
+  title && chart.leftAxesContainer.children.push(Label.new(root, {
+    text: title,
+    rotation: -90,
+    y: percent(50),
+    centerX: percent(50),
+    fontSize: '0.75em'
+  }))
 
   let xAxis = chart.xAxes.push(
     CategoryAxis.new(root, {
@@ -140,11 +146,23 @@ export function createCourbe(element: HTMLElement, data: string, min: number, ma
       renderer: AxisRendererY.new(root, {})
     })
   )
-  // title && chart.leftAxesContainer.children.push(Label.new(root, {
-  //   text: title,
-  //   layout: root.verticalLayout
-  // }))
 
+  if (min > 0) {
+    yAxis.labelsContainer.children.push(Label.new(root, {
+      text: 'tronqué',
+      y: percent(100),
+      x: -50,
+      fontSize: '0.66em'
+    }))
+  }
+  
+  title && chart.leftAxesContainer.children.push(Label.new(root, {
+    text: title,
+    rotation: -90,
+    y: percent(50),
+    centerX: percent(50),
+    fontSize: '0.75em'
+  }))
 
   let xAxis = chart.xAxes.push(
     CategoryAxis.new(root, {
@@ -198,6 +216,59 @@ export function createCourbe(element: HTMLElement, data: string, min: number, ma
     let legend = chart.children.push(Legend.new(root, {}));
     legend.data.setAll(chart.series.values)
   }
+
+  return chart
+}
+
+export function createPyramide(element: HTMLElement, data: string, min: number, max: number, title: string, couleur: string) {
+  let root = init(element)
+  let chart = root.container.children.push(
+    SlicedChart.new(root, {
+      layout: root.verticalLayout
+    })
+  )
+  
+  const seriesData = csvToChartData(data)
+
+  title && chart.seriesContainer.children.push(Label.new(root, {
+    text: title,
+    rotation: -90,
+    y: percent(50),
+    centerX: percent(50),
+    fontSize: '0.75em'
+  }))
+
+
+  const keys = Object.keys(seriesData[0]).filter(key => !['Date', 'Région'].includes(key))
+
+  keys.forEach((name, i) => {
+    let series = chart.series.push(FunnelSeries.new(root, {
+      name,
+      categoryField: "Date",
+      valueField: name,
+      orientation: "horizontal",
+      alignLabels: false
+    }))
+
+    series.data.processor = DataProcessor.new(root, {
+      numericFields: [name]
+    })
+    
+    series.data.setAll(seriesData)
+
+    series.slices.template.setAll({
+      fill: color(couleur),
+      stroke: color('#1D1F27'),
+      strokeWidth: 3
+    })
+
+    series.labels.template.setAll({
+      text: "{category}: {value}",
+      rotation: 0,
+      // inside: false,
+      // radius: 10
+    });
+  })
 
   return chart
 }

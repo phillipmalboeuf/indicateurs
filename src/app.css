@@ -28,7 +28,7 @@
 :root {
   --width: 1366px;
 
-  --gutter: 2rem;
+  --gutter: 2vw;
   --corner: 1rem;
 
   --dark: #1D1F27;
