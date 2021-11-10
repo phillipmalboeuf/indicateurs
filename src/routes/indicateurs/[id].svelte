@@ -35,4 +35,6 @@
 <h1 style="color: {indicateur.fields.categorie.fields.couleur}">{indicateur.fields.titre}</h1>
 
 <Chart {...indicateur.fields} couleur={indicateur.fields.categorie.fields.couleur} />
+
+{#if indicateur.fields.lead}<aside><p>{indicateur.fields.lead}</p></aside>{/if}
 {/key}
