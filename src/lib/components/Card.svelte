@@ -21,9 +21,10 @@
   {:else}
   <p><strong>Données à venir.</strong></p>
   {/if}
+  {#if indicateur.fields.lead}<aside><p><small>{indicateur.fields.lead}</small></p></aside>{/if}
 </article>
 
-<style>
+<style lang="scss">
   article {
     height: 100%;
     background: var(--dark);
@@ -34,5 +35,13 @@
   em {
     font-style: normal;
     color: var(--muted);
+  }
+
+  aside {
+    color: var(--light);
+
+    p {
+      margin-bottom: 0;
+    }
   }
 </style>
