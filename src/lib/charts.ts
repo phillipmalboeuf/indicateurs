@@ -60,7 +60,9 @@ export function createHistogramme(element: HTMLElement, data: string, min: numbe
   let chart = root.container.children.push(
     XYChart.new(root, {
       panY: false,
-      layout: root.verticalLayout
+      layout: root.verticalLayout,
+      paddingLeft: 0,
+      paddingRight: 0,
     })
   )
 
@@ -133,7 +135,9 @@ export function createCourbe(element: HTMLElement, data: string, min: number, ma
     XYChart.new(root, {
       panY: false,
       layout: root.verticalLayout,
-      cursor: XYCursor.new(root, {})
+      cursor: XYCursor.new(root, {}),
+      paddingLeft: 0,
+      paddingRight: 0,
     })
   )
   
@@ -224,7 +228,9 @@ export function createPyramide(element: HTMLElement, data: string, min: number, 
   let root = init(element)
   let chart = root.container.children.push(
     SlicedChart.new(root, {
-      layout: root.verticalLayout
+      layout: root.verticalLayout,
+      paddingLeft: 0,
+      paddingRight: 0,
     })
   )
   
@@ -278,7 +284,9 @@ export function createTarte(element: HTMLElement, data: string, min: number, max
   let chart = root.container.children.push(
     PieChart.new(root, {
       layout: root.verticalLayout,
-      innerRadius: percent(40)
+      innerRadius: percent(40),
+      paddingLeft: 0,
+      paddingRight: 0,
     })
   )
   
