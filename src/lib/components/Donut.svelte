@@ -1,11 +1,8 @@
 <script lang="ts">
-  import { color, Percent, percent, Root } from '@amcharts/amcharts5'
+  import { color, Graphics, Label, Percent, percent, Root } from '@amcharts/amcharts5'
   import { PieChart, PieSeries } from '@amcharts/amcharts5/percent'
-  import { RadarChart, RadarColumnSeries } from '@amcharts/amcharts5/radar'
 
   import { onMount, onDestroy } from 'svelte'
-  // import { color, Container, create, createFromConfig, percent, Sprite, Tooltip } from "@amcharts/amcharts4/core"
-  // import { CategoryAxis, ColumnSeries, Cursor, Legend, LineSeries, ValueAxis, RadarChart, RadarSeries, RadarColumnSeries, PieChart, PieSeries } from "@amcharts/amcharts4/charts"
 
   import type { Entry } from 'contentful'
   import type { Categorie } from '$routes/categories/[id].svelte'
@@ -27,20 +24,20 @@
       'Qualité de l’air et climat': 10,
     },
     'Plafond': {
-      'Plafond environnemental': 10
+      'PLAFOND ENVIRONNEMENTAL': 10,
     },
     'Milieu': {
       'Espace sûr et juste pour l\'humanité': 10,
       'Développment économique inclusif et durable': 10,
     },
     'Plancher': {
-      'Plancher économique et social': 10
+      'PLANCHER ÉCONOMIQUE ET SOCIAL': 10,
     },
     'In': {
-      'Talent et compétences': 5,
-      'Emploi': -10,
-      'Innovation': 5,
       'Prospérité': 12,
+      'Innovation': 5,
+      'Emploi': -10,
+      'Talent et compétences': 5,
       'Pauvreté': 5,
       'Qualité de vie': 5,
       'Santé et sécurité': 5,
@@ -50,6 +47,66 @@
     }
   }
 
+  onMount(() => {
+    root = Root.new(element)
+    root._logo.dispose()
+
+    let chart = root.container.children.push(
+      PieChart.new(root, {
+        layout: root.verticalLayout,
+        innerRadius: percent(15),
+        paddingTop: 0,
+        paddingRight: 0,
+        paddingBottom: 0,
+        paddingLeft: 0,
+      })
+    )
+    
+    renderChart(chart, 'In', percent(0), percent(33), true)
+    renderChart(chart, 'Plancher', percent(35), percent(45))
+    renderChart(chart, 'Milieu', percent(45), percent(63))
+    renderChart(chart, 'Plafond', percent(63), percent(73))
+    renderChart(chart, 'Out', percent(75), percent(100))
+
+    renderArrow(chart, 'Dépassement', 0, 100)
+    renderArrow(chart, 'Insuffisance', 180, 73)
+
+    exporting = Exporting.new(root, {
+      filePrefix: 'donut'
+      // menu: ExportingMenu.new(chart._root, {})
+    })
+  })
+
+  function renderArrow(chart: PieChart, text: string, rotation: number, x: number) {
+    chart.chartContainer.children.push(Graphics.new(root, {
+      fill: color('#FB3F3F'),
+      stroke: color('#1D1F27'),
+      strokeWidth: 4,
+      position: 'absolute',
+      x: percent(x - 12),
+      centerX: percent(50),
+      y: percent(50),
+      scale: 1.2,
+      centerY: percent(50),
+      rotation,
+      svgPath: "M235.789 0L288 34.5L235.789 69V59.7516H0L17.5076 34.5L0 9.24837H235.789V0Z"
+    }))
+
+    chart.chartContainer.children.push(Label.new(root, {
+      text,
+      fill: color('#EDF5E2'),
+      fontFamily: 'PP Neue Machina',
+      fontWeight: 'bold',
+      fontSize: '1.66em',
+      position: 'absolute',
+      x: percent(x),
+      centerX: percent(150),
+      y: percent(50),
+      centerY: percent(50)
+    }))
+  }
+
+
   function renderChart(chart: PieChart, name: string, innerRadius: number | Percent, radius: number | Percent, inverted?: boolean) {
     const data = Object.keys(donut[name]).map(key => ({
       Catégorie: key,
@@ -58,9 +115,9 @@
       template: {
         // ...inverted ? { dInnerRadius: -donut[name][key] } : { dRadius: donut[name][key] },
         fill: color(categories.find(c => c.fields.titre === key)?.fields.couleur || {
-          'Plafond': '#1D2723',
-          'Plancher': '#231D27'
-        }[name] || '#1D1F27')
+          'Plafond': '#EDF5E2',
+          'Plancher': '#E2EEF5'
+        }[name] || '#FFF')
       }
     }))
 
@@ -72,75 +129,62 @@
       alignLabels: false,
       radius,
       innerRadius,
-      startAngle: 0,
-      endAngle: 360,
+      ...({
+        'Plafond': {
+          startAngle: -270,
+          endAngle: 90,
+        },
+        'Plancher': {
+          startAngle: -270,
+          endAngle: 90,
+        }
+        }[name] || {
+          startAngle: 0,
+          endAngle: 360,
+        }),
+      
       interactiveChildren: false
-      // radius: percent(radius),
-      // innerRadius: percent(radius)
     }))
 
-    // console.log(data)
-    // series.slices
-    
-    // series.slices.template.adapters.add("dInnerRadius", (arc, target) => {
-    //   console.log(target.uid)
-    //   console.log(series.dataItems)
-    //   // target.dataItem
-    //   return series.dataItems.find(i => i.uid === target.uid).dataContext['Valeur']
-    // })
-    
 
     series.slices.template.setAll({
       // fill: color('#069550'),
       stroke: color('#1D1F27'),
-      strokeWidth: 3,
+      strokeWidth: 4,
       toggleKey: "disabled",
       // tooltipPosition: "pointer",
-      templateField: "template",
-      shiftRadius: 0
+      templateField: "template"
     })
 
     series.labels.template.setAll({
-      fontSize: '1.4vw',
+      fontSize: '1.66em',
       text: "{category}",
       textType: inverted ? "radial" : "circular",
       centerX: percent(100),
+      radius: {
+        'Plafond': 25,
+        'Milieu': 50,
+        'Plancher': 20,
+        'Out': 75
+      }[name],
       inside: true,
-      fill: color('#fff'),
+      fontFamily: {
+          'Plafond': 'PP Neue Machina',
+          'Plancher': 'PP Neue Machina'
+        }[name] || 'PP Neue Montreal',
+      fontWeight: 'bold',
+      fill: color({
+          'Plafond': '#1D2723',
+          'Milieu': '#1D2723',
+          'Plancher': '#231D27'
+        }[name] || '#fff'),
       oversizedBehavior: "wrap",
-      maxWidth: 200,
+      maxWidth: 220,
       textAlign: inverted ? 'left' : 'center'
     });
 
     series.data.setAll(data)
   }
-
-  onMount(() => {
-    root = Root.new(element)
-    root._logo.dispose()
-
-    let chart = root.container.children.push(
-      PieChart.new(root, {
-        layout: root.verticalLayout,
-        innerRadius: percent(20)
-      })
-    )
-    
-
-    
-    renderChart(chart, 'In', percent(0), percent(35), true)
-    renderChart(chart, 'Plancher', percent(35), percent(45))
-    renderChart(chart, 'Milieu', percent(45), percent(65))
-    renderChart(chart, 'Plafond', percent(65), percent(75))
-    renderChart(chart, 'Out', percent(75), percent(100))
-    // renderChart('Économie')
-
-
-    exporting = Exporting.new(root, {
-      filePrefix: 'donut'
-      // menu: ExportingMenu.new(chart._root, {})
-    })
-  })
 
   onDestroy(() => {
     root?.dispose()
