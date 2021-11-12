@@ -63,13 +63,13 @@
     )
     
     renderChart(chart, 'In', percent(0), percent(33), true)
-    renderChart(chart, 'Plancher', percent(35), percent(45))
-    renderChart(chart, 'Milieu', percent(45), percent(63))
-    renderChart(chart, 'Plafond', percent(63), percent(73))
+    renderChart(chart, 'Plancher', percent(35), percent(43))
+    renderChart(chart, 'Milieu', percent(43.5), percent(65))
+    renderChart(chart, 'Plafond', percent(65), percent(73))
     renderChart(chart, 'Out', percent(75), percent(100))
 
-    renderArrow(chart, 'Dépassement', 0, 100)
-    renderArrow(chart, 'Insuffisance', 180, 73)
+    renderArrow(chart, 'Dépassement', 0, 101.5)
+    renderArrow(chart, 'Insuffisance', 180, 71.1)
 
     exporting = Exporting.new(root, {
       filePrefix: 'donut'
@@ -89,7 +89,7 @@
       scale: 1.2,
       centerY: percent(50),
       rotation,
-      svgPath: "M235.789 0L288 34.5L235.789 69V59.7516H0L17.5076 34.5L0 9.24837H235.789V0Z"
+      svgPath: "M235.789 0L288 34.5L235.789 69V59.7516H0L7.5076 34.5L0 9.24837H235.789V0Z"
     }))
 
     chart.chartContainer.children.push(Label.new(root, {
@@ -149,7 +149,9 @@
 
     series.slices.template.setAll({
       // fill: color('#069550'),
-      stroke: color('#1D1F27'),
+      stroke: color({
+        'Milieu': '#fff',
+      }[name] || '#1D1F27'),
       strokeWidth: 4,
       toggleKey: "disabled",
       // tooltipPosition: "pointer",
@@ -162,9 +164,9 @@
       textType: inverted ? "radial" : "circular",
       centerX: percent(100),
       radius: {
-        'Plafond': 25,
-        'Milieu': 50,
-        'Plancher': 20,
+        'Plafond': 20,
+        'Milieu': 60,
+        'Plancher': 15,
         'Out': 75
       }[name],
       inside: true,
