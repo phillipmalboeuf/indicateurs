@@ -24,7 +24,7 @@
 
 <style lang="scss">
   figure {
-    height: 66vh;
+    height: 50vh;
 
     display: flex;
     align-items: center;
