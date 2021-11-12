@@ -5,6 +5,7 @@
   import type { Categorie } from '$routes/categories/[id].svelte'
 
   import { afterUpdate, createEventDispatcher } from 'svelte'
+import Tooltip from './Tooltip.svelte'
 
   export let categories: Entry<Categorie>[]
   export let checked: string[] = []
@@ -48,18 +49,21 @@
   <ul class="piliers">
     {#each categories as categorie}
     {#if categorie.fields.sousCategories?.length > 0}
-    <li style="--color: {categorie.fields.couleur}">
+    <Tooltip>
+    <li slot="tip" style="--color: {categorie.fields.couleur}">
       <input on:click={click} bind:group={checked} type="checkbox" name={categorie.fields.id} id={categorie.fields.id} value={categorie.fields.id} />
       <label for={categorie.fields.id}>{categorie.fields.titre}</label>
-      <ul>
-        {#each categorie.fields.sousCategories as sousCategorie}
-        <li style="--color: {sousCategorie.fields.couleur}">
-          <input on:click={click} bind:group={checked} type="checkbox" name={sousCategorie.fields.id} id={sousCategorie.fields.id} value={sousCategorie.fields.id} />
-          <label for={sousCategorie.fields.id}>{sousCategorie.fields.titre}</label>
-        </li>
-        {/each}
-      </ul>
     </li>
+
+    <ul slot="tool">
+      {#each categorie.fields.sousCategories as sousCategorie}
+      <li style="--color: {sousCategorie.fields.couleur}">
+        <input on:click={click} bind:group={checked} type="checkbox" name={sousCategorie.fields.id} id={sousCategorie.fields.id} value={sousCategorie.fields.id} />
+        <label for={sousCategorie.fields.id}>{sousCategorie.fields.titre}</label>
+      </li>
+      {/each}
+    </ul>
+    </Tooltip>
     {:else}
     <li style="--color: {categorie.fields.couleur}">
       <input on:click={click} bind:group={checked} type="checkbox" name={categorie.fields.id} id={categorie.fields.id} value={categorie.fields.id} />
@@ -100,40 +104,19 @@
       }
       
       > li {
-        position: relative;
-        color: var(--dark);
-        background: var(--light);
+        // color: var(--dark);
+        // background: var(--light);
         padding: 0.33rem 0.66rem;
         border-radius: 0.5rem;
 
-        &:hover,
-        &:focus,
-        &:focus-within {
+        // > ul {
+          
 
-          > ul {
-            pointer-events: auto;
-            opacity: 1;
-          }
-        }
-
-        > ul {
-          position: absolute;
-          z-index: 2;
-          top: 100%;
-          left: -1rem;
-          width: 14rem;
-          background: var(--dark);
-          border-radius: 0.66rem;
-          padding: 1rem;
-
-          pointer-events: none;
-          opacity: 0;
-
-          > li {
-            color: var(--light);
+        //   > li {
+        //     color: var(--light);
             
-          }
-        }
+        //   }
+        // }
       }
     }
 

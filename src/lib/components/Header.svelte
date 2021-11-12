@@ -10,6 +10,8 @@
 </script>
 
 <script lang="ts">
+import Tooltip from './Tooltip.svelte'
+
 	export let path: string
   export let navigation: Entry<{
 		liens: Entry<Lien>[]
@@ -21,7 +23,19 @@
 
   <nav>
     {#each navigation.fields.liens as lien}
+    {#if lien.fields.sousLiens?.length > 0}
+    <Tooltip>
+      <a slot="tip" class:active={path.includes(lien.fields.lien)} href={lien.fields.lien} target={lien.fields.externe && '_blank'}>{lien.fields.titre}</a>
+
+      <div slot="tool">
+        {#each lien.fields.sousLiens as l}
+        <a href={l.fields.lien} target={lien.fields.externe && '_blank'}>{l.fields.titre}</a>
+        {/each}
+      </div>
+    </Tooltip>
+    {:else}
     <a class:active={path.includes(lien.fields.lien)} href={lien.fields.lien} target={lien.fields.externe && '_blank'}>{lien.fields.titre}</a>
+    {/if}
     {/each}
 
     <a href="/"><strong>EN</strong></a>
@@ -56,8 +70,10 @@
         display: none;
       }
 
-      a {
-        // text-transform: uppercase;
+      div {
+        a {
+          display: block;
+        }
       }
 
       a.active {
