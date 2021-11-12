@@ -37,9 +37,9 @@ import Tooltip from './Tooltip.svelte'
     <a class:active={path.includes(lien.fields.lien)} href={lien.fields.lien} target={lien.fields.externe && '_blank'}>{lien.fields.titre}</a>
     {/if}
     {/each}
-
-    <a href="/"><strong>EN</strong></a>
   </nav>
+
+  <a href="/"><strong>EN</strong></a>
 </header>
 
 
@@ -54,6 +54,14 @@ import Tooltip from './Tooltip.svelte'
     align-items: center;
 
     padding: var(--gutter);
+
+    > a {
+      width: 10rem;
+
+      &:last-child {
+        text-align: right;
+      }
+    }
 
     // button {
     //   color: currentColor;
