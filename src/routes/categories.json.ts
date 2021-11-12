@@ -6,16 +6,12 @@ import type { Entry } from 'contentful'
 export const get: RequestHandler = async ({ params, query }) => {
   const locale = query.get('locale')
 	const [categories] = await Promise.all([
-    entries('categorie', locale),
-    // entries<{ categorie: Entry<{ id: string }> }>('indicateur', locale)
+    entries('categorie', locale)
   ])
-
-  // indicateurs.sort((a, b) => a.fields.categorie.fields.id.localeCompare(b.fields.categorie.fields.id))
 
   return {
     body: {
-      categories,
-      // indicateurs
+      categories
     }
   }
 }

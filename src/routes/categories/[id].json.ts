@@ -1,4 +1,5 @@
 import { contentful, entries } from '$lib/clients/contentful'
+import { ids } from '$routes/index.json'
 import type { RequestHandler } from '@sveltejs/kit'
 import type { Entry } from 'contentful'
 
@@ -13,18 +14,18 @@ export const get: RequestHandler = async ({ params, query }) => {
   const pilier = categories.find(c => c.fields.sousCategories?.find(s => s.fields.id === params.id))
 
   const indicateurs = sousCategories
-    ? (await entries<{ categorie: Entry<{ id: string }> }>('indicateur', locale))
+    ? (await entries<{ id: string, categorie: Entry<{ id: string }> }>('indicateur', locale))
       .filter(i => sousCategories.includes(i.fields.categorie.fields.id))
-    : await entries<{ categorie: Entry<{ id: string }> }>('indicateur', locale,
+    : await entries<{ id: string, categorie: Entry<{ id: string }> }>('indicateur', locale,
       { 'fields.categorie.fields.id': params.id, 'fields.categorie.sys.contentType.sys.id': 'categorie' })
 
-  indicateurs.sort((a, b) => a.fields.categorie.fields.id.localeCompare(b.fields.categorie.fields.id))
+  // indicateurs.sort((a, b) => a.fields.categorie.fields.id.localeCompare(b.fields.categorie.fields.id))
 
   if (categorie) {
     return {
       body: {
         categorie,
-        indicateurs,
+        indicateurs: ids.map(id => indicateurs.find(i => i.fields.id === id)).filter(i => i),
         pilier
       }
     }
