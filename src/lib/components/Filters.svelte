@@ -101,12 +101,10 @@
 
       &.columns {
         flex-direction: column;
-        // row-gap: var(--gutter)
       }
 
       @media (max-width: 888px) {
         flex-direction: column;
-        row-gap: var(--gutter)
       }
       
       > li {

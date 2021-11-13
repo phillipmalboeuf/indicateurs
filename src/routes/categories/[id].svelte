@@ -22,9 +22,7 @@
 </script>
 
 <script lang="ts">
-import Document from '$lib/components/document/Document.svelte'
-import { plainText } from '@amcharts/amcharts5/.internal/core/util/Utils';
-import { repeat } from '@amcharts/amcharts5/.internal/core/util/Type';
+  import Document from '$lib/components/document/Document.svelte'
 
 	export let categorie: Entry<Categorie>
   export let indicateurs: Entry<Indicateur>[]
@@ -96,5 +94,15 @@ import { repeat } from '@amcharts/amcharts5/.internal/core/util/Type';
 
   aside {
     grid-column: 5 / span 2;
+  }
+
+  @media (max-width: 888px) {
+  article {
+    grid-column: span 6;
+  }
+
+  aside {
+    grid-column: span 6;
+  }
   }
 </style>
