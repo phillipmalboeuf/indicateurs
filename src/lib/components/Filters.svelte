@@ -5,10 +5,11 @@
   import type { Categorie } from '$routes/categories/[id].svelte'
 
   import { afterUpdate, createEventDispatcher } from 'svelte'
-import Tooltip from './Tooltip.svelte'
+  import Tooltip from './Tooltip.svelte'
 
   export let categories: Entry<Categorie>[]
   export let checked: string[] = []
+  export let columns = false
 
   const all = [
     ...categories,
@@ -46,7 +47,7 @@ import Tooltip from './Tooltip.svelte'
 </script>
 
 <form>
-  <ul class="piliers">
+  <ul class="piliers" class:columns>
     {#each categories as categorie}
     {#if categorie.fields.sousCategories?.length > 0}
     <Tooltip>
@@ -98,6 +99,11 @@ import Tooltip from './Tooltip.svelte'
       column-gap: var(--gutter);
       margin-bottom: calc(var(--gutter) * 2);
 
+      &.columns {
+        flex-direction: column;
+        // row-gap: var(--gutter)
+      }
+
       @media (max-width: 888px) {
         flex-direction: column;
         row-gap: var(--gutter)
@@ -131,5 +137,6 @@ import Tooltip from './Tooltip.svelte'
     background: var(--color);
     padding: 0.33rem 0.66rem;
     border-radius: 0.5rem;
+    border: none;
   }
 </style>

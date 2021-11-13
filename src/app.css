@@ -68,6 +68,36 @@ body {
 
 h1, h2, h3 {
   font-family: var(--alt);
+  margin: 0 0 0.5em;
+}
+
+h4, h5, h6 {
+  font-weight: bold;
+  margin: 0 0 0.5em;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+
+h3 {
+  font-size: 2rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1rem;
+}
+
+h6 {
+  font-size: 0.88rem;
 }
 
 a {
@@ -80,6 +110,12 @@ a:focus {
   color: var(--highlight);
 }
 
+hr {
+  width: 100%;
+  opacity: 0.25;
+  margin: 1rem 0;
+}
+
 label {
   cursor: pointer;
 }
@@ -89,13 +125,22 @@ label:focus {
   color: var(--color);
 }
 
-button {
+button,
+a.button {
   cursor: pointer;
-  border: none;
+  display: inline-block;
   color: currentColor;
-  background: var(--light);
+  border: 1px solid;
   font-size: 0.88em;
-  line-height: 1;
+  padding: 0.33em 0.88em;
+  border-radius: 1em;
+}
+
+button:hover,
+a.button:hover,
+button:focus,
+a.button:focus {
+  color: var(--highlight);
 }
 
 input[type="checkbox"] {
