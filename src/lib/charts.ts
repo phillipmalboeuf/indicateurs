@@ -22,7 +22,7 @@ function csvToArray(str: string, delimiter = ",") {
 // import { color, create, createFromConfig, percent, Sprite, Tooltip } from "@amcharts/amcharts4/core"
 // import { XYChart as XYChart4, CategoryAxis as CategoryAxis4, Cursor, Legend as Legend4, LineSeries, PieChart, PieSeries, SerialChart, ValueAxis as ValueAxis4, XYCursor } from "@amcharts/amcharts4/charts"
 
-import { Bullet, Circle, color, DataProcessor, Label, Legend, percent, Root, Theme, Tooltip } from '@amcharts/amcharts5'
+import { Bullet, Circle, Color, color, DataProcessor, Label, Legend, percent, Root, Theme, Tooltip } from '@amcharts/amcharts5'
 import { XYChart, ValueAxis, CategoryAxis, AxisRendererX, ColumnSeries, AxisRendererY, LineSeries, AxisLabel, XYCursor } from '@amcharts/amcharts5/xy'
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated"
 import am5themes_Micro from "@amcharts/amcharts5/themes/Micro"
@@ -76,6 +76,15 @@ export function createHistogramme(element: HTMLElement, data: string, min: numbe
     })
   )
 
+  if (min > 0) {
+    yAxis.labelsContainer.children.push(Label.new(root, {
+      text: 'tronqué',
+      y: percent(100),
+      x: -50,
+      fontSize: '0.66em'
+    }))
+  }
+  
   title && chart.leftAxesContainer.children.push(Label.new(root, {
     text: title,
     rotation: -90,
@@ -97,6 +106,9 @@ export function createHistogramme(element: HTMLElement, data: string, min: numbe
   
 
   keys.forEach((name, i) => {
+    const hsl = color(couleur).toHSL()
+    hsl.h += i * 0.02
+
     let series = chart.series.push(ColumnSeries.new(root, {
       name,
       xAxis,
@@ -108,9 +120,9 @@ export function createHistogramme(element: HTMLElement, data: string, min: numbe
     }))
 
     series.columns.template.setAll({
-      fill: color(couleur),
-      fillOpacity: 1 - (i * 0.1),
-      stroke: color(couleur),
+      fill: Color.fromHSL(hsl.h, hsl.s, hsl.l),
+      stroke: Color.fromHSL(hsl.h, hsl.s, hsl.l),
+      // fillOpacity: 1 - (i * 0.1),
       tooltipText: `${keys.length > 1 ? '{name}, ' : ''}{categoryX}: {valueY}`
     })
 
@@ -181,14 +193,18 @@ export function createCourbe(element: HTMLElement, data: string, min: number, ma
   
 
   keys.forEach((name, i) => {
+
+    const hsl = color(couleur).toHSL()
+    hsl.h += i * 0.02
+    
     let series = chart.series.push(LineSeries.new(root, {
       name,
       xAxis,
       yAxis,
       valueYField: name,
       categoryXField: "Date",
-      fill: color(couleur),
-      stroke: color(couleur),
+      fill: Color.fromHSL(hsl.h, hsl.s, hsl.l),
+      stroke: Color.fromHSL(hsl.h, hsl.s, hsl.l),
       tooltip: Tooltip.new(root, {}),
       tooltipText: `${keys.length > 1 ? '{name}, ' : ''}{categoryX}: {valueY}`
     }))
