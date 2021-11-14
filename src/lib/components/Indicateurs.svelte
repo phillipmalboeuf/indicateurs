@@ -7,7 +7,7 @@
   export let indicateurs: Entry<Indicateur>[]
 </script>
 
-<ul>
+<ul style="grid-template-columns: repeat({indicateurs.length < 4 ? indicateurs.length : 4}, 1fr);">
   {#each indicateurs as indicateur (indicateur.fields.id)}
   {#if !indicateur.hidden}
   <li>

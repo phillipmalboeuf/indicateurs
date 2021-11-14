@@ -6,7 +6,7 @@ import type { Entry } from 'contentful'
 export const get: RequestHandler = async ({ params, query }) => {
   const locale = query.get('locale')
 	const [pages] = await Promise.all([
-    entries('page', locale, { 'fields.id': params.page }),
+    entries('page', locale, { 'fields.id': params.page }, 3),
     // entries('theme', locale)
   ])
 

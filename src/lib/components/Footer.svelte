@@ -1,12 +1,6 @@
 <script context="module" lang="ts">
   import type { Entry } from 'contentful'
-
-	export interface Lien {
-    titre: string
-    lien: string
-    externe: boolean
-    sousLiens: Entry<Lien>[]
-  }
+  import type { Lien } from './Header.svelte'
 </script>
 
 <script lang="ts">

@@ -2,19 +2,25 @@
   import type { Entry, RichTextContent } from 'contentful'
   import Document from '../document/Document.svelte'
 
-  export let text: Entry<{
+  export let entry: Entry<{
     titre: string
     id: string
     corps: RichTextContent
   }>
 </script>
 
-<section id={text.fields.id}>
-  <Document body={text.fields.corps} />
+<section id={entry.fields.id}>
+  <Document body={entry.fields.corps} />
+
+  <hr>
 </section>
 
-<hr>
-
 <style lang="scss">
-  
+  section {
+    max-width: calc(var(--width) / 2);
+
+    hr {
+      margin: var(--gutter) 0;
+    }
+  }
 </style>

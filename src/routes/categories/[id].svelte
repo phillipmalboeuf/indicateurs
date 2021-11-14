@@ -75,6 +75,7 @@
     display: flex;
     column-gap: var(--gutter);
     flex-wrap: wrap;
+    align-items: center;
 
     h4 {
       margin-bottom: 0;

@@ -11,6 +11,8 @@
   <h2>{#each node.content as mark}<Mark mark={mark} />{/each}</h2>
 {:else if node.nodeType === 'heading-3'}
   <h3>{#each node.content as mark}<Mark mark={mark} />{/each}</h3>
+{:else if node.nodeType === 'heading-4'}
+  <h4>{#each node.content as mark}<Mark mark={mark} />{/each}</h4>
 {:else if node.nodeType === 'heading-5'}
   <h5>{#each node.content as mark}<Mark mark={mark} />{/each}</h5>
 {:else if node.nodeType === 'heading-6'}

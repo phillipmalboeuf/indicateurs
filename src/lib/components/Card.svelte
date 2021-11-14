@@ -50,12 +50,12 @@
     color: var(--muted);
   }
 
+  p {
+    margin: 0.5em 0 0;
+  }
+
   aside {
     color: var(--light);
-
-    p {
-      margin-bottom: 0;
-    }
   }
 
   aside {

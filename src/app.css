@@ -55,6 +55,7 @@ html {
   font-family: var(--font);
   font-size: 20px;
   line-height: 1.35;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -69,11 +70,13 @@ body {
 h1, h2, h3 {
   font-family: var(--alt);
   margin: 0 0 0.5em;
+  white-space: pre-line;
 }
 
 h4, h5, h6 {
   font-weight: bold;
   margin: 0 0 0.5em;
+  white-space: pre-line;
 }
 
 h1 {
@@ -100,9 +103,26 @@ h6 {
   font-size: 0.88rem;
 }
 
+p {
+  margin: 0 0 0.88em;
+  white-space: pre-line;
+}
+
 a {
   color: currentColor;
   text-decoration: none;
+}
+
+[id] {
+  scroll-margin-top: calc(var(--gutter) * 2);
+}
+
+ul, ol {
+  padding-left: 1em;
+}
+
+ol > li > p {
+  margin-bottom: 0.5em;
 }
 
 a:hover,
