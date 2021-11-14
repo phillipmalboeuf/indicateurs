@@ -7,13 +7,13 @@ export const ids = [
   'taux-de-chomage-des-15-ans-et-plus',
   'taux-demploi-des-25-a-54-ans',
   'produit-interieur-brut-par-habitant-usd-enchaines-de-2012',
-  'productivite-au-travail-enchaines-de-2012-par-heure',
+  'productivite-du-travail',
   'depenses-publiques-et-privees-en-recherche-et-developpement-du-pib',
   'sous-utilisation-de-la-main-doeuvre-en-de-la-population-active',
   'investissement-en-capital-x-1-000-000-usd-constants',
   'travail-involontaire-a-temps-partiel',
   'travail-a-statut-temporaire',
-  'qualite-de-lemploi-travailleurs-salaries-non-etudiants-x-1000',
+  'qualite-de-lemploi-travailleurs-salaries-non-etudiants',
   'jeunes-de-15-a-24-ans-qui-ne-sont-ni-aux-etudes-ni-a-lemploi-ni-en-formation',
   'competences-des-enfants-des-etudiants-et-des-adultes-pisa',
   'competences-des-enfants-des-etudiants-et-des-adultes-peica',
@@ -50,7 +50,6 @@ export const ids = [
   'vitalite-des-langues-autochtones-parlees-au-quebec',
 
   'qualite-de-lair',
-  'moyenne-annuelle-du-nombre-de-jours-de-mauvaise-qualite-de-lair',
 
   'emissions-de-gaz-a-effet-de-serre',
   'aires-protegees',
