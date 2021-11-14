@@ -122,6 +122,13 @@ export function createHistogramme(element: HTMLElement, data: string, min: numbe
     series.columns.template.setAll({
       fill: Color.fromHSL(hsl.h, hsl.s, hsl.l),
       stroke: Color.fromHSL(hsl.h, hsl.s, hsl.l),
+      width: percent(42),
+      cornerRadiusTL: 6,
+      cornerRadiusTR: 6,
+      ...i > 0 && {
+        cornerRadiusBL: 6,
+        cornerRadiusBR: 6,
+      },
       // fillOpacity: 1 - (i * 0.1),
       tooltipText: `${keys.length > 1 ? '{name}, ' : ''}{categoryX}: {valueY}`
     })
@@ -280,7 +287,7 @@ export function createPyramide(element: HTMLElement, data: string, min: number, 
 
     series.slices.template.setAll({
       fill: color(couleur),
-      stroke: color('#1D1F27'),
+      stroke: color(couleur),
       strokeWidth: 3
     })
 
@@ -332,7 +339,7 @@ export function createTarte(element: HTMLElement, data: string, min: number, max
 
     series.slices.template.setAll({
       fill: color(couleur),
-      stroke: color('#1D1F27'),
+      stroke: color(couleur),
       strokeWidth: 3
     })
 
