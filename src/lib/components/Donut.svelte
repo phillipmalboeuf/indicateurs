@@ -1,6 +1,7 @@
 <script lang="ts">
-  import { color, Graphics, Label, Percent, percent, Root } from '@amcharts/amcharts5'
+  import { color, Graphics, Label, Percent, percent, Root, Tooltip } from '@amcharts/amcharts5'
   import { PieChart, PieSeries } from '@amcharts/amcharts5/percent'
+  import am5themes_Micro from "@amcharts/amcharts5/themes/Micro"
 
   import { onMount, onDestroy } from 'svelte'
 
@@ -8,10 +9,10 @@
   import type { Categorie } from '$routes/categories/[id].svelte'
   import { Exporting } from '@amcharts/amcharts5/plugins/exporting'
 
-  export let categories: Entry<Categorie>[]
+  export let categories: Entry<Categorie>[] = undefined
   let root: Root
   let element: HTMLElement
-  let exporting: Exporting
+  export let exporting: Exporting = undefined
 
   const donut = {
     'Out': {
@@ -47,9 +48,17 @@
     }
   }
 
-  onMount(() => {
+  onMount(async () => {
+    categories = (await (await fetch('/categories.json')).json()).categories
+
     root = Root.new(element)
     root._logo.dispose()
+
+    console.log(am5themes_Micro.new(root))
+
+    root.setThemes([
+      // am5themes_Micro.new(root),
+    ]);
 
     let chart = root.container.children.push(
       PieChart.new(root, {
@@ -58,13 +67,13 @@
         paddingTop: 0,
         paddingRight: 0,
         paddingBottom: 0,
-        paddingLeft: 0,
+        paddingLeft: 0
       })
     )
     
     renderChart(chart, 'In', percent(0), percent(33), true)
-    renderChart(chart, 'Plancher', percent(35), percent(43))
-    renderChart(chart, 'Milieu', percent(43.5), percent(65))
+    renderChart(chart, 'Plancher', percent(35), percent(42))
+    renderChart(chart, 'Milieu', percent(43), percent(64))
     renderChart(chart, 'Plafond', percent(65), percent(73))
     renderChart(chart, 'Out', percent(75), percent(100))
 
@@ -97,7 +106,7 @@
       fill: color('#EDF5E2'),
       fontFamily: 'PP Neue Machina',
       fontWeight: 'bold',
-      fontSize: '1.66em',
+      fontSize: '1.66vw',
       position: 'absolute',
       x: percent(x),
       centerX: percent(150),
@@ -143,7 +152,10 @@
           endAngle: 360,
         }),
       
-      interactiveChildren: false
+      tooltip: Tooltip.new(root, {
+        forceHidden: true,
+        labelText: `{category}`
+      }),
     }))
 
 
@@ -153,13 +165,22 @@
         'Milieu': '#fff',
       }[name] || '#1D1F27'),
       strokeWidth: 4,
-      toggleKey: "disabled",
-      // tooltipPosition: "pointer",
-      templateField: "template"
+      templateField: "template",
+      cursorOverStyle: "pointer"
+    })
+
+    series.slices.template.states.create("hover", {
+      shiftRadius: 0,
+      scale: 1,
+      opacity: 0.88
+    })
+
+    series.slices.template.states.create("active", {
+      shiftRadius: 0,
     })
 
     series.labels.template.setAll({
-      fontSize: '1.66em',
+      fontSize: '1.66vw',
       text: "{category}",
       textType: inverted ? "radial" : "circular",
       centerX: percent(100),
@@ -194,12 +215,12 @@
 </script>
 
 <figure bind:this={element}></figure>
-{#if exporting}<button on:click={() => exporting.download('png')}>Export</button>{/if}
 
 <style>
   figure {
     margin: 0;
-    height: 100vw;
-    pointer-events: none;
+    width: 100%;
+    padding-bottom: 100%;
+    /* pointer-events: none; */
   }
 </style>

@@ -6,13 +6,24 @@
   import type { Entry } from 'contentful'
   import Chart from './Chart.svelte'
   import Icon from './Icon.svelte'
+  // import Donut from './Donut.svelte'
 
   export let indicateur: Entry<Indicateur>
   let exporting: Exporting
+
+  // const beigne = indicateur.fields.id === 'beigne'
+  const beigne = false
 </script>
 
-<article style="color: {indicateur.fields.categorie.fields.couleur}">
+{#if beigne}
+<article class:beigne>
+  <!-- <Donut /> -->
+</article>
+{:else}
+<article style="color: {indicateur.fields.categorie?.fields.couleur}">
+  {#if indicateur.fields.categorie}
   <em><a href="/categories/{indicateur.fields.categorie.fields.id}">{indicateur.fields.categorie.fields.titre}</a></em><br />
+  {/if}
   <a href="/indicateurs/{indicateur.fields.id}">{indicateur.fields.titre}</a>
 
   <!-- {#if indicateur.fields.lead}
@@ -34,8 +45,8 @@
   {:else}
   <p><strong>Données à venir.</strong></p>
   {/if}
-  
 </article>
+{/if}
 
 <style lang="scss">
   article {
@@ -43,6 +54,11 @@
     background: var(--darkish);
     padding: calc(var(--gutter) / 2);
     border-radius: var(--corner);
+
+    &.beigne {
+      border-radius: 0;
+      background: transparent;
+    }
   }
 
   em {

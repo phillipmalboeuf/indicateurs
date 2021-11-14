@@ -68,7 +68,9 @@
     margin-left: -16vw;
     // max-width: calc(var(--width) / 2);
 
-    
+    @media (max-width: 888px) {
+      margin-left: 0;
+    }
   }
 
   table {

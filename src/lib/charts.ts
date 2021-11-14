@@ -25,7 +25,6 @@ function csvToArray(str: string, delimiter = ",") {
 import { Bullet, Circle, Color, color, DataProcessor, Label, Legend, percent, Root, Theme, Tooltip } from '@amcharts/amcharts5'
 import { XYChart, ValueAxis, CategoryAxis, AxisRendererX, ColumnSeries, AxisRendererY, LineSeries, AxisLabel, XYCursor } from '@amcharts/amcharts5/xy'
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated"
-import am5themes_Micro from "@amcharts/amcharts5/themes/Micro"
 import am5themes_Dark from "@amcharts/amcharts5/themes/Dark"
 import am5locales_fr from "@amcharts/amcharts5/locales/fr_FR"
 import { FunnelSeries, PieChart, PieSeries, PyramidSeries, SlicedChart } from '@amcharts/amcharts5/percent'

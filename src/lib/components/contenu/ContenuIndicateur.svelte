@@ -29,6 +29,9 @@ import Indicateurs from '../Indicateurs.svelte'
     background: var(--dark);
     margin-left: -16vw;
     margin-bottom: calc(var(--gutter) * 2);
-  }
 
+    @media (max-width: 888px) {
+      margin-left: 0;
+    }
+  }
 </style>
