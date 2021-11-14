@@ -212,8 +212,10 @@ export function createCourbe(element: HTMLElement, data: string, min: number, ma
       categoryXField: "Date",
       fill: Color.fromHSL(hsl.h, hsl.s, hsl.l),
       stroke: Color.fromHSL(hsl.h, hsl.s, hsl.l),
-      tooltip: Tooltip.new(root, {}),
-      tooltipText: `${keys.length > 1 ? '{name}, ' : ''}{categoryX}: {valueY}`
+      tooltip: Tooltip.new(root, {
+        labelText: `${keys.length > 1 ? '{name}, ' : ''}{categoryX}: {valueY}`
+      }),
+      // tooltipText: 
     }))
 
     series.strokes.template.setAll({
