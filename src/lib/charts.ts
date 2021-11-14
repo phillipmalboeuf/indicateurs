@@ -284,6 +284,11 @@ export function createPyramide(element: HTMLElement, data: string, min: number, 
       strokeWidth: 3
     })
 
+    series.links.template.setAll({
+      fill: color(couleur),
+      fillOpacity: 0.66
+    })
+
     series.labels.template.setAll({
       text: "{category}: {value}",
       rotation: 0,
