@@ -23,6 +23,7 @@
 
 <script lang="ts">
   import Document from '$lib/components/document/Document.svelte'
+  import Icon from '$lib/components/Icon.svelte'
 
 	export let categorie: Entry<Categorie>
   export let indicateurs: Entry<Indicateur>[]
@@ -33,9 +34,7 @@
 
 {#key categorie.fields.id}
 <nav>
-  <a class="button" href="/"><svg width="5" height="8" viewBox="0 0 5 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M4 7L1 4L4 1" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg> retour</a>
+  <a class="button" href="/"><Icon i="chevron" small rotate={180} /> retour</a>
 
   {#if pilier}
   <h4><a href="/categories/{pilier.fields.id}">{pilier.fields.titre}</a></h4>

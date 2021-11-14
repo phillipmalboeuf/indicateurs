@@ -1,11 +1,14 @@
 <script lang="ts">
   import { fade, fly } from 'svelte/transition'
+  import type { Exporting } from '@amcharts/amcharts5/plugins/exporting'
 
   import type { Indicateur } from '$routes/indicateurs/[id].svelte'
   import type { Entry } from 'contentful'
   import Chart from './Chart.svelte'
+  import Icon from './Icon.svelte'
 
   export let indicateur: Entry<Indicateur>
+  let exporting: Exporting
 </script>
 
 <article style="color: {indicateur.fields.categorie.fields.couleur}">
@@ -17,11 +20,21 @@
   {/if} -->
 
   {#if indicateur.fields.data}
-  <Chart {...indicateur.fields} couleur={indicateur.fields.categorie.fields.couleur} small />
+  <Chart {...indicateur.fields} bind:exporting couleur={indicateur.fields.categorie.fields.couleur} small />
+
+  <aside>
+    <a href="/indicateurs/{indicateur.fields.id}"><small>Plus d'info <Icon i="chevron" small /></small></a>
+    <div>
+      <button aria-label="Partager"><Icon i="share" /></button>
+      <button on:click={() => exporting?.download('png')} aria-label="Télécharger"><Icon i="download" /></button>
+    </div>
+
+    {#if indicateur.fields.lead}<p><small>{indicateur.fields.lead}</small></p>{/if}
+  </aside>
   {:else}
   <p><strong>Données à venir.</strong></p>
   {/if}
-  {#if indicateur.fields.lead}<aside><p><small>{indicateur.fields.lead}</small></p></aside>{/if}
+  
 </article>
 
 <style lang="scss">
@@ -42,6 +55,27 @@
 
     p {
       margin-bottom: 0;
+    }
+  }
+
+  aside {
+    color: var(--muted);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+    p {
+      color: var(--light);
+    }
+  }
+
+  button {
+    border: none;
+
+    &:hover,
+    &:focus {
+      color: var(--highlight);
     }
   }
 </style>
