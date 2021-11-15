@@ -15,6 +15,7 @@ export const get: RequestHandler = async ({ params, query }) => {
 
   const indicateurs = sousCategories
     ? (await entries<{ id: string, categorie: Entry<{ id: string }> }>('indicateur', locale))
+      .filter(i => i.fields.categorie)
       .filter(i => sousCategories.includes(i.fields.categorie.fields.id))
     : await entries<{ id: string, categorie: Entry<{ id: string }> }>('indicateur', locale,
       { 'fields.categorie.fields.id': params.id, 'fields.categorie.sys.contentType.sys.id': 'categorie' })
