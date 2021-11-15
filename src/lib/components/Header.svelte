@@ -89,7 +89,7 @@
 
       div {
         :global(a) {
-          font-size: 0.88rem;
+          // font-size: 0.88rem;
           padding: 4px;
           letter-spacing: 0.02rem;
           display: block;
@@ -99,7 +99,7 @@
 	}
 
   strong {
-    font-size: 0.88rem;
+    // font-size: 0.88rem;
     font-family: var(--alt);
   }
 
