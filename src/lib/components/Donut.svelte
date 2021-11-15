@@ -54,8 +54,6 @@
     root = Root.new(element)
     root._logo.dispose()
 
-    console.log(am5themes_Micro.new(root))
-
     root.setThemes([
       // am5themes_Micro.new(root),
     ]);
