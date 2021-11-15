@@ -107,7 +107,7 @@ export function createHistogramme(element: HTMLElement, data: string, min: numbe
 
   keys.forEach((name, i) => {
     const hsl = color(couleur).toHSL()
-    hsl.h += i * 0.02
+    hsl.h += i * 0.05
 
     let series = chart.series.push(ColumnSeries.new(root, {
       name,
@@ -202,7 +202,7 @@ export function createCourbe(element: HTMLElement, data: string, min: number, ma
   keys.forEach((name, i) => {
 
     const hsl = color(couleur).toHSL()
-    hsl.h += i * 0.02
+    hsl.h += i * 0.05
     
     let series = chart.series.push(LineSeries.new(root, {
       name,

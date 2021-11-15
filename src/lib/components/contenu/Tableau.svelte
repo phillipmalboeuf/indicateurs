@@ -21,7 +21,9 @@
 </script>
 
 <section id={entry.fields.id}>
-  <Document body={entry.fields.corps} />
+  <div>
+    <Document body={entry.fields.corps} />
+  </div>
 
   <table>
     <tr>
@@ -71,6 +73,11 @@
     @media (max-width: 888px) {
       margin-left: 0;
     }
+  }
+
+  div {
+    max-width: calc(var(--width) / 2);
+    margin: 0 auto calc(var(--gutter) * 2);
   }
 
   table {

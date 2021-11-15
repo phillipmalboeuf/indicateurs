@@ -40,7 +40,7 @@
       <button on:click={() => exporting?.download('png')} aria-label="Télécharger"><Icon i="download" /></button>
     </div>
 
-    {#if indicateur.fields.lead}<p><small>{indicateur.fields.lead}</small></p>{/if}
+    <!-- {#if indicateur.fields.lead}<p><small>{indicateur.fields.lead}</small></p>{/if} -->
   </aside>
   {:else}
   <p><strong>Données à venir.</strong></p>
