@@ -33,7 +33,7 @@
 
 <style>
 	main {
-    min-height: 100vh;
+    min-height: 88vh;
     padding: 0 var(--gutter);
 	}
 
