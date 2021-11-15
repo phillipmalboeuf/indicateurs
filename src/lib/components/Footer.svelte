@@ -4,6 +4,8 @@
 </script>
 
 <script lang="ts">
+  import Link from './Link.svelte'
+
 	export let path: string
   export let navigation: Entry<{ liens: Entry<Lien>[] }>
   export let subnavigation: Entry<{ liens: Entry<Lien>[] }>
@@ -13,11 +15,11 @@
   <nav>
     {#each navigation.fields.liens as lien}
     <div>
-      <a class:active={path.includes(lien.fields.lien)} href={lien.fields.lien} target={lien.fields.externe && '_blank'}>{lien.fields.titre}</a>
+      <Link active={path.includes(lien.fields.lien)} {lien} />
 
       {#if lien.fields.sousLiens}
       {#each lien.fields.sousLiens as l}
-      <a href={l.fields.lien} target={lien.fields.externe && '_blank'}>{l.fields.titre}</a>
+      <Link lien={l} />
       {/each}
       {/if}
     </div>
@@ -30,11 +32,11 @@
     <div>© 2021, Les Indicateurs. Tous droits réservés.</div>
     {#each subnavigation.fields.liens as lien}
     <div>
-      <a class:active={path.includes(lien.fields.lien)} href={lien.fields.lien} target={lien.fields.externe && '_blank'}>{lien.fields.titre}</a>
+      <Link active={path.includes(lien.fields.lien)} {lien} />
 
       {#if lien.fields.sousLiens}
       {#each lien.fields.sousLiens as l}
-      <a href={l.fields.lien} target={lien.fields.externe && '_blank'}>{l.fields.titre}</a>
+      <Link lien={l} />
       {/each}
       {/if}
     </div>
@@ -61,22 +63,18 @@
         flex-direction: column;
       }
 
-      a {
+      :global(a) {
         display: block;
         margin-bottom: 1rem;
       }
 
-      div > a:first-child {
+      div > :global(a:first-child) {
         font-weight: bold;
       }
 
-      div:first-child > a:first-child {
+      div:first-child > :global(a:first-child) {
         color: var(--highlight);
         font-family: var(--alt);
-      }
-
-      a.active {
-        // text-decoration: underline;
       }
     }
 
@@ -88,7 +86,7 @@
         width: 50%;
       }
 
-      div > a:first-child {
+      div > :global(a:first-child) {
         font-weight: normal;
       }
     }

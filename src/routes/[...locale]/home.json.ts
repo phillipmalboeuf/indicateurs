@@ -1,4 +1,4 @@
-import { contentful, entries } from '$lib/clients/contentful'
+import { contentful, entries, entry } from '$lib/clients/contentful'
 import type { RequestHandler } from '@sveltejs/kit'
 import type { Entry } from 'contentful'
 
@@ -82,9 +82,9 @@ export const ids = [
 
 // @ts-ignore
 export const get: RequestHandler = async ({ params, query }) => {
-  const locale = query.get('locale')
+  const locale = params.locale
 	const [page, categories, indicateurs] = await Promise.all([
-    contentful.getEntry('5nm4pR4zIs8IhngVKfeSlk', { include: 2 }),
+    entry('5nm4pR4zIs8IhngVKfeSlk', locale),
     entries('categorie', locale),
     entries<{ id: string, categorie: Entry<{ id: string }> }>('indicateur', locale)
   ])

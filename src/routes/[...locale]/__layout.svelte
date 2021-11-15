@@ -1,8 +1,8 @@
 <script context="module" lang="ts">
-	import '../app.css'
+	import '../../app.css'
 
 	export async function load({ page, fetch, session, context }) {
-		const res = await fetch(`/layout.json`)
+		const res = await fetch(`${page.params.locale === 'en' ? "/en" : ""}/layout.json`)
 
 		return {
 			props: await res.json()

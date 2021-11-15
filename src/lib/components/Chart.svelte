@@ -6,6 +6,8 @@
 
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte'
+  import { page } from '$app/stores'
+
   import type { Root } from '@amcharts/amcharts5'
   import { createCourbe, createHistogramme, createPyramide, createTarte } from '$lib/charts'
   import { Exporting, ExportingMenu } from '@amcharts/amcharts5/plugins/exporting'
@@ -32,19 +34,19 @@
 
     switch (type) {
       case 'Histogramme':
-        chart = createHistogramme(element, data, minimum, maximum, titreDeLaxe, couleur)
+        chart = createHistogramme(element, data, minimum, maximum, titreDeLaxe, couleur, $page.params.locale)
         break
 
       case 'Courbe':
-        chart = createCourbe(element, data, minimum, maximum, titreDeLaxe, couleur)
+        chart = createCourbe(element, data, minimum, maximum, titreDeLaxe, couleur, $page.params.locale)
         break
 
       case 'Pyramide':
-        chart = createPyramide(element, data, minimum, maximum, titreDeLaxe, couleur)
+        chart = createPyramide(element, data, minimum, maximum, titreDeLaxe, couleur, $page.params.locale)
         break
       
       case 'Tarte':
-        chart = createTarte(element, data, minimum, maximum, titreDeLaxe, couleur)
+        chart = createTarte(element, data, minimum, maximum, titreDeLaxe, couleur, $page.params.locale)
         break
     
       default:

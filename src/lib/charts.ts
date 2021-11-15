@@ -27,10 +27,11 @@ import { XYChart, ValueAxis, CategoryAxis, AxisRendererX, ColumnSeries, AxisRend
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated"
 import am5themes_Dark from "@amcharts/amcharts5/themes/Dark"
 import am5locales_fr from "@amcharts/amcharts5/locales/fr_FR"
+import am5locales_en from "@amcharts/amcharts5/locales/en_CA"
 import { FunnelSeries, PieChart, PieSeries, PyramidSeries, SlicedChart } from '@amcharts/amcharts5/percent'
 
 
-export function init(element: HTMLElement) {
+export function init(element: HTMLElement, locale: string) {
   let root = Root.new(element)
   root._logo.dispose()
 
@@ -41,7 +42,7 @@ export function init(element: HTMLElement) {
     fontSize: "0.88em"
   })
 
-  root.locale = am5locales_fr
+  root.locale = locale === 'en' ? am5locales_en : am5locales_fr
 
   root.setThemes([
     am5themes_Animated.new(root),
@@ -54,8 +55,8 @@ export function init(element: HTMLElement) {
 
 
 
-export function createHistogramme(element: HTMLElement, data: string, min: number, max: number, title: string, couleur: string) {
-  let root = init(element)
+export function createHistogramme(element: HTMLElement, data: string, min: number, max: number, title: string, couleur: string, locale: string) {
+  let root = init(element, locale)
   let chart = root.container.children.push(
     XYChart.new(root, {
       panY: false,
@@ -147,8 +148,8 @@ export function createHistogramme(element: HTMLElement, data: string, min: numbe
   return chart
 }
 
-export function createCourbe(element: HTMLElement, data: string, min: number, max: number, title: string, couleur: string) {
-  let root = init(element)
+export function createCourbe(element: HTMLElement, data: string, min: number, max: number, title: string, couleur: string, locale: string) {
+  let root = init(element, locale)
   let chart = root.container.children.push(
     XYChart.new(root, {
       panY: false,
@@ -248,8 +249,8 @@ export function createCourbe(element: HTMLElement, data: string, min: number, ma
   return chart
 }
 
-export function createPyramide(element: HTMLElement, data: string, min: number, max: number, title: string, couleur: string) {
-  let root = init(element)
+export function createPyramide(element: HTMLElement, data: string, min: number, max: number, title: string, couleur: string, locale: string) {
+  let root = init(element, locale)
   let chart = root.container.children.push(
     SlicedChart.new(root, {
       layout: root.verticalLayout,
@@ -308,8 +309,8 @@ export function createPyramide(element: HTMLElement, data: string, min: number, 
   return chart
 }
 
-export function createTarte(element: HTMLElement, data: string, min: number, max: number, title: string, couleur: string) {
-  let root = init(element)
+export function createTarte(element: HTMLElement, data: string, min: number, max: number, title: string, couleur: string, locale: string) {
+  let root = init(element, locale)
   let chart = root.container.children.push(
     PieChart.new(root, {
       layout: root.verticalLayout,

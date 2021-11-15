@@ -3,7 +3,7 @@
   import { respond } from '$lib/responses'
 
 	export const load: Load = async ({ page, fetch, session, stuff }) => {
-		return respond(fetch, 'index.json')
+		return respond(fetch, `${page.params.locale === 'en' ? "/en" : ""}/home.json`)
 	}
 </script>
 
@@ -15,10 +15,7 @@
   import type { Categorie } from '$routes/categories/[id].svelte'
   import type { PageDocument } from '$lib/components/Page.svelte'
 
-  import Chart from '$lib/components/Chart.svelte'
-  import Donut from '$lib/components/Donut.svelte'
   import Filters from '$lib/components/Filters.svelte'
-  import Card from '$lib/components/Card.svelte'
   import Indicateurs from '$lib/components/Indicateurs.svelte'
   import Page from '$lib/components/Page.svelte'
 

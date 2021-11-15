@@ -10,7 +10,9 @@
 </script>
 
 <script lang="ts">
-import Tooltip from './Tooltip.svelte'
+  import Tooltip from './Tooltip.svelte'
+  import { page } from '$app/stores'
+  import Link from './Link.svelte'
 
 	export let path: string
   export let navigation: Entry<{
@@ -19,27 +21,27 @@ import Tooltip from './Tooltip.svelte'
 </script>
 
 <header>
-  <a href="/" class="logo"><strong>Les Indicateurs</strong></a>
+  <a href={$page.params.locale === 'en' ? "/en" : "/"} class="logo"><strong>Les Indicateurs</strong></a>
 
   <nav>
     {#each navigation.fields.liens as lien}
     {#if lien.fields.sousLiens?.length > 0}
     <Tooltip>
-      <a slot="tip" class:active={path.includes(lien.fields.lien)} href={lien.fields.lien} target={lien.fields.externe && '_blank'}>{lien.fields.titre}</a>
+      <Link slot="tip" active={path.includes(lien.fields.lien)} {lien} />
 
       <div slot="tool">
         {#each lien.fields.sousLiens as l}
-        <a href={l.fields.lien} target={lien.fields.externe && '_blank'}>{l.fields.titre}</a>
+        <Link lien={l} />
         {/each}
       </div>
     </Tooltip>
     {:else}
-    <a class:active={path.includes(lien.fields.lien)} href={lien.fields.lien} target={lien.fields.externe && '_blank'}>{lien.fields.titre}</a>
+    <Link active={path.includes(lien.fields.lien)} {lien} />
     {/if}
     {/each}
   </nav>
 
-  <a href="/"><strong>EN</strong></a>
+  <a href={$page.params.locale === 'en' ? "/" : "/en"}><strong>{$page.params.locale === 'en' ? "FR" : "EN"}</strong></a>
 </header>
 
 
@@ -79,13 +81,9 @@ import Tooltip from './Tooltip.svelte'
       }
 
       div {
-        a {
+        :global(a) {
           display: block;
         }
-      }
-
-      a.active {
-        // text-decoration: underline;
       }
     }
 	}

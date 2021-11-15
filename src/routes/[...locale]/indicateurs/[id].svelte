@@ -20,7 +20,7 @@
 	import { respond } from '$lib/responses'
 
 	export const load: Load = async ({ page, fetch, session, stuff }) => {
-		return respond(fetch, `./${page.params.id}.json`)
+		return respond(fetch, `${page.params.locale === 'en' ? "/en" : ""}/${page.params.id}.json`)
 	}
 </script>
 

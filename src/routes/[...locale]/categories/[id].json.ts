@@ -1,5 +1,5 @@
 import { contentful, entries } from '$lib/clients/contentful'
-import { ids } from '../index.json'
+import { ids } from '../home.json'
 import type { RequestHandler } from '@sveltejs/kit'
 import type { Entry } from 'contentful'
 
