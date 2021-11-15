@@ -76,7 +76,7 @@
     margin: 0 auto;
     display: flex;
     height: 48px;
-    //column-gap: var(--gutter);
+    column-gap: calc(var(--gutter) / 2);
     flex-wrap: wrap;
     border-bottom: 0.25px solid #525657;
     align-items: center;

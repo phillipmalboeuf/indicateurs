@@ -23,7 +23,7 @@
     padding-left: 0;
 
     display: grid;
-    /* grid-template-rows: auto; */
+    grid-template-rows: auto;
     grid-template-columns: repeat(4, 1fr);
     column-gap: var(--gutter);
     row-gap: var(--gutter);
@@ -31,19 +31,19 @@
 
   @media (max-width: 1400px) {
     ul {
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(3, 1fr) !important;
     }
   }
 
   @media (max-width: 1000px) {
     ul {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, 1fr) !important;
     }
   }
 
   @media (max-width: 800px) {
     ul {
-      grid-template-columns: 1fr;
+      grid-template-columns: 1fr !important;
     }
   }
 </style>
