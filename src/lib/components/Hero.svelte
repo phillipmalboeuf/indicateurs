@@ -25,7 +25,9 @@
 <style lang="scss">
   figure {
     height: 50vh;
-
+    //width: 1000px;
+    padding-left: 300px;
+    padding-right: 300px;
     display: flex;
     align-items: center;
     justify-content: center;

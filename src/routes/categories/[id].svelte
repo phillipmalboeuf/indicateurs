@@ -40,7 +40,7 @@
   <h4><a href="/categories/{pilier.fields.id}">{pilier.fields.titre}</a></h4>
   {/if}
 
-  <hr>
+  <!-- <hr> -->
 </nav>
 
 <section>
@@ -65,16 +65,20 @@
 {/key}
 
 <style lang="scss">
-  nav, section {
+  section {
     max-width: var(--width);
     margin: 0 auto;
-    padding: var(--gutter);
+    //padding: var(--gutter);
   }
 
   nav {
+    max-width: var(--width);
+    margin: 0 auto;
     display: flex;
-    column-gap: var(--gutter);
+    height: 48px;
+    //column-gap: var(--gutter);
     flex-wrap: wrap;
+    border-bottom: 0.25px solid #525657;
     align-items: center;
 
     h4 {
@@ -85,6 +89,7 @@
   section {
     display: grid; 
     grid-template-columns: repeat(6, 1fr);
+    padding-top: 104px;
     column-gap: var(--gutter);
   }
 

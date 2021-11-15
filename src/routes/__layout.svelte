@@ -34,6 +34,6 @@
 <style>
 	main {
     min-height: 100vh;
-    padding: var(--gutter);
+    padding: 0 var(--gutter);
 	}
 </style>
