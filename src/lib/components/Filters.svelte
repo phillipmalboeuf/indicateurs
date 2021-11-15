@@ -110,7 +110,7 @@
       > li {
         // color: var(--dark);
         // background: var(--light);
-        padding: 0.33rem 0.66rem;
+        padding-top: 0.66rem;
         border-radius: 0.5rem;
 
         // > ul {

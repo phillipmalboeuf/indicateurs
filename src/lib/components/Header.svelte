@@ -47,18 +47,19 @@
 
 <style lang="scss">
 	header {
-    width: 100%;
     max-width: var(--width);
     margin: 0 auto;
+    height: 48px;
     
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    padding: var(--gutter);
+    //padding: var(--gutter);
 
     > a {
-      width: 10rem;
+      flex: 1;
+      //width: 10rem;
 
       &:last-child {
         text-align: right;
@@ -74,14 +75,23 @@
 
     nav {
       display: flex;
-      column-gap: var(--gutter);
+      font-size: 0.88rem;
+      letter-spacing: 0.02rem;
+      //column-gap: var(--gutter);
+      column-gap: 56px;
 
-      @media (max-width: 1200px) {
+      // @media (max-width: 1200px) {
+      //   display: none;
+      // }
+      @media (max-width: 980px) {
         display: none;
       }
 
       div {
         :global(a) {
+          font-size: 0.88rem;
+          padding: 4px;
+          letter-spacing: 0.02rem;
           display: block;
         }
       }
@@ -89,6 +99,7 @@
 	}
 
   strong {
+    font-size: 0.88rem;
     font-family: var(--alt);
   }
 

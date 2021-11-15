@@ -39,7 +39,7 @@
 
   {#if page.fields.bouton}<a class="button" href={page.fields.bouton.fields.lien} target={page.fields.bouton.fields.externe && '_blank'}>{page.fields.bouton.fields.titre}</a>{/if}
 
-  <hr>
+  <!-- <hr> -->
 </nav>
 {/if}
 {#if page.fields.contenu}
@@ -49,22 +49,36 @@
 
 
 <style lang="scss">
+  
+  // nav {
+  //   display: flex;
+  //   justify-content: space-between;
+  //   align-items: center;
+  //   column-gap: var(--gutter);
+  //   flex-wrap: wrap;
+  //   background-color: cornflowerblue;
+
+  //   max-width: var(--width);
+  //   margin: 0 auto;
+  //   padding: var(--gutter);
+  // }
+
   nav {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    column-gap: var(--gutter);
-    flex-wrap: wrap;
-
     max-width: var(--width);
     margin: 0 auto;
-    padding: var(--gutter);
+    height: 56px;
+    justify-content: space-between;
+    //column-gap: var(--gutter);
+    flex-wrap: wrap;
+    align-items: center;
   }
 
   h1 {
     text-align: center;
     // color: var(--highlight);
-    max-width: calc(var(--width) / 2);
+    //max-width: calc(var(--width) / 2);
+    //background-color: chocolate;
 
     @media (max-width: 888px) {
       font-size: 2rem;
