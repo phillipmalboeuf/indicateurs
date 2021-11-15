@@ -17,7 +17,7 @@
   import { page } from '$app/stores'
 
   export const load: Load = async ({ page, fetch, session, stuff }) => {
-		return respond(fetch, `${page.params.locale === 'en' ? "/en" : ""}/${page.params.id}.json`)
+		return respond(fetch, `${page.params.locale === 'en' ? "/en" : ""}/categories/${page.params.id}.json`)
 	}
 </script>
 
