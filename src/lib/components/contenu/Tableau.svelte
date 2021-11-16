@@ -77,7 +77,7 @@
 
   div {
     max-width: calc(var(--width) / 2);
-    margin: 0 auto calc(var(--gutter) * 2);
+    margin: 0 16vw calc(var(--gutter) * 2);
   }
 
   table {
