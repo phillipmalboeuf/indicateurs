@@ -1,4 +1,4 @@
-function csvToChartData(data: string) {
+export function csvToChartData(data: string) {
   return csvToArray(data)
 }
 
@@ -55,7 +55,7 @@ export function init(element: HTMLElement, locale: string) {
 
 
 
-export function createHistogramme(element: HTMLElement, data: string, min: number, max: number, title: string, couleur: string, locale: string) {
+export function createHistogramme(element: HTMLElement, seriesData: any[], min: number, max: number, title: string, couleur: string, locale: string) {
   let root = init(element, locale)
   let chart = root.container.children.push(
     XYChart.new(root, {
@@ -66,7 +66,6 @@ export function createHistogramme(element: HTMLElement, data: string, min: numbe
     })
   )
 
-  const seriesData = csvToChartData(data)
 
   let yAxis = chart.yAxes.push(
     ValueAxis.new(root, {
@@ -148,7 +147,7 @@ export function createHistogramme(element: HTMLElement, data: string, min: numbe
   return chart
 }
 
-export function createCourbe(element: HTMLElement, data: string, min: number, max: number, title: string, couleur: string, locale: string) {
+export function createCourbe(element: HTMLElement, seriesData: any[], min: number, max: number, title: string, couleur: string, locale: string) {
   let root = init(element, locale)
   let chart = root.container.children.push(
     XYChart.new(root, {
@@ -159,8 +158,6 @@ export function createCourbe(element: HTMLElement, data: string, min: number, ma
       paddingRight: 0,
     })
   )
-  
-  const seriesData = csvToChartData(data)
 
   let yAxis = chart.yAxes.push(
     ValueAxis.new(root, {
@@ -249,7 +246,7 @@ export function createCourbe(element: HTMLElement, data: string, min: number, ma
   return chart
 }
 
-export function createPyramide(element: HTMLElement, data: string, min: number, max: number, title: string, couleur: string, locale: string) {
+export function createPyramide(element: HTMLElement, seriesData: any[], min: number, max: number, title: string, couleur: string, locale: string) {
   let root = init(element, locale)
   let chart = root.container.children.push(
     SlicedChart.new(root, {
@@ -259,8 +256,6 @@ export function createPyramide(element: HTMLElement, data: string, min: number, 
     })
   )
   
-  const seriesData = csvToChartData(data)
-
   title && chart.seriesContainer.children.push(Label.new(root, {
     text: title,
     rotation: -90,
@@ -309,7 +304,7 @@ export function createPyramide(element: HTMLElement, data: string, min: number, 
   return chart
 }
 
-export function createTarte(element: HTMLElement, data: string, min: number, max: number, title: string, couleur: string, locale: string) {
+export function createTarte(element: HTMLElement, seriesData: any[], min: number, max: number, title: string, couleur: string, locale: string) {
   let root = init(element, locale)
   let chart = root.container.children.push(
     PieChart.new(root, {
@@ -319,9 +314,6 @@ export function createTarte(element: HTMLElement, data: string, min: number, max
       paddingRight: 0,
     })
   )
-  
-  const seriesData = csvToChartData(data)
-
 
   const keys = Object.keys(seriesData[0]).filter(key => !['Date', 'Région', 'Catégorie'].includes(key))
 

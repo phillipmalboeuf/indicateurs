@@ -45,12 +45,13 @@
 
       > :global(svg) {
         position: absolute;
-        top: -2px;
+        top: -3px;
         left: 50%;
         transform: translateX(-50%) rotate(-90deg);
 
         > :global(path) {
           fill: var(--dark);
+          stroke: none;
           stroke-width: 1px;
           stroke-linecap: butt;
         }
@@ -58,9 +59,29 @@
 
       > div {
         background: var(--dark);
-        border: 1px solid var(--light);
         border-radius: 0.66rem;
         padding: 0.88rem;
+      }
+
+      &.top {
+        top: auto;
+        bottom: 100%;
+        padding-top: 0;
+        padding-bottom: 0.5rem;
+
+        > div {
+          border: 1px solid var(--light);
+        }
+
+        > :global(svg) {
+          top: auto;
+          bottom: -4px;
+          transform: translateX(-50%) rotate(90deg);
+
+          > :global(path) {
+            stroke: var(--light);
+          }
+        }
       }
     }
   }

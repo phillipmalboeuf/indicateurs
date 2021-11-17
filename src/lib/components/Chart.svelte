@@ -9,7 +9,7 @@
   import { page } from '$app/stores'
 
   import type { Root } from '@amcharts/amcharts5'
-  import { createCourbe, createHistogramme, createPyramide, createTarte } from '$lib/charts'
+  import { createCourbe, createHistogramme, createPyramide, createTarte, csvToChartData } from '$lib/charts'
   import { Exporting, ExportingMenu } from '@amcharts/amcharts5/plugins/exporting'
   import type { Chart } from '@amcharts/amcharts5/.internal/core/render/Chart'
 
@@ -28,25 +28,27 @@
   export let couleur: string
   export let small: boolean = false
 
+  const dataSource = csvToChartData(data)
+
 
   function createChart() {
     observer?.disconnect()
 
     switch (type) {
       case 'Histogramme':
-        chart = createHistogramme(element, data, minimum, maximum, titreDeLaxe, couleur, $page.params.locale)
+        chart = createHistogramme(element, dataSource, minimum, maximum, titreDeLaxe, couleur, $page.params.locale)
         break
 
       case 'Courbe':
-        chart = createCourbe(element, data, minimum, maximum, titreDeLaxe, couleur, $page.params.locale)
+        chart = createCourbe(element, dataSource, minimum, maximum, titreDeLaxe, couleur, $page.params.locale)
         break
 
       case 'Pyramide':
-        chart = createPyramide(element, data, minimum, maximum, titreDeLaxe, couleur, $page.params.locale)
+        chart = createPyramide(element, dataSource, minimum, maximum, titreDeLaxe, couleur, $page.params.locale)
         break
       
       case 'Tarte':
-        chart = createTarte(element, data, minimum, maximum, titreDeLaxe, couleur, $page.params.locale)
+        chart = createTarte(element, dataSource, minimum, maximum, titreDeLaxe, couleur, $page.params.locale)
         break
     
       default:
@@ -55,7 +57,8 @@
 
     if (chart) {
       exporting = Exporting.new(chart._root, {
-        filePrefix: id
+        filePrefix: id,
+        dataSource
         // menu: ExportingMenu.new(chart._root, {})
       })
     }
