@@ -17,6 +17,7 @@
 <script lang="ts">
   import Contenu from './Contenu.svelte'
   import Hero from './Hero.svelte'
+  import StickyNav from './StickyNav.svelte'
 
 	export let page: Entry<PageDocument>
   export let hero: boolean = false
@@ -34,10 +35,16 @@
   {/if}
 </Hero>
 {:else}
+<StickyNav>
+  <h1 class="sticky" slot="left">{page.fields.titre}</h1>
+  <div slot="right">
+    {#if page.fields.bouton}<a class="button" href={page.fields.bouton.fields.lien} target={page.fields.bouton.fields.externe && '_blank'}>{page.fields.bouton.fields.titre}</a>{/if}
+  </div>
+</StickyNav>
 <nav>
-  <h1>{page.fields.titre}</h1>
+  
 
-  {#if page.fields.bouton}<a class="button" href={page.fields.bouton.fields.lien} target={page.fields.bouton.fields.externe && '_blank'}>{page.fields.bouton.fields.titre}</a>{/if}
+  
 
   <!-- <hr> -->
 </nav>
@@ -49,30 +56,6 @@
 
 
 <style lang="scss">
-  
-  // nav {
-  //   display: flex;
-  //   justify-content: space-between;
-  //   align-items: center;
-  //   column-gap: var(--gutter);
-  //   flex-wrap: wrap;
-  //   background-color: cornflowerblue;
-
-  //   max-width: var(--width);
-  //   margin: 0 auto;
-  //   padding: var(--gutter);
-  // }
-
-  nav {
-    display: flex;
-    max-width: var(--width);
-    margin: 0 auto;
-    height: 56px;
-    justify-content: space-between;
-    //column-gap: var(--gutter);
-    flex-wrap: wrap;
-    align-items: center;
-  }
 
   h1 {
     text-align: center;
@@ -84,9 +67,10 @@
       font-size: 2rem;
     }
 
-    nav & {
+    &.sticky {
       font-size: 1.5rem;
       font-family: var(--font);
+      margin-bottom: 0;
     }
   }
 </style>

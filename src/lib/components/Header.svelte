@@ -47,6 +47,8 @@
 
 <style lang="scss">
 	header {
+    position: relative;
+    z-index: 8;
     max-width: var(--width);
     margin: 0 auto;
     height: 48px;
@@ -55,7 +57,7 @@
     justify-content: space-between;
     align-items: center;
 
-    //padding: var(--gutter);
+    padding: var(--gutter);
 
     > a {
       flex: 1;

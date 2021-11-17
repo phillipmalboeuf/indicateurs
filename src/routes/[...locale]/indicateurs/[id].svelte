@@ -30,6 +30,7 @@
   import Chart from '$lib/components/Chart.svelte'
   import Document from '$lib/components/document/Document.svelte'
   import Icon from '$lib/components/Icon.svelte'
+import StickyNav from '$lib/components/StickyNav.svelte';
 
 	export let indicateur: Entry<Indicateur>
   export let pilier: Entry<Categorie>
@@ -37,17 +38,17 @@
 </script>
 
 {#key indicateur.fields.id}
-<nav>
-  <a class="button" href="/"><Icon i="chevron" small rotate={180} /> retour</a>
+<StickyNav>
+  <div slot="left">
+    <a class="button" href="/"><Icon i="chevron" small rotate={180} /> retour</a>
 
-  {#if pilier}
-  <h4>
-    <a href="/categories/{pilier.fields.id}">{pilier.fields.titre}</a> – <a href="/categories/{indicateur.fields.categorie.fields.id}">{indicateur.fields.categorie.fields.titre}</a>  
-  </h4>
-  {/if}
-
-  <!-- <hr> -->
-</nav>
+    {#if pilier}
+    <h4>
+      <a href="/categories/{pilier.fields.id}">{pilier.fields.titre}</a> – <a href="/categories/{indicateur.fields.categorie.fields.id}">{indicateur.fields.categorie.fields.titre}</a>  
+    </h4>
+    {/if}
+  </div>
+</StickyNav>
 
 <section>
   <article>

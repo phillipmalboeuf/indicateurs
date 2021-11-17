@@ -39,7 +39,7 @@
 
 	main:before {
 		content: "";
-		border: 2px solid var(--highlight);
+		border-top: 2px solid var(--highlight);
 		position: fixed;
 		top: 0;
 		left: 0;

@@ -24,6 +24,7 @@
 <script lang="ts">
   import Document from '$lib/components/document/Document.svelte'
   import Icon from '$lib/components/Icon.svelte'
+import StickyNav from '$lib/components/StickyNav.svelte'
 
 	export let categorie: Entry<Categorie>
   export let indicateurs: Entry<Indicateur>[]
@@ -33,15 +34,15 @@
 </script>
 
 {#key categorie.fields.id}
-<nav>
-  <a class="button" href="/"><Icon i="chevron" small rotate={180} /> retour</a>
+<StickyNav>
+  <div slot="left">
+    <a class="button" href="/"><Icon i="chevron" small rotate={180} /> retour</a>
 
-  {#if pilier}
-  <h4><a href="/categories/{pilier.fields.id}">{pilier.fields.titre}</a></h4>
-  {/if}
-
-  <!-- <hr> -->
-</nav>
+    {#if pilier}
+    <h4><a href="/categories/{pilier.fields.id}">{pilier.fields.titre}</a></h4>
+    {/if}
+  </div>
+</StickyNav>
 
 <section>
   <article>

@@ -62,7 +62,7 @@
 
   nav {
     position: sticky;
-    top: var(--gutter);
+    top: calc(var(--gutter) * 3);
     left: 0;
     align-self: start;
     
