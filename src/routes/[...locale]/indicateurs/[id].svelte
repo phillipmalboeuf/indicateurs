@@ -26,23 +26,16 @@
 
 <script lang="ts">
   import type { Exporting } from '@amcharts/amcharts5/plugins/exporting'
-  import { onMount } from 'svelte'
 
   import Chart from '$lib/components/Chart.svelte'
   import Document from '$lib/components/document/Document.svelte'
   import Icon from '$lib/components/Icon.svelte'
   import StickyNav from '$lib/components/StickyNav.svelte'
-  import Tooltip from '$lib/components/Tooltip.svelte'
-
+import Buttons from '$lib/components/Buttons.svelte';
 
 	export let indicateur: Entry<Indicateur>
   export let pilier: Entry<Categorie>
   let exporting: Exporting
-  let shareable: boolean
-
-  onMount(() => {
-    shareable = !!navigator.share
-  })
 </script>
 
 {#key indicateur.fields.id}
@@ -65,32 +58,7 @@
     {#if indicateur.fields.description}<Document body={indicateur.fields.description} />{/if}
 
     <aside>
-      {#if shareable}
-      <button on:click={() => navigator.share({
-        text: `${indicateur.fields.lead} – ${indicateur.fields.titre}`
-      })}>Partager <Icon i="share" /></button>
-      {:else}
-      <Tooltip top>
-        <button slot="tip" on:click={() => false}>Partager <Icon i="share" /></button>
-        <ul slot="tool">
-          <li><a href="https://twitter.com/intent/tweet?url=https://indicateurs.quebec/indicateurs/{indicateur.fields.id}&text={`${indicateur.fields.lead} – ${indicateur.fields.titre}`}" target="_blank">Partager sur Twitter</a></li>
-          <li><a href="https://www.facebook.com/sharer.php?u=https://indicateurs.quebec/indicateurs/{indicateur.fields.id}" target="_blank">Partager sur Facebook</a></li>
-          <li><a href="https://www.linkedin.com/shareArticle?url=https://indicateurs.quebec/indicateurs/{indicateur.fields.id}&title={indicateur.fields.titre}&summary={indicateur.fields.lead}" target="_blank">Partager sur LinkedIn</a></li>
-          <li class="url">
-            <label for="url">URL de partage:</label>
-            <input type='url' id="url" readonly on:click={e => e.currentTarget.setSelectionRange(0, e.currentTarget.value.length)} 
-              value="https://indicateurs.quebec/indicateurs/{indicateur.fields.id}" />
-          </li>
-        </ul>
-      </Tooltip>
-      {/if}
-      <Tooltip top>
-        <button slot="tip" on:click={() => exporting?.download('png')}>Télécharger <Icon i="download" /></button>
-        <ul slot="tool">
-          <li><button on:click={() => exporting?.download('png')}>Format image</button></li>
-          <li><button on:click={() => exporting?.download('csv')}>Format CSV</button></li>
-        </ul>
-      </Tooltip>
+      <Buttons {indicateur} {exporting} />
     </aside>
 
     {#if indicateur.fields.sources}<small>
@@ -132,40 +100,6 @@
   figure {
     grid-column: span 3;
     margin: 0;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  li {
-
-    &.url {
-      margin-top: 0.5rem;
-      text-align: center;
-    }
-
-    a {
-      display: inline-block;
-      font-weight: bold;
-      padding: 6px 12px;
-    }
-    
-    button {
-      font-size: 1rem;
-      border: none;
-    }
-
-    input {
-      width: 100%;
-      margin-top: 0.25rem;
-      padding: 0.25rem;
-      background: transparent;
-      color: var(--light);
-      border: 1px solid var(--highlight);
-    }
   }
 
   @media (max-width: 888px) {

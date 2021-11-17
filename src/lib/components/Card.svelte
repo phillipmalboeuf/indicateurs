@@ -6,6 +6,7 @@
   import type { Entry } from 'contentful'
   import Chart from './Chart.svelte'
   import Icon from './Icon.svelte'
+  import Buttons from './Buttons.svelte'
   // import Donut from './Donut.svelte'
 
   export let indicateur: Entry<Indicateur>
@@ -36,8 +37,7 @@
   <aside>
     <a href="/indicateurs/{indicateur.fields.id}"><small>Plus d'info <Icon i="chevron" small /></small></a>
     <div>
-      <button aria-label="Partager"><Icon i="share" /></button>
-      <button on:click={() => exporting?.download('png')} aria-label="Télécharger"><Icon i="download" /></button>
+      <Buttons {indicateur} {exporting} iconsOnly />
     </div>
 
     <!-- {#if indicateur.fields.lead}<p><small>{indicateur.fields.lead}</small></p>{/if} -->
@@ -83,15 +83,6 @@
 
     p {
       color: var(--light);
-    }
-  }
-
-  button {
-    border: none;
-
-    &:hover,
-    &:focus {
-      color: var(--highlight);
     }
   }
 </style>
