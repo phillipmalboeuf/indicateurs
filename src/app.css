@@ -169,7 +169,7 @@ a.button {
   display: inline-block;
   color: currentColor;
   border: 1px solid;
-  background: var(--dark);
+  background: transparent;
   font-size: 0.88em;
   letter-spacing: 0.02rem;
   /* padding: 0.33em 0.88em; */

@@ -87,6 +87,10 @@ import Buttons from '$lib/components/Buttons.svelte';
     column-gap: var(--gutter);
   }
 
+  a.button {
+    background: var(--dark);
+  }
+
   article {
     grid-column: span 3;
   }

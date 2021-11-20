@@ -72,5 +72,6 @@
   a.button {
     position: relative;
     z-index: 12;
+    background: var(--dark);
   }
 </style>

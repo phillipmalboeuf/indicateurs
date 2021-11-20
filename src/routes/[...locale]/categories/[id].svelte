@@ -96,6 +96,10 @@ import Hero from '$lib/components/Hero.svelte'
     }
   }
 
+  a.button {
+    background: var(--dark);
+  }
+
   section {
     display: grid; 
     grid-template-columns: repeat(6, 1fr);
