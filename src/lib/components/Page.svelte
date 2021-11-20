@@ -60,12 +60,7 @@
   h1 {
     text-align: center;
     // color: var(--highlight);
-    //max-width: calc(var(--width) / 2);
-    //background-color: chocolate;
-
-    @media (max-width: 888px) {
-      font-size: 2rem;
-    }
+    max-width: calc(var(--width) / 2);
 
     &.sticky {
       font-size: 1.5rem;

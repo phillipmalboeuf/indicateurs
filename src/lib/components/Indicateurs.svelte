@@ -27,6 +27,7 @@
     grid-template-columns: repeat(4, 1fr);
     column-gap: var(--gutter);
     row-gap: var(--gutter);
+    overflow-x: hidden;
   }
 
   @media (max-width: 1400px) {

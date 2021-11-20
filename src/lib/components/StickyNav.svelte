@@ -21,7 +21,7 @@
     max-width: var(--width);
     margin: 0 auto;
     padding: calc(var(--gutter) / 2) var(--gutter) 0;
-    background: var(--dark);
+    // background: var(--dark);
 
     @media (max-width: 888px) {
       padding: calc(var(--gutter) / 2) 0 0;
@@ -51,15 +51,15 @@
       margin-top: calc(var(--gutter) / 2);
     }
 
-    &:before {
-      content: "";
-      background: var(--dark);
-      position: fixed;
-      z-index: -1;
-      top: 0;
-      left: 0;
-      height: calc(var(--gutter) * 1.88);
-      width: 100%;
-    }
+    // &:before {
+    //   content: "";
+    //   background: var(--dark);
+    //   position: fixed;
+    //   z-index: -1;
+    //   top: 0;
+    //   left: 0;
+    //   height: calc(var(--gutter) * 2.2);
+    //   width: 100%;
+    // }
   }
 </style>

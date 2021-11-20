@@ -22,7 +22,7 @@
 <nav transition:fly={{ y: -100 }}>
   <button class="close" on:click={() => visible = false}><Icon i="close" /></button>
 
-	<ul>
+	<ul on:click={() => visible = false}>
 		{#each navigation.fields.liens as lien}
 		<li>
     {#if lien.fields.sousLiens?.length > 0}
@@ -95,6 +95,7 @@
 		border: none;
 		padding: var(--gutter);
 		margin-right: calc(var(--gutter) * -1);
+		background: transparent;
 
 		@media (min-width: 888px) {
 			display: none;

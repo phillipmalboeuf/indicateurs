@@ -1,5 +1,5 @@
 <script context="module" lang="ts">
-  import type { Entry, RichTextContent } from 'contentful'
+  import type { Entry, RichTextContent, Asset } from 'contentful'
   import type { Indicateur } from '../indicateurs/[id].svelte'
 
   export interface Categorie {
@@ -7,6 +7,7 @@
     id: string
     couleur: string
     description: RichTextContent
+    photo: Asset
     sousCategories: Entry<Categorie>[]
   }
 
@@ -23,8 +24,9 @@
 
 <script lang="ts">
   import Document from '$lib/components/document/Document.svelte'
+import Hero from '$lib/components/Hero.svelte'
   import Icon from '$lib/components/Icon.svelte'
-import StickyNav from '$lib/components/StickyNav.svelte'
+  import StickyNav from '$lib/components/StickyNav.svelte'
 
 	export let categorie: Entry<Categorie>
   export let indicateurs: Entry<Indicateur>[]
@@ -44,6 +46,23 @@ import StickyNav from '$lib/components/StickyNav.svelte'
   </div>
 </StickyNav>
 
+{#if categorie.fields.photo}
+<Hero media={categorie.fields.photo}>
+  <section>
+    <article>
+      <h1>{categorie.fields.titre}</h1>
+      {#if categorie.fields.description}<Document body={categorie.fields.description} />{/if}
+    </article>
+    
+    <aside>
+      {#if categorie.fields.sousCategories}
+      <h5>Sous-catégories</h5>
+      <Filters categories={categorie.fields.sousCategories} {checked} columns on:update={event => checked = event.detail} />
+      {/if}
+    </aside>
+  </section>
+</Hero>
+{:else}
 <section>
   <article>
     <h1>{categorie.fields.titre}</h1>
@@ -57,6 +76,7 @@ import StickyNav from '$lib/components/StickyNav.svelte'
     {/if}
   </aside>
 </section>
+{/if}
 
 
 
@@ -69,21 +89,10 @@ import StickyNav from '$lib/components/StickyNav.svelte'
   section {
     max-width: var(--width);
     margin: 0 auto;
-    //padding: var(--gutter);
-  }
+    padding: var(--gutter);
 
-  nav {
-    max-width: var(--width);
-    margin: 0 auto;
-    display: flex;
-    height: 48px;
-    column-gap: calc(var(--gutter) / 2);
-    flex-wrap: wrap;
-    border-bottom: 0.25px solid #525657;
-    align-items: center;
-
-    h4 {
-      margin-bottom: 0;
+    @media (max-width: 888px) {
+      padding: var(--gutter) 0;
     }
   }
 
