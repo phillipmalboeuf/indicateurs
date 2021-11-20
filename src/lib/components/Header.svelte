@@ -13,6 +13,7 @@
   import Tooltip from './Tooltip.svelte'
   import { page } from '$app/stores'
   import Link from './Link.svelte'
+  import Menu from './Menu.svelte'
 
 	export let path: string
   export let navigation: Entry<{
@@ -41,7 +42,10 @@
     {/each}
   </nav>
 
-  <a href={$page.params.locale === 'en' ? "/" : "/en"}><strong>{$page.params.locale === 'en' ? "FR" : "EN"}</strong></a>
+  <div>
+    <a class="locale" href={$page.params.locale === 'en' ? "/" : "/en"}><strong>{$page.params.locale === 'en' ? "FR" : "EN"}</strong></a>
+    <Menu {navigation} {path} />
+  </div>
 </header>
 
 
@@ -59,12 +63,9 @@
 
     padding: var(--gutter);
 
-    > a {
-      flex: 1;
-      //width: 10rem;
-
-      &:last-child {
-        text-align: right;
+    @media (max-width: 980px) {
+      a.locale {
+        display: none;
       }
     }
 
@@ -85,7 +86,7 @@
       // @media (max-width: 1200px) {
       //   display: none;
       // }
-      @media (max-width: 980px) {
+      @media (max-width: 888px) {
         display: none;
       }
 

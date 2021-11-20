@@ -31,7 +31,7 @@
 
 <Footer navigation={secondaire} subnavigation={tertiaire} path={$page.path} />
 
-<style>
+<style lang="scss">
 	main {
     min-height: 88vh;
     padding: 0 var(--gutter);

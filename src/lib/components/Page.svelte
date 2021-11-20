@@ -73,4 +73,9 @@
       margin-bottom: 0;
     }
   }
+
+  a.button {
+    position: relative;
+    z-index: 12;
+  }
 </style>

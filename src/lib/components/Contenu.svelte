@@ -6,10 +6,12 @@
   import Logos from './contenu/Logos.svelte'
   import Tableau from './contenu/Tableau.svelte'
   import Text from './contenu/Text.svelte'
+  import Tooltip from './Tooltip.svelte'
 
   export let contenu: Entry<any>[]
   let active: string
   let elements: {[key: string]: Element} = {}
+  let showMenu = false
 
   onMount(() => {
 		const observer = new IntersectionObserver( 
@@ -17,7 +19,6 @@
         if (e.isIntersecting) {
           active = e.target.getAttribute("data-id")
         }
-        console.log(active)
       },
 			{ threshold: 0, rootMargin: "-45%" }
 		)
@@ -27,14 +28,35 @@
 
     return () => observer.disconnect()
 	})
+
+  function show(e: MouseEvent) {
+    if (window.innerWidth < 888) {
+      e.preventDefault()
+      showMenu = true
+    }
+  }
+
+  function hide(e: MouseEvent) {
+    showMenu = false
+  }
 </script>
 
 
 <section>
   <nav>
     {#each contenu.filter(c => c.fields.id) as entry}
-    <a href="#{entry.fields.id}" class:active={active === entry.fields.id}>{entry.fields.titre}</a>
+    <a href="#{entry.fields.id}" class:active={active === entry.fields.id} on:click={show}>{entry.fields.titre}</a>
     {/each}
+
+    {#if showMenu}
+    <Tooltip visible>
+      <div class="submenu" slot="tool">
+      {#each contenu.filter(c => c.fields.id) as entry}
+      <a href="#{entry.fields.id}" on:click={hide}>{entry.fields.titre}</a>
+      {/each}
+      </div>
+    </Tooltip>
+    {/if}
   </nav>
 
   <div>
@@ -62,9 +84,13 @@
     grid-template-columns: repeat(4, 1fr);
     column-gap: var(--gutter);
 
-    padding: var(--gutter);
+    padding: calc(var(--gutter)*2) var(--gutter);
     max-width: var(--width);
     margin: 0 auto;
+
+    @media (max-width: 888px) {
+      padding: calc(var(--gutter)*2) 0;
+    }
 
     > div {
       grid-column: span 3;
@@ -104,7 +130,36 @@
     }
 
     @media (max-width: 888px) {
-      display: none;
+      top: 0.5rem;
+      z-index: 10;
+
+      .submenu :global(span) {
+        left: 100%;
+      }
+      
+      
+
+      a.active {
+        color: currentColor;
+        // font-weight: bold;
+        font-size: 1.5rem;
+        background-color: var(--dark);
+        width: 40vw;
+        height: 2rem;
+        overflow: hidden;
+
+        &:before {
+          content: none;
+        }
+      }
+      
+      a:not(.active) {
+        display: none;
+      }
+
+      .submenu a {
+        display: block;
+      }
     }
   }
 </style>

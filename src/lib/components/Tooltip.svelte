@@ -2,10 +2,11 @@
   import Icon from './Icon.svelte'
 
   export let top: boolean = false
+  export let visible: boolean = false
 </script>
 
 
-<span>
+<span class:visible>
   <slot name="tip" />
 
   <div class:top>
@@ -24,7 +25,8 @@
 
     &:hover,
     &:focus,
-    &:focus-within {
+    &:focus-within,
+    &.visible {
 
       > div {
         pointer-events: auto;

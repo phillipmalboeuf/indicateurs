@@ -77,12 +77,17 @@
   div {
     max-width: calc(var(--width) / 2);
     margin: 0 16vw calc(var(--gutter) * 2);
+
+    @media (max-width: 888px) {
+      margin: 0 0 calc(var(--gutter) * 2);
+    }
   }
 
   table {
     background: var(--dark);
     border: 1px solid white;
     border-collapse: collapse;
+    
 
     a.button {
       color: var(--dark);

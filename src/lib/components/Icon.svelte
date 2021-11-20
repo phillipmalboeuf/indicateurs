@@ -6,6 +6,7 @@
   export let rotate: number = undefined
 </script>
 
+
 <svg class:small class:big version="1.1" viewBox="0 0 16 16" style={rotate && `transform: rotate(${rotate}deg)`}>
   {#if i === 'share'}
   <path d="M12 5.33337C13.1046 5.33337 14 4.43794 14 3.33337C14 2.2288 13.1046 1.33337 12 1.33337C10.8954 1.33337 10 2.2288 10 3.33337C10 4.43794 10.8954 5.33337 12 5.33337Z" stroke-width="1.41667" stroke-linecap="round" stroke-linejoin="round"/>
@@ -19,6 +20,13 @@
   <path d="M8 9.86667V2.4" stroke-width="1.55556" stroke-linecap="round" stroke-linejoin="round"/>
   {:else if i === 'chevron'}
   <path d="M6 12L10 8L6 4" stroke-width="1.33333" stroke-linecap="round" stroke-linejoin="round"/>
+  {:else if i === 'menu'}
+  <path d="M2 8H14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M2 4H14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M2 12H14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  {:else if i === 'close'}
+  <path d="M12 4L4 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M4 4L12 12" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
   {/if}
 </svg>
 
