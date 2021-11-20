@@ -25,12 +25,13 @@
 <style lang="scss">
   figure {
     height: 50vh;
-    //width: 1000px;
-    padding-left: 300px;
-    padding-right: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  figcaption {
+    max-width: calc(var(--width) / 2);
   }
 
   figure :global(img),
