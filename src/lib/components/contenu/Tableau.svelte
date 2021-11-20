@@ -66,7 +66,6 @@
 
 <style lang="scss">
   section {
-    background: var(--dark);
     margin-left: -16vw;
     // max-width: calc(var(--width) / 2);
 
@@ -81,6 +80,7 @@
   }
 
   table {
+    background: var(--dark);
     border: 1px solid white;
     border-collapse: collapse;
 

@@ -25,7 +25,7 @@
 <style>
   svg {
     height: 1.25em;
-    width: 1.25m;
+    width: 1.25em;
 		vertical-align: middle;
   }
 

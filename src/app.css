@@ -116,7 +116,7 @@ a {
 }
 
 [id] {
-  scroll-margin-top: calc(var(--gutter) * 2);
+  scroll-margin-top: 20vh;
 }
 
 ul, ol {
