@@ -95,6 +95,10 @@
 		border: none;
 		padding: var(--gutter);
 		margin-right: calc(var(--gutter) * -1);
+
+		@media (min-width: 888px) {
+			display: none;
+		}
 	}
 
 	button.close {
