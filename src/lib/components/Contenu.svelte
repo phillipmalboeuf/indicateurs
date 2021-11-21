@@ -106,6 +106,10 @@
     :global(h6) {
       color: var(--highlight);
     }
+
+    :global(strong) {
+      color: white;
+    }
   }
 
   nav {
