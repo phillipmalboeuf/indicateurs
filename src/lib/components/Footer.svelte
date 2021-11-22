@@ -53,6 +53,8 @@
       max-width: var(--width);
       margin: 0 auto;
 
+      font-size: 0.88rem;
+
       padding: var(--gutter);
 
       display: flex;
@@ -79,7 +81,7 @@
     }
 
     nav:last-child {
-      font-size: 0.88rem;
+      font-size: 0.77rem;
       opacity: 0.5;
 
       div:first-child {

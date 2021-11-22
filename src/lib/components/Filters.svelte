@@ -90,6 +90,7 @@
   }
 
   li {
+    padding: 0.25rem;
     font-weight: bold;
   }
 

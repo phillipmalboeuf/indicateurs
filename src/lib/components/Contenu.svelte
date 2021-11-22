@@ -81,7 +81,7 @@
 <style lang="scss">
   section {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(12, 1fr);
     column-gap: var(--gutter);
 
     padding: calc(var(--gutter)*2) var(--gutter);
@@ -93,7 +93,7 @@
     }
 
     > div {
-      grid-column: span 3;
+      grid-column: span 8;
       z-index: 2;
 
       @media (max-width: 888px) {
@@ -117,7 +117,8 @@
     top: calc(var(--gutter) * 3);
     left: 0;
     align-self: start;
-    
+    grid-column: span 3;
+
     a {
       display: block;
       margin-bottom: 0.5rem;

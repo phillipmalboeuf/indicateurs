@@ -17,6 +17,9 @@
     align-items: center;
     column-gap: var(--gutter);
     flex-wrap: wrap;
+    background-color: blue;
+
+    font-size: 0.88rem;
 
     max-width: var(--width);
     margin: 0 auto;

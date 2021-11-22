@@ -218,7 +218,7 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
     series.strokes.template.setAll({
       // stroke: color(couleur),
       
-      strokeWidth: 3,
+      strokeWidth: 10,
       
     })
 
