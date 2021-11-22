@@ -5,7 +5,7 @@
   export interface PageDocument {
     titre: string
     id: string
-    corps: RichTextContent
+    description: any
     photo: Asset
     contenu: Entry<any>[]
     bouton: Entry<Lien>
@@ -18,6 +18,7 @@
   import Contenu from './Contenu.svelte'
   import Hero from './Hero.svelte'
   import StickyNav from './StickyNav.svelte'
+  import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer'
 
 	export let page: Entry<PageDocument>
   export let hero: boolean = false
@@ -25,6 +26,7 @@
 
 <svelte:head>
   <title>{page.fields.titre} – Les indicateurs du bien-être au Québec</title>
+  {#if page.fields.description}<meta name="description" content={documentToPlainTextString(page.fields.description)}>{/if}
 </svelte:head>
 
 {#key page.fields.id}

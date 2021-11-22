@@ -10,6 +10,7 @@
   },
   "devDependencies": {
     "@amcharts/amcharts4": "^4.10.22",
+    "@contentful/rich-text-plain-text-renderer": "^15.6.2",
     "@sveltejs/adapter-vercel": "next",
     "@sveltejs/kit": "next",
     "chart.js": "^3.5.1",
