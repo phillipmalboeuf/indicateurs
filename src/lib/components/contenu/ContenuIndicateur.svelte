@@ -35,14 +35,13 @@
 
 <style lang="scss">
   div {
-    max-width: calc(var(--width) / 2);
+    max-width: calc(var(--width) / 1.5);
     margin-bottom: calc(var(--gutter) * 2);
   }
 
   figure {
     background: var(--dark);
-    margin-bottom: calc(var(--gutter) * 2);
-    margin-left: -16vw;
+    margin: 0 -20vw calc(var(--gutter) * 2);
 
     @media (max-width: 888px) {
       margin-left: 0;

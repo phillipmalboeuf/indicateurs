@@ -1,4 +1,8 @@
-<nav>
+<script lang="ts">
+  export let dark = false
+</script>
+
+<nav class:dark>
   <div>
     <slot name="left" />
   </div>
@@ -17,7 +21,10 @@
     align-items: center;
     column-gap: var(--gutter);
     flex-wrap: wrap;
-    background-color: blue;
+
+    &.dark {
+      background-color: var(--dark);
+    }
 
     font-size: 0.88rem;
 

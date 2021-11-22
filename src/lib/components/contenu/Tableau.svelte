@@ -66,7 +66,7 @@
 
 <style lang="scss">
   section {
-    margin-left: -16vw;
+    // margin-left: -8vw;
     // max-width: calc(var(--width) / 2);
 
     @media (max-width: 888px) {
@@ -74,12 +74,8 @@
     }
 
     > div {
-      max-width: calc(var(--width) / 2);
-      margin: 0 16vw calc(var(--gutter) * 2);
-
-      @media (max-width: 888px) {
-        margin: 0 0 calc(var(--gutter) * 2);
-      }
+      max-width: calc(var(--width) / 1.5);
+      margin-bottom: calc(var(--gutter) * 2);
     }
   }
 

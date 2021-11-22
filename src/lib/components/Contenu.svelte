@@ -97,7 +97,7 @@
       z-index: 2;
 
       @media (max-width: 888px) {
-        grid-column: span 4;
+        grid-column: span 12;
       }
     }
 
