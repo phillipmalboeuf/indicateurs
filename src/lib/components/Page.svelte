@@ -65,7 +65,7 @@
     max-width: calc(var(--width) / 2);
 
     &.sticky {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-family: var(--font);
       margin-bottom: 0;
     }

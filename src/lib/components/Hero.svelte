@@ -24,7 +24,7 @@
 
 <style lang="scss">
   figure {
-    min-height: 50vh;
+    min-height: 40vh;
     display: flex;
     align-items: center;
     justify-content: center;

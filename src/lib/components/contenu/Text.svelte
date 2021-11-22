@@ -17,7 +17,7 @@
 
 <style lang="scss">
   section {
-    max-width: calc(var(--width) / 2);
+    max-width: calc(var(--width) / 1.75);
 
     hr {
       margin: var(--gutter) 0;
