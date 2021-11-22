@@ -28,6 +28,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
+    &:before {
+      content: "";
+      z-index: -1;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(180deg, transparent, var(--dark));
+    }
   }
 
   figcaption {
@@ -43,7 +54,7 @@
     height: 100vh;
     object-fit: cover;
 
-    z-index: -1;
-    opacity: calc(0.3 * var(--opacity));
+    z-index: -2;
+    opacity: calc(0.5 * var(--opacity));
   }
 </style>
