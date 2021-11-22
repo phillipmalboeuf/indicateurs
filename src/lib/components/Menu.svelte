@@ -79,6 +79,7 @@
 
 			> li {
 				font-size: 1.5rem;
+				margin-top: 2rem;
 
 				li {
 					font-size: 1rem;
