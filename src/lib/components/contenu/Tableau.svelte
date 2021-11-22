@@ -72,16 +72,18 @@
     @media (max-width: 888px) {
       margin-left: 0;
     }
-  }
 
-  div {
-    max-width: calc(var(--width) / 2);
-    margin: 0 16vw calc(var(--gutter) * 2);
+    > div {
+      max-width: calc(var(--width) / 2);
+      margin: 0 16vw calc(var(--gutter) * 2);
 
-    @media (max-width: 888px) {
-      margin: 0 0 calc(var(--gutter) * 2);
+      @media (max-width: 888px) {
+        margin: 0 0 calc(var(--gutter) * 2);
+      }
     }
   }
+
+  
 
   table {
     background: var(--dark);
