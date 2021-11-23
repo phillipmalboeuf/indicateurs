@@ -1,17 +1,18 @@
 <script lang="ts">
-  import type { Entry, RichTextContent } from 'contentful'
+  import type { Asset, Entry, RichTextContent } from 'contentful'
 
   import type { Indicateur } from '$routes/indicateurs/[id].svelte'
   import Document from '../document/Document.svelte'
   import type { Lien } from '../Header.svelte'
   import Indicateurs from '../Indicateurs.svelte'
+  import Picture from '../Picture.svelte'
 
   export let entry: Entry<{
     titre: string
     id: string
     corps: RichTextContent
     aprs: RichTextContent
-    indicateurs: Entry<Indicateur>[]
+    images: Asset[]
   }>
 </script>
 
@@ -20,11 +21,13 @@
     <Document body={entry.fields.corps} />
   </div>
 
-  <figure>
-    {#if entry.fields.indicateurs}
-    <Indicateurs indicateurs={entry.fields.indicateurs} />
-    {/if}
+  {#if entry.fields.images}
+  <figure style="grid-template-columns: repeat({entry.fields.images.length < 4 ? entry.fields.images.length : 4}, 1fr);">
+    {#each entry.fields.images as media}
+    <Picture {media} />
+    {/each}
   </figure>
+  {/if}
 
   {#if entry.fields.aprs}
   <div>
@@ -40,8 +43,14 @@
   }
 
   figure {
-    background: var(--dark);
-    margin: 0 -20vw calc(var(--gutter) * 2);
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: var(--gutter);
+    row-gap: var(--gutter);
+
+    // background: var(--dark);
+    margin: 0 -10vw calc(var(--gutter) * 2);
 
     @media (max-width: 888px) {
       margin: 0 0 calc(var(--gutter) * 2);

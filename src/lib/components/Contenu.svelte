@@ -2,6 +2,7 @@
   import type { Entry } from 'contentful'
   import { onMount } from 'svelte'
   import ContenuIndicateur from './contenu/ContenuIndicateur.svelte'
+import Images from './contenu/Images.svelte';
   import Liste from './contenu/Liste.svelte'
   import Logos from './contenu/Logos.svelte'
   import Tableau from './contenu/Tableau.svelte'
@@ -70,6 +71,8 @@
     <Tableau {entry} />
     {:else if entry.sys.contentType.sys.id === 'contenuIndicateur'}
     <ContenuIndicateur {entry} />
+    {:else if entry.sys.contentType.sys.id === 'images'}
+    <Images {entry} />
     {:else if entry.sys.contentType.sys.id === 'logos'}
     <Logos {entry} />
     {/if}
