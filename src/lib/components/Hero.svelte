@@ -38,7 +38,7 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      background: linear-gradient(180deg, transparent, var(--dark));
+      background: linear-gradient(0deg, var(--dark), var(--darkish), transparent, transparent);
     }
   }
 
@@ -56,6 +56,6 @@
     object-fit: cover;
 
     z-index: -2;
-    opacity: calc(0.5 * var(--opacity));
+    opacity: calc(0.6 * var(--opacity));
   }
 </style>
