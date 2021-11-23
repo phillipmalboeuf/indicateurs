@@ -39,6 +39,10 @@
       width: 100vw;
       height: 100vh;
       background: linear-gradient(0deg, var(--dark), var(--darkish), transparent, transparent);
+
+      @media (max-width: 888px) {
+        background: linear-gradient(0deg, var(--dark), transparent);
+      }
     }
   }
 

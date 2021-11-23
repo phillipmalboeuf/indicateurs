@@ -97,6 +97,10 @@ import Hero from '$lib/components/Hero.svelte'
 
     @media (max-width: 888px) {
       padding: var(--gutter) 0;
+
+      h1 {
+        font-size: 2.25rem;
+      }
     }
   }
 

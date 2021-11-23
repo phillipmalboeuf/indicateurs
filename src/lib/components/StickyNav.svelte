@@ -43,7 +43,6 @@
 
     @media (max-width: 888px) {
       padding: calc(var(--gutter) / 2) 0 0;
-      background-color: chocolate;
     }
 
     position: sticky;
@@ -79,6 +78,12 @@
       left: 0;
       height: calc(var(--gutter) * 1.75);
       width: 100%;
+
+      transition: background-color 100ms;
+
+      @media (max-width: 888px) {
+        height: calc(var(--gutter) * 3);
+      }
     }
 
     &.stuck {
