@@ -25,7 +25,7 @@
   {#if indicateur.fields.categorie}
   <em><a href="/categories/{indicateur.fields.categorie.fields.id}">{indicateur.fields.categorie.fields.titre}</a></em><br />
   {/if}
-  <a href="/indicateurs/{indicateur.fields.id}">{indicateur.fields.titre}</a>
+  <a class="indicateurs" href="/indicateurs/{indicateur.fields.id}">{indicateur.fields.titre}</a>
 
   <!-- {#if indicateur.fields.lead}
   <p><small>{indicateur.fields.lead}</small></p>
@@ -34,7 +34,7 @@
   {#if indicateur.fields.data}
   <Chart {...indicateur.fields} bind:exporting couleur={indicateur.fields.categorie.fields.couleur} small />
 
-  <aside>
+  <aside class="card-footer">
     <a href="/indicateurs/{indicateur.fields.id}"><small>Plus d'info <Icon i="chevron" small /></small></a>
     <div>
       <Buttons {indicateur} {exporting} iconsOnly />
@@ -53,7 +53,8 @@
     height: 100%;
     background: var(--darkish);
     //background: linear-gradient(180deg, transparent, var(--darkish));
-    padding: calc(var(--gutter) / 2);
+    //padding: calc(var(--gutter) / 2);
+    padding: 20px;
     border-radius: var(--corner);
 
     &.beigne {
@@ -86,4 +87,13 @@
       color: var(--light);
     }
   }
+
+  .indicateurs {
+    display: flex;
+    padding-top: 4px;
+  }
+
+  .card-footer {
+  }
+
 </style>

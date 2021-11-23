@@ -34,7 +34,6 @@
 
     @media (max-width: 888px) {
       padding: calc(var(--gutter) / 2) 0 0;
-      background-color: chocolate;
     }
 
     position: sticky;
