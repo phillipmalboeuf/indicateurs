@@ -22,8 +22,9 @@
 </script>
 
 <header>
-  <a href={$page.params.locale === 'en' ? "/en" : "/"} class="logo"><strong>Les Indicateurs</strong></a>
-
+  <div>
+    <a href={$page.params.locale === 'en' ? "/en" : "/"} class="logo"><strong>Les Indicateurs</strong></a>
+  </div>
   <nav>
     {#each navigation.fields.liens as lien}
     {#if lien.fields.sousLiens?.length > 0}
@@ -42,7 +43,7 @@
     {/each}
   </nav>
 
-  <div>
+  <div class="right-align">
     <a class="locale" href={$page.params.locale === 'en' ? "/" : "/en"}><strong>{$page.params.locale === 'en' ? "FR" : "EN"}</strong></a>
     <Menu {navigation} {path} />
   </div>
@@ -51,48 +52,47 @@
 
 <style lang="scss">
 	header {
+    flex: 1;
     position: relative;
     z-index: 8;
     max-width: var(--width);
     margin: 0 auto;
     height: 48px;
-    
+    //background: var(--dark);    
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 
     padding: var(--gutter);
 
-    @media (max-width: 980px) {
+    @media (max-width: 888px) {
       a.locale {
         display: none;
       }
     }
 
-    // button {
-    //   color: currentColor;
-    //   background: none;
-    //   border: none;
-    //   padding: 0;
-    // }
+    div {
+      flex: 1;
+    }
+
+    .right-align {
+      display: flex;
+      justify-content: flex-end;
+      flex: 1;
+    }
 
     nav {
       display: flex;
       font-size: 0.88rem;
       letter-spacing: 0.02rem;
-      //column-gap: var(--gutter);
       column-gap: 56px;
 
-      // @media (max-width: 1200px) {
-      //   display: none;
-      // }
       @media (max-width: 888px) {
         display: none;
       }
 
       div {
         :global(a) {
-          // font-size: 0.88rem;
           padding: 4px;
           letter-spacing: 0.02rem;
           display: block;
@@ -102,7 +102,6 @@
 	}
 
   strong {
-    // font-size: 0.88rem;
     font-family: var(--alt);
   }
 

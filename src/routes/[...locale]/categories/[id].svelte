@@ -91,15 +91,19 @@ import Hero from '$lib/components/Hero.svelte'
     margin: 0 auto;
     padding: var(--gutter);
 
+    h1 {
+      font-size: 2.5rem;
+    }
+
     @media (max-width: 888px) {
       padding: var(--gutter) 0;
     }
   }
 
   a.button {
-    background: var(--dark);
+
     @media (max-width: 888px) {
-      background-color: chartreuse;
+      //background-color: chartreuse;
     }
   }
 
