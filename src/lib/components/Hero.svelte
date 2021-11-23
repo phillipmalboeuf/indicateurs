@@ -60,6 +60,6 @@
     object-fit: cover;
 
     z-index: -2;
-    opacity: calc(0.6 * var(--opacity));
+    opacity: calc(0.3 * var(--opacity));
   }
 </style>
