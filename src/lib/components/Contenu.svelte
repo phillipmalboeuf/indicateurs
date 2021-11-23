@@ -135,13 +135,12 @@
     }
 
     @media (max-width: 888px) {
-      top: 0.5rem;
+      top: 1rem;
       z-index: 10;
 
-      .submenu :global(span) {
-        left: 100%;
+      :global(span) {
+        left: 200%;
       }
-      
       
 
       a.active {

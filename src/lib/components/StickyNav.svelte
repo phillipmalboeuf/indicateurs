@@ -42,7 +42,7 @@
     padding: 1rem calc(var(--gutter) / 1) 0;
 
     @media (max-width: 888px) {
-      // padding: calc(var(--gutter) / 2) 0 0;
+      padding: 1rem 0 0;
     }
 
     position: sticky;
