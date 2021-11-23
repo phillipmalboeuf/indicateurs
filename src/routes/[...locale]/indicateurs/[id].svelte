@@ -93,7 +93,7 @@ import Buttons from '$lib/components/Buttons.svelte';
   }
 
   a.button {
-    background: var(--dark);
+    
   }
 
   article {

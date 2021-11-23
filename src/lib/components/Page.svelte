@@ -37,7 +37,7 @@
   {/if}
 </Hero>
 {:else}
-<StickyNav dark>
+<StickyNav>
   <h1 class="sticky" slot="left">{page.fields.titre}</h1>
   <div slot="right">
     {#if page.fields.bouton}<a class="button" href={page.fields.bouton.fields.lien} target={page.fields.bouton.fields.externe && '_blank'}>{page.fields.bouton.fields.titre}</a>{/if}
@@ -73,6 +73,5 @@
   a.button {
     position: relative;
     z-index: 12;
-    background: var(--dark);
   }
 </style>
