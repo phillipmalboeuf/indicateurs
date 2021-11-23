@@ -39,11 +39,11 @@
 
     max-width: var(--width);
     margin: 0 auto;
-    padding: calc(var(--gutter) / 2) var(--gutter) 0;
-    // background: var(--dark);
+    padding: calc(var(--gutter) / 2) calc(var(--gutter) / 1) 0;
 
     @media (max-width: 888px) {
       padding: calc(var(--gutter) / 2) 0 0;
+      background-color: chocolate;
     }
 
     position: sticky;

@@ -78,6 +78,11 @@ import Buttons from '$lib/components/Buttons.svelte';
     max-width: var(--width);
     margin: 0 auto;
     padding: var(--gutter);
+
+    h1 {
+      font-size: 2.5rem;
+      line-height: 3rem;
+    }
   }
 
   section {
@@ -95,24 +100,27 @@ import Buttons from '$lib/components/Buttons.svelte';
     grid-column: span 3;
   }
     
-    aside {
+  aside {
       margin-bottom: var(--gutter);
       display: flex;
       column-gap: calc(var(--gutter) / 2);
-    }
+  }
 
   figure {
     grid-column: span 3;
     margin: 0;
   }
 
-  @media (max-width: 888px) {
-  article {
-    grid-column: span 6;
+  h4 {
+    font-size: 1.2rem;
   }
 
-  figure {
-    grid-column: span 6;
-  }
+  @media (max-width: 888px) {
+    article {
+      grid-column: span 6;
+    }
+    figure {
+      grid-column: span 6;
+    }
   }
 </style>

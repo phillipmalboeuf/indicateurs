@@ -42,9 +42,9 @@
     }
   }
 
-  figcaption {
-    // max-width: calc(var(--width) / 2);
-  }
+  // figcaption {
+  //   max-width: calc(var(--width) / 2);
+  // }
 
   figure :global(img),
   figure :global(video) {

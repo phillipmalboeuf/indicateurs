@@ -61,7 +61,6 @@
 
   h1 {
     text-align: center;
-    // color: var(--highlight);
     max-width: calc(var(--width) / 1.5);
 
     &.sticky {

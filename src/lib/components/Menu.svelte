@@ -50,7 +50,7 @@
   nav {
     position: fixed;
     top: 0;
-		left: 0;
+	left: 0;
     z-index: 2;
     width: 100%;
     max-height: 88vh;
