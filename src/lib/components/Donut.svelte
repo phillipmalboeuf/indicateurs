@@ -1,13 +1,15 @@
 <script lang="ts">
   import { color, Graphics, Label, Percent, percent, Root, Tooltip } from '@amcharts/amcharts5'
   import { PieChart, PieSeries } from '@amcharts/amcharts5/percent'
-  import am5themes_Micro from "@amcharts/amcharts5/themes/Micro"
+  
+  import { goto } from '$app/navigation'
 
   import { onMount, onDestroy } from 'svelte'
 
   import type { Entry } from 'contentful'
   import type { Categorie } from '$routes/categories/[id].svelte'
   import { Exporting } from '@amcharts/amcharts5/plugins/exporting'
+import Icon from './Icon.svelte';
 
   export let categories: Entry<Categorie>[] = undefined
   let root: Root
@@ -29,7 +31,7 @@
     },
     'Milieu': {
       'Espace sûr et juste pour l\'humanité': 10,
-      'Développment économique inclusif et durable': 10,
+      'Développement économique inclusif et durable': 10,
     },
     'Plancher': {
       'PLANCHER ÉCONOMIQUE ET SOCIAL': 10,
@@ -65,13 +67,16 @@
         paddingTop: 0,
         paddingRight: 0,
         paddingBottom: 0,
-        paddingLeft: 0
+        paddingLeft: 0,
+        height: 2000,
+        width: 2000,
+        scale: element.offsetWidth/2000
       })
     )
     
     renderChart(chart, 'In', percent(0), percent(33), true)
-    renderChart(chart, 'Plancher', percent(35), percent(42))
-    renderChart(chart, 'Milieu', percent(43), percent(64))
+    renderChart(chart, 'Plancher', percent(35), percent(43))
+    renderChart(chart, 'Milieu', percent(44), percent(64))
     renderChart(chart, 'Plafond', percent(65), percent(73))
     renderChart(chart, 'Out', percent(75), percent(100))
 
@@ -104,10 +109,10 @@
       fill: color('#EDF5E2'),
       fontFamily: 'PP Neue Machina',
       fontWeight: 'bold',
-      fontSize: '1.66vw',
+      fontSize: '1.66rem',
       position: 'absolute',
       x: percent(x),
-      centerX: percent(150),
+      centerX: percent(166),
       y: percent(50),
       centerY: percent(50)
     }))
@@ -120,7 +125,9 @@
       Valeur: donut[name][key],
       Width: 1,
       template: {
-        // ...inverted ? { dInnerRadius: -donut[name][key] } : { dRadius: donut[name][key] },
+        userData: {
+          categorie: categories.find(c => c.fields.titre === key)?.fields.id
+        },
         fill: color(categories.find(c => c.fields.titre === key)?.fields.couleur || {
           'Plafond': '#EDF5E2',
           'Plancher': '#E2EEF5'
@@ -144,7 +151,7 @@
         'Plancher': {
           startAngle: -270,
           endAngle: 90,
-        }
+        },
         }[name] || {
           startAngle: 0,
           endAngle: 360,
@@ -177,15 +184,23 @@
       shiftRadius: 0,
     })
 
+    series.slices.template.events.on("click", (e) => {
+      if (e.target.get("userData").categorie) {
+        goto(`/categories/${e.target.get("userData").categorie}`)
+      }
+    })
+
     series.labels.template.setAll({
-      fontSize: '1.66vw',
+      fontSize: {
+        'Milieu': '2.66rem',
+      }[name] || '1.6rem',
       text: "{category}",
       textType: inverted ? "radial" : "circular",
       centerX: percent(100),
       radius: {
-        'Plafond': 20,
-        'Milieu': 60,
-        'Plancher': 15,
+        'Plafond': 18,
+        'Milieu': 45,
+        'Plancher': 13,
         'Out': 75
       }[name],
       inside: true,
@@ -200,7 +215,7 @@
           'Plancher': '#231D27'
         }[name] || '#fff'),
       oversizedBehavior: "wrap",
-      maxWidth: 220,
+      maxWidth: 215,
       textAlign: inverted ? 'left' : 'center'
     });
 
@@ -212,13 +227,26 @@
   })
 </script>
 
-<figure bind:this={element}></figure>
+<div>
+  <figure bind:this={element}></figure>
+  <button on:click={() => exporting?.download('png')} aria-label={"Télécharger"}><Icon i="download" /></button>
+</div>
 
 <style>
+  div {
+    position: relative;
+  }
+
   figure {
     margin: 0;
     width: 100%;
     padding-bottom: 100%;
     /* pointer-events: none; */
+  }
+
+  button {
+    position: absolute;
+    bottom: var(--gutter);
+    right: var(--gutter);
   }
 </style>

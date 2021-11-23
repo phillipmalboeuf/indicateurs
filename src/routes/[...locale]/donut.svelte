@@ -18,5 +18,5 @@
   let exporting: Exporting
 </script>
 
-<Donut />
+<Donut bind:exporting />
 <button on:click={() => exporting?.download('png')}>Télécharger <Icon i="download" /></button>

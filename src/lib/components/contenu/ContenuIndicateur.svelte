@@ -36,12 +36,12 @@
 <style lang="scss">
   div {
     max-width: calc(var(--width) / 1.5);
-    margin-bottom: calc(var(--gutter) * 2);
+    margin-bottom: calc(var(--gutter) * 1);
   }
 
   figure {
-    background: var(--dark);
-    margin: 0 -20vw calc(var(--gutter) * 2);
+    // background: var(--dark);
+    margin: 0 -10vw calc(var(--gutter) * 2);
 
     @media (max-width: 888px) {
       margin: 0 0 calc(var(--gutter) * 2);
