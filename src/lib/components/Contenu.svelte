@@ -50,7 +50,7 @@ import Images from './contenu/Images.svelte';
     {/each}
 
     {#if showMenu}
-    <Tooltip visible>
+    <Tooltip visible light>
       <div class="submenu" slot="tool">
       {#each contenu.filter(c => c.fields.id) as entry}
       <a href="#{entry.fields.id}" on:click={hide}>{entry.fields.titre}</a>

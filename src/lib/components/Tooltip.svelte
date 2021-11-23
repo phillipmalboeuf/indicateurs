@@ -3,13 +3,14 @@
 
   export let top: boolean = false
   export let visible: boolean = false
+  export let light: boolean = false
 </script>
 
 
 <span class:visible>
   <slot name="tip" />
 
-  <div class:top>
+  <div class:top class:light>
     <Icon i="chevron" />
     <div>
       <slot name="tool" />
@@ -63,6 +64,16 @@
         background: var(--dark);
         border-radius: 0.66rem;
         padding: 0.88rem;
+      }
+
+      &.light {
+        > div {
+          background: var(--darkish);
+        }
+
+        :global(path) {
+          fill: var(--darkish);
+        }
       }
 
       &.top {

@@ -28,7 +28,7 @@
   <nav>
     {#each navigation.fields.liens as lien}
     {#if lien.fields.sousLiens?.length > 0}
-    <Tooltip>
+    <Tooltip light>
       <Link slot="tip" active={path.includes(lien.fields.lien)} {lien} />
 
       <div slot="tool">
