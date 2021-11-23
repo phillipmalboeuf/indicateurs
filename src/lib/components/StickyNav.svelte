@@ -39,10 +39,10 @@
 
     max-width: var(--width);
     margin: 0 auto;
-    padding: calc(var(--gutter) / 2) calc(var(--gutter) / 1) 0;
+    padding: 1rem calc(var(--gutter) / 1) 0;
 
     @media (max-width: 888px) {
-      padding: calc(var(--gutter) / 2) 0 0;
+      // padding: calc(var(--gutter) / 2) 0 0;
     }
 
     position: sticky;
@@ -66,7 +66,7 @@
 
     hr {
       margin-bottom: 0;
-      margin-top: calc(var(--gutter) / 2);
+      margin-top: 1rem;
     }
 
     &:before {
@@ -76,13 +76,13 @@
       z-index: -1;
       top: 0;
       left: 0;
-      height: calc(var(--gutter) * 1.75);
+      height: 3.88rem;
       width: 100%;
 
       transition: background-color 100ms;
 
       @media (max-width: 888px) {
-        height: calc(var(--gutter) * 3);
+        // height: calc(var(--gutter) * 3);
       }
     }
 
