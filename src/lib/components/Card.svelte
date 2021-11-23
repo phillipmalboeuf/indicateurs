@@ -51,8 +51,8 @@
 <style lang="scss">
   article {
     height: 100%;
-    //background: var(--darkish);
-    background: linear-gradient(180deg, transparent, var(--darkish));
+    background: var(--darkish);
+    //background: linear-gradient(180deg, transparent, var(--darkish));
     padding: calc(var(--gutter) / 2);
     border-radius: var(--corner);
 
