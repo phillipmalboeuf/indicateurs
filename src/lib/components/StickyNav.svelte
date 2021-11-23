@@ -1,8 +1,21 @@
 <script lang="ts">
-  export let dark = false
+  import { onMount } from 'svelte'
+
+  let stuck: boolean
+  let nav: HTMLElement
+
+  onMount(() => {
+    const observer = new IntersectionObserver( 
+			([e]) => stuck = e.intersectionRatio < 1,
+			{ threshold: [1] }
+		)
+
+		observer.observe(nav)
+  })
+
 </script>
 
-<nav class:dark>
+<nav class:stuck bind:this={nav}>
   <div>
     <slot name="left" />
   </div>
@@ -22,10 +35,6 @@
     column-gap: var(--gutter);
     flex-wrap: wrap;
 
-    &.dark {
-      background-color: var(--dark);
-    }
-
     font-size: 0.88rem;
 
     max-width: var(--width);
@@ -38,7 +47,7 @@
     }
 
     position: sticky;
-    top: 0;
+    top: -1px;
     z-index: 4;
 
     :global(h1),
@@ -61,15 +70,23 @@
       margin-top: calc(var(--gutter) / 2);
     }
 
-    // &:before {
-    //   content: "";
-    //   background: var(--dark);
-    //   position: fixed;
-    //   z-index: -1;
-    //   top: 0;
-    //   left: 0;
-    //   height: calc(var(--gutter) * 2.2);
-    //   width: 100%;
-    // }
+    &:before {
+      content: "";
+      background: transparent;
+      position: fixed;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      height: calc(var(--gutter) * 1.75);
+      width: 100%;
+    }
+
+    &.stuck {
+      // background-color: var(--dark);
+
+      &:before {
+        background: var(--dark);
+      }
+    }
   }
 </style>

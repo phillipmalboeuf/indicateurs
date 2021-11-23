@@ -97,10 +97,6 @@ import Hero from '$lib/components/Hero.svelte'
   }
 
   a.button {
-    background: var(--dark);
-    @media (max-width: 888px) {
-      background-color: chartreuse;
-    }
   }
 
   section {
