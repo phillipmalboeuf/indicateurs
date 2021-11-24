@@ -31,7 +31,7 @@
   import Document from '$lib/components/document/Document.svelte'
   import Icon from '$lib/components/Icon.svelte'
   import StickyNav from '$lib/components/StickyNav.svelte'
-import Buttons from '$lib/components/Buttons.svelte';
+  import Buttons from '$lib/components/Buttons.svelte'
 
 	export let indicateur: Entry<Indicateur>
   export let pilier: Entry<Categorie>
@@ -57,9 +57,11 @@ import Buttons from '$lib/components/Buttons.svelte';
     {#if indicateur.fields.lead}<p>{indicateur.fields.lead}</p>{/if}
     {#if indicateur.fields.description}<Document body={indicateur.fields.description} />{/if}
 
+    {#if indicateur.fields.data}
     <aside>
       <Buttons {indicateur} {exporting} />
     </aside>
+    {/if}
 
     {#if indicateur.fields.sources}<small>
       <h6>Sources</h6>
@@ -68,7 +70,11 @@ import Buttons from '$lib/components/Buttons.svelte';
   </article>
 
   <figure>
+    {#if indicateur.fields.data}
     <Chart bind:exporting {...indicateur.fields} couleur={indicateur.fields.categorie.fields.couleur} />
+    {:else}
+    <p><strong>Données à venir.</strong></p>
+    {/if}
   </figure>
 </section>
 {/key}

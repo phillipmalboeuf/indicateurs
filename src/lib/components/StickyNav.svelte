@@ -61,6 +61,7 @@
     > div,
     > div > :global(div) {
       display: flex;
+      align-items: center;
       column-gap: calc(var(--gutter) / 2);
     }
 

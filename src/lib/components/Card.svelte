@@ -93,7 +93,4 @@
     padding-top: 4px;
   }
 
-  .card-footer {
-  }
-
 </style>
