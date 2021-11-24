@@ -42,7 +42,7 @@
   <title>{indicateur.fields.titre} – Les indicateurs du bien-être au Québec</title>
   {#if indicateur.fields.lead}<meta name="description" content={indicateur.fields.lead}>{/if}
 
-  <meta property="og:title" content="{indicateur.fields.titre} – – Les indicateurs du bien-être au Québec" />
+  <meta property="og:title" content="{indicateur.fields.titre} – Les indicateurs du bien-être au Québec" />
   <meta property="og:url" content="https://indicateurs.quebec/indicateurs/{indicateur.fields.id}" />
   <meta property="og:description" content="{indicateur.fields.lead}" />
   {#await exporting?.exportImage('png', {

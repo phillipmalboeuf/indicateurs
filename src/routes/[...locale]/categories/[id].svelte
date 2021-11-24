@@ -24,9 +24,10 @@
 
 <script lang="ts">
   import Document from '$lib/components/document/Document.svelte'
-import Hero from '$lib/components/Hero.svelte'
+  import Hero from '$lib/components/Hero.svelte'
   import Icon from '$lib/components/Icon.svelte'
   import StickyNav from '$lib/components/StickyNav.svelte'
+  import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer'
 
 	export let categorie: Entry<Categorie>
   export let indicateurs: Entry<Indicateur>[]
@@ -34,6 +35,14 @@ import Hero from '$lib/components/Hero.svelte'
 
   let checked: string[] = $page.query.get('categories')?.split(',') || []
 </script>
+
+<svelte:head>
+  <title>{categorie.fields.titre} – Les indicateurs du bien-être au Québec</title>
+
+  <meta property="og:title" content="{categorie.fields.titre} – Les indicateurs du bien-être au Québec" />
+  <meta property="og:url" content="https://indicateurs.quebec/categories/{categorie.fields.id}" />
+</svelte:head>
+
 
 {#key categorie.fields.id}
 <StickyNav>
