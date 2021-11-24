@@ -18,8 +18,8 @@ import Icon from './Icon.svelte';
 
   const donut = {
     'Out': {
-      'Biodiversité': 10,
       'Mobilité durable': 10,
+      'Biodiversité': 10,
       'Utilisation des terres': 20,
       'Soutenabilité': 100,
       'Énergie': 10,
