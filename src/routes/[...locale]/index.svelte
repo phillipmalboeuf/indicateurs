@@ -19,7 +19,7 @@
   import Indicateurs from '$lib/components/Indicateurs.svelte'
   import Page from '$lib/components/Page.svelte'
 
-  export let categories: Entry<Categorie>[]
+  export let piliers: Entry<Categorie>[]
   export let indicateurs: Entry<Indicateur>[]
   export let page: Entry<PageDocument>
 
@@ -28,9 +28,9 @@
 
 <Page {page} hero />
 
-<Filters categories={categories.filter(c => c.fields.sousCategories)} {checked} on:update={event => checked = event.detail} />
+<Filters categories={piliers} {checked} on:update={event => checked = event.detail} />
 
 <Indicateurs indicateurs={indicateurs = checked.length
   ? indicateurs.map(i => ({ ...i, hidden: !checked.find(id => i.fields.categorie.fields.id === id
-    || categories.find(c => c.fields.id === id)?.fields.sousCategories?.find(s => s.fields.id === i.fields.categorie.fields.id)) }))
+    || piliers.find(c => c.fields.id === id)?.fields.sousCategories?.find(s => s.fields.id === i.fields.categorie.fields.id)) }))
   : indicateurs.map(i => ({ ...i, hidden: false }))} />
