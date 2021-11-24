@@ -91,7 +91,7 @@
 
 <style lang="scss">
   figure {
-    height: 50vh;
+    height: 40vh;
     margin: var(--gutter) 0 0;
   }
 

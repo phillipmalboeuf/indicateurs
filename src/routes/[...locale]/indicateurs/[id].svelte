@@ -52,6 +52,8 @@
 </StickyNav>
 
 <section>
+  <h1 class="mobile" style="color: {indicateur.fields.categorie.fields.couleur}">{indicateur.fields.titre}</h1>
+
   <article>
     <h1 style="color: {indicateur.fields.categorie.fields.couleur}">{indicateur.fields.titre}</h1>
     {#if indicateur.fields.lead}<p>{indicateur.fields.lead}</p>{/if}
@@ -81,25 +83,37 @@
 
 <style lang="scss">
   section {
+    min-height: 60vh;
     max-width: var(--width);
     margin: 0 auto;
     padding: var(--gutter);
 
     h1 {
-      font-size: 2.5rem;
-      line-height: 3rem;
-    }
-  }
+      font-size: 2rem;
+      line-height: 1.25;
 
-  section {
+      &.mobile {
+        display: none;
+      }
+
+      @media (max-width: 888px) {
+        display: none;
+
+        &.mobile {
+          display: block;
+        }
+      }
+    }
+
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     align-items: center;
     column-gap: var(--gutter);
-  }
 
-  a.button {
-    
+    @media (max-width: 888px) {
+      grid-template-columns: 1fr;
+      padding: calc(var(--gutter) * 3) 0;
+    }
   }
 
   article {
@@ -107,26 +121,22 @@
   }
     
   aside {
-      margin-bottom: var(--gutter);
-      display: flex;
-      column-gap: calc(var(--gutter) / 2);
+    margin-bottom: var(--gutter);
+    display: flex;
+    column-gap: calc(var(--gutter) / 2);
   }
 
   figure {
     grid-column: span 3;
     margin: 0;
+
+    @media (max-width: 888px) {
+      grid-row-start: 2;
+      margin-bottom: var(--gutter);
+    }
   }
 
   h4 {
     font-size: 1.2rem;
-  }
-
-  @media (max-width: 888px) {
-    article {
-      grid-column: span 6;
-    }
-    figure {
-      grid-column: span 6;
-    }
   }
 </style>
