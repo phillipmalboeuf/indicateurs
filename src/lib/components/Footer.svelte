@@ -47,6 +47,7 @@
 
 <style lang="scss">
 	footer {
+    margin-top: calc(var(--gutter) * 2);
 
     nav {
       width: 100%;
