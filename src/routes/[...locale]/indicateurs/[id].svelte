@@ -38,6 +38,21 @@
   let exporting: Exporting
 </script>
 
+<svelte:head>
+  <title>{indicateur.fields.titre} – Les indicateurs du bien-être au Québec</title>
+  {#if indicateur.fields.lead}<meta name="description" content={indicateur.fields.lead}>{/if}
+
+  <meta property="og:title" content="{indicateur.fields.titre} – – Les indicateurs du bien-être au Québec" />
+  <meta property="og:url" content="https://indicateurs.quebec/indicateurs/{indicateur.fields.id}" />
+  <meta property="og:description" content="{indicateur.fields.lead}" />
+  {#await exporting?.exportImage('png', {
+    minWidth:  630,
+    maxWidth:  630,
+    minHeight:  1200,
+    maxHeight:  1200
+  }) then content}<meta property="og:image" {content} />{/await}
+</svelte:head>
+
 {#key indicateur.fields.id}
 <StickyNav>
   <div slot="left">
