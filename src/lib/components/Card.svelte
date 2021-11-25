@@ -82,10 +82,6 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-
-    p {
-      color: var(--light);
-    }
   }
 
   .indicateurs {

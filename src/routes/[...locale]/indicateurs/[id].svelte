@@ -45,12 +45,7 @@
   <meta property="og:title" content="{indicateur.fields.titre} – Les indicateurs du bien-être au Québec" />
   <meta property="og:url" content="https://indicateurs.quebec/indicateurs/{indicateur.fields.id}" />
   <meta property="og:description" content="{indicateur.fields.lead}" />
-  {#await exporting?.exportImage('png', {
-    minWidth:  630,
-    maxWidth:  630,
-    minHeight:  1200,
-    maxHeight:  1200
-  }) then content}<meta property="og:image" {content} />{/await}
+  <meta property="og:image" content="https://indicateurs.imgix.net/{indicateur.fields.id}_v{indicateur.sys.revision}.png?txt=indicateurs.quebec/indicateurs/{indicateur.fields.id}&txt-color={indicateur.fields.categorie.fields.couleur.replace('#', '')}" />
 </svelte:head>
 
 {#key indicateur.fields.id}
@@ -77,6 +72,7 @@
     {#if indicateur.fields.data}
     <aside>
       <Buttons {indicateur} {exporting} />
+      <!-- <a href="https://indicateurs.imgix.net/{indicateur.fields.id}_v{indicateur.sys.revision}.png?txt=indicateurs.quebec/indicateurs/{indicateur.fields.id}&txt-color={indicateur.fields.categorie.fields.couleur.replace('#', '')}" target="_blank" rel="noopener noreferrer">image export</a> -->
     </aside>
     {/if}
 

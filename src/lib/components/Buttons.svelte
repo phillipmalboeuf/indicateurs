@@ -39,7 +39,18 @@
 </Tooltip>
 {/if}
 <Tooltip top>
-  <button class:iconsOnly slot="tip" on:click={() => exporting?.download('png')} aria-label={iconsOnly && "Télécharger"}>{#if !iconsOnly}Télécharger {/if}<Icon i="download" /></button>
+  <button class:iconsOnly slot="tip" on:click={async () => {
+    exporting?.download('png')
+    fetch(`/indicateurs/upload.json?name=${indicateur.fields.id}_v${indicateur.sys.revision}`, {
+      method: 'PUT',
+      body: (await exporting?.exportImage('png', {
+        minWidth:  630,
+        maxWidth:  630,
+        minHeight:  1200,
+        maxHeight:  1200
+      }))
+    })
+  }} aria-label={iconsOnly && "Télécharger"}>{#if !iconsOnly}Télécharger {/if}<Icon i="download" /></button>
   <ul slot="tool">
     <li><button on:click={() => exporting?.download('png')}>Format image</button></li>
     <li><button on:click={() => exporting?.download('csv')}>Format CSV</button></li>

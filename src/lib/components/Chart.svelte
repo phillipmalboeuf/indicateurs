@@ -91,29 +91,30 @@
 
 <style lang="scss">
   figure {
-    height: 40vh;
+    width: 100%;
+    padding-bottom: 100%;
     margin: var(--gutter) 0 0;
   }
 
-  figure.small {
-    height: max(20vh, 20vw);
-  }
+  // figure.small {
+  //   height: max(20vh, 20vw);
+  // }
 
-  @media (max-width: 1400px) {
-     figure.small {
-      height: max(30vh, 30vw);
-    }
-  }
+  // @media (max-width: 1400px) {
+  //    figure.small {
+  //     height: max(30vh, 30vw);
+  //   }
+  // }
 
-  @media (max-width: 1000px) {
-     figure.small {
-      height: max(40vh, 40vw);
-    }
-  }
+  // @media (max-width: 1000px) {
+  //    figure.small {
+  //     height: max(40vh, 40vw);
+  //   }
+  // }
 
-  @media (max-width: 800px) {
-     figure.small {
-      height: max(50vh, 50vw);
-    }
-  }
+  // @media (max-width: 800px) {
+  //    figure.small {
+  //     height: max(50vh, 50vw);
+  //   }
+  // }
 </style>

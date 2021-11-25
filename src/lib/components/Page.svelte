@@ -25,8 +25,13 @@
 </script>
 
 <svelte:head>
-  <title>{page.fields.titre} – Les indicateurs du bien-être au Québec</title>
+  <title>{page.fields.titre}{page.fields.id !== 'accueil' ? " – Les indicateurs du bien-être au Québec" : ""}</title>
   {#if page.fields.description}<meta name="description" content={documentToPlainTextString(page.fields.description)}>{/if}
+
+  <meta property="og:title" content="{page.fields.titre}{page.fields.id !== 'accueil' ? " – Les indicateurs du bien-être au Québec" : ""}" />
+  <meta property="og:url" content="https://indicateurs.quebec/{page.fields.id === 'accueil' ? '' : page.fields.id}" />
+  {#if page.fields.description}<meta name="og:description" content={documentToPlainTextString(page.fields.description)}>{/if}
+  {#if page.fields.photo}<meta property="og:image" content="{page.fields.photo.fields.file.url}?w=1200&h=630" />{/if}
 </svelte:head>
 
 {#key page.fields.id}
