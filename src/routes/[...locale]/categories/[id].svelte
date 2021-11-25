@@ -41,7 +41,7 @@
 
   <meta property="og:title" content="{categorie.fields.titre} – Les indicateurs du bien-être au Québec" />
   <meta property="og:url" content="https://indicateurs.quebec/categories/{categorie.fields.id}" />
-  {#if categorie.fields.photo}<meta property="og:image" content="{categorie.fields.photo.fields.file.url}?w=1200&h=630" />{/if}
+  {#if categorie.fields.photo}<meta property="og:image" content="https:{categorie.fields.photo.fields.file.url}?w=1200&h=630" />{/if}
 </svelte:head>
 
 
