@@ -31,7 +31,7 @@
   import Document from '$lib/components/document/Document.svelte'
   import Icon from '$lib/components/Icon.svelte'
   import StickyNav from '$lib/components/StickyNav.svelte'
-  import Buttons from '$lib/components/Buttons.svelte'
+  import Buttons, { imgix } from '$lib/components/Buttons.svelte'
 
 	export let indicateur: Entry<Indicateur>
   export let pilier: Entry<Categorie>
@@ -45,7 +45,7 @@
   <meta property="og:title" content="{indicateur.fields.titre} – Les indicateurs du bien-être au Québec" />
   <meta property="og:url" content="https://indicateurs.quebec/indicateurs/{indicateur.fields.id}" />
   <meta property="og:description" content="{indicateur.fields.lead}" />
-  <meta property="og:image" content="https://indicateurs.imgix.net/{indicateur.fields.id}_v{indicateur.sys.revision}.png?txt=indicateurs.quebec/indicateurs/{indicateur.fields.id}&txt-color={indicateur.fields.categorie.fields.couleur.replace('#', '')}" />
+  <meta property="og:image" content="{imgix(indicateur)}" />
 </svelte:head>
 
 {#key indicateur.fields.id}

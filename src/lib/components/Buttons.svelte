@@ -13,15 +13,21 @@
   import Tooltip from '$lib/components/Tooltip.svelte'
   import type { Entry } from 'contentful'
   import type { Indicateur } from '$routes/indicateurs/[id].svelte'
+  import { page } from '$app/stores'
 
 
 	export let indicateur: Entry<Indicateur>
   export let exporting: Exporting
   export let iconsOnly = false
   let shareable: boolean
+  let ex: boolean
 
   onMount(() => {
     shareable = !!navigator.share
+
+    if ($page.query.has("export")) {
+      ex = true
+    }
   })
 </script>
 
@@ -46,21 +52,22 @@
 </Tooltip>
 {/if}
 <Tooltip top>
-  <a class="button" download="{indicateur.fields.id}_v{indicateur.sys.revision}" rel="external" href="{imgix(indicateur)}" class:iconsOnly slot="tip" on:click={async () => {
-    // exporting?.download('png')
-    fetch(`/indicateurs/upload.json?name=${indicateur.fields.id}_v${indicateur.sys.revision}`, {
-      method: 'PUT',
-      body: (await exporting?.exportImage('png', {
-        minWidth:  630,
-        maxWidth:  630,
-        minHeight:  1200,
-        maxHeight:  1200
-      }))
-    })
-  }} aria-label={iconsOnly && "Télécharger"}>{#if !iconsOnly}Télécharger {/if}<Icon i="download" /></a>
+  <a class="button" download="{indicateur.fields.id}_v{indicateur.sys.revision}" rel="external" href="{imgix(indicateur)}" class:iconsOnly slot="tip" aria-label={iconsOnly && "Télécharger"}>{#if !iconsOnly}Télécharger {/if}<Icon i="download" /></a>
   <ul slot="tool">
     <li><a download="{indicateur.fields.id}_v{indicateur.sys.revision}" rel="external" href="{imgix(indicateur)}">Format image</a></li>
     <li><button on:click={() => exporting?.download('csv')}>Format CSV</button></li>
+    {#if ex}<li><button on:click={async () => {
+      await fetch(`/indicateurs/upload.json?name=${indicateur.fields.id}_v${indicateur.sys.revision}`, {
+        method: 'PUT',
+        body: (await exporting?.exportImage('png', {
+          minWidth:  630,
+          maxWidth:  630,
+          minHeight:  1200,
+          maxHeight:  1200
+        }))
+      })
+      ex = false
+      }}>Export</button></li>{/if}
   </ul>
 </Tooltip>
 
