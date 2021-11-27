@@ -45,7 +45,7 @@
 
   <meta name="twitter:title" content="{categorie.fields.titre} – Les indicateurs du bien-être au Québec">
   <meta name="twitter:card" value="summary_large_image">
-  {#if categorie.fields.photo}<meta name="twitter:image" content="https:{categorie.fields.photo.fields.file.url}?w=1200&h=630">{/if}
+  {#if categorie.fields.photo}<meta name="twitter:image" content="https:{categorie.fields.photo.fields.file.url}?w=600&h=314">{/if}
 </svelte:head>
 
 
