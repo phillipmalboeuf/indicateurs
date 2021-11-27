@@ -1,3 +1,10 @@
+<script context="module" lang="ts">
+  
+  export function imgix(indicateur: Entry<Indicateur>) {
+    return `https://indicateurs.imgix.net/${indicateur.fields.id}_v${indicateur.sys.revision}.png?txt=indicateurs.quebec/indicateurs/${indicateur.fields.id}&txt-color=${indicateur.fields.categorie.fields.couleur.replace('#', '')}`
+  }
+</script>
+
 <script lang="ts">
   import type { Exporting } from '@amcharts/amcharts5/plugins/exporting'
   import { onMount } from 'svelte'
@@ -39,8 +46,8 @@
 </Tooltip>
 {/if}
 <Tooltip top>
-  <button class:iconsOnly slot="tip" on:click={async () => {
-    exporting?.download('png')
+  <a class="button" download="{indicateur.fields.id}_v{indicateur.sys.revision}" rel="external" href="{imgix(indicateur)}" class:iconsOnly slot="tip" on:click={async () => {
+    // exporting?.download('png')
     fetch(`/indicateurs/upload.json?name=${indicateur.fields.id}_v${indicateur.sys.revision}`, {
       method: 'PUT',
       body: (await exporting?.exportImage('png', {
@@ -50,14 +57,15 @@
         maxHeight:  1200
       }))
     })
-  }} aria-label={iconsOnly && "Télécharger"}>{#if !iconsOnly}Télécharger {/if}<Icon i="download" /></button>
+  }} aria-label={iconsOnly && "Télécharger"}>{#if !iconsOnly}Télécharger {/if}<Icon i="download" /></a>
   <ul slot="tool">
-    <li><button on:click={() => exporting?.download('png')}>Format image</button></li>
+    <li><a download="{indicateur.fields.id}_v{indicateur.sys.revision}" rel="external" href="{imgix(indicateur)}">Format image</a></li>
     <li><button on:click={() => exporting?.download('csv')}>Format CSV</button></li>
   </ul>
 </Tooltip>
 
 <style lang="scss">
+  a.button.iconsOnly,
   button.iconsOnly {
     border: none;
 
