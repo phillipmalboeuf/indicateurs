@@ -14,6 +14,17 @@ export const put: RequestHandler = async ({ params, query, body }) => {
   hash.update(image)
   const check = hash.digest('hex').toUpperCase()
 
+  await fetch(`https://api.imgix.com/api/v1/purge`, {
+    method: 'POST',
+    body: JSON.stringify({ data: {
+      attributes: { url: `https://indicateurs.imgix.net/${query.get("name")}.png` }
+    } }),
+    headers: {
+      'Authorization': `Bearer ${import.meta.env.VITE_IMGIX_PURGE_KEY}`,
+      'Content-Type': 'application/vnd.api+json'
+    }})
+
+
   const response = await fetch(`https://ny.storage.bunnycdn.com/indicateurs/${query.get("name")}.png`, {
     method: 'PUT',
     body: image,

@@ -28,7 +28,9 @@
 
 <Page {page} hero />
 
+{#if !$query.query.has('export')}
 <Filters categories={piliers} {checked} on:update={event => checked = event.detail} />
+{/if}
 
 <Indicateurs indicateurs={indicateurs = checked.length
   ? indicateurs.map(i => ({ ...i, hidden: !checked.find(id => i.fields.categorie.fields.id === id

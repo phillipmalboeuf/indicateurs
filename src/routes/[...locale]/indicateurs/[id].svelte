@@ -26,6 +26,7 @@
 
 <script lang="ts">
   import type { Exporting } from '@amcharts/amcharts5/plugins/exporting'
+  import { page } from '$app/stores'
 
   import Chart from '$lib/components/Chart.svelte'
   import Document from '$lib/components/document/Document.svelte'
@@ -87,7 +88,7 @@
     </small>{/if}
   </article>
 
-  <figure>
+  <figure class:ex={$page.query.has("export")}>
     {#if indicateur.fields.data}
     <Chart bind:exporting {...indicateur.fields} couleur={indicateur.fields.categorie.fields.couleur} />
     {:else}
@@ -145,6 +146,14 @@
   figure {
     grid-column: span 3;
     margin: 0;
+
+    &.ex {
+      grid-column: span 6;
+
+      :global(figure) {
+        padding-bottom: 66%;
+      }
+    }
 
     @media (max-width: 888px) {
       grid-row-start: 2;

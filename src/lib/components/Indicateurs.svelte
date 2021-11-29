@@ -4,16 +4,19 @@
 
   import Card from '$lib/components/Card.svelte'
   import { onMount } from 'svelte'
+  import { page } from '$app/stores'
 
   export let indicateurs: Entry<Indicateur>[]
   let Donut
 
   onMount(async () => {
-    Donut = (await import('./Donut.svelte')).default
+    if (indicateurs.find(indicateur => indicateur.fields.id === 'beigne')) {
+      Donut = (await import('./Donut.svelte')).default
+    }
   })
 </script>
 
-<ul style="grid-template-columns: repeat({indicateurs.length < 4 ? indicateurs.length : 4}, 1fr);">
+<ul class:ex={$page.query.has("export")} style="grid-template-columns: repeat({indicateurs.length < 4 ? indicateurs.length : 4}, 1fr);">
   {#each indicateurs as indicateur (indicateur.fields.id)}
   {#if !indicateur.hidden}
   <li>
@@ -38,6 +41,14 @@
     column-gap: var(--gutter);
     row-gap: var(--gutter);
     overflow-x: hidden;
+
+    &.ex {
+      grid-template-columns: repeat(2, 1fr) !important;
+
+      :global(figure) {
+        padding-bottom: 66%;
+      }
+    }
   }
 
   @media (max-width: 1400px) {

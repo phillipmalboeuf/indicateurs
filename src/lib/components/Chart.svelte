@@ -1,13 +1,18 @@
 
 
 <script lang="ts">
+  import type { Entry } from 'contentful'
+  import type { Categorie } from '$routes/categories/[id].svelte'
+  import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer'
+
   import { onMount, onDestroy } from 'svelte'
   import { page } from '$app/stores'
 
-  import type { Root } from '@amcharts/amcharts5'
+  import { color, Label, percent, Root } from '@amcharts/amcharts5'
   import { createCourbe, createHistogramme, createPyramide, createTarte, csvToChartData } from '$lib/charts'
   import { Exporting, ExportingMenu } from '@amcharts/amcharts5/plugins/exporting'
   import type { Chart } from '@amcharts/amcharts5/.internal/core/render/Chart'
+
 
   let chart: Chart
   let element: HTMLElement
@@ -16,6 +21,9 @@
   export let exporting: Exporting
 
   export let id: string
+  export let titre: string
+  export let sources: any
+  export let categorie: Entry<Categorie>
   export let data: string
   export let type: string
   export let minimum: number
@@ -57,6 +65,48 @@
         dataSource
         // menu: ExportingMenu.new(chart._root, {})
       })
+
+      if ($page.query.has("export")) {
+        chart.setAll({
+          width: percent(50),
+          centerX: percent(-50)
+        })
+        if (sources) chart.chartContainer.children.push(Label.new(chart._root, {
+          width: percent(100),
+          centerX: percent(48),
+          text: documentToPlainTextString(sources),
+          fontSize: '0.75em',
+          oversizedBehavior: "wrap",
+          maxWidth: 666,
+          paddingTop: 20
+        }))
+        
+        chart.chartContainer.children.unshift(Label.new(chart._root, {
+          width: percent(100),
+          centerX: percent(48),
+          text: titre,
+          fontSize: '1.25em',
+          oversizedBehavior: "wrap",
+          paddingBottom: 33
+        }))
+
+        chart.chartContainer.children.unshift(Label.new(chart._root, {
+          width: percent(100),
+          centerX: percent(48),
+          text: categorie.fields.titre,
+          fill: color(categorie.fields.couleur),
+          fontSize: '1.5em',
+        }))
+
+        chart.chartContainer.children.push(Label.new(chart._root, {
+          width: percent(100),
+          centerX: percent(-48),
+          y: percent(95),
+          text: `© indicateurs.quebec/indicateurs/${id}`,
+          fontSize: '0.75em',
+          textAlign: "right"
+        }))
+      }
     }
   }
   

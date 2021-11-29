@@ -1,7 +1,8 @@
 <script context="module" lang="ts">
   
   export function imgix(indicateur: Entry<Indicateur>) {
-    return `https://indicateurs.imgix.net/${indicateur.fields.id}_v${indicateur.sys.revision}.png?txt=indicateurs.quebec/indicateurs/${indicateur.fields.id}&txt-color=${indicateur.fields.categorie.fields.couleur.replace('#', '')}`
+    // return `https://indicateurs.imgix.net/${indicateur.fields.id}_v${indicateur.sys.revision}.png?txt=indicateurs.quebec/indicateurs/${indicateur.fields.id}&txt-color=${indicateur.fields.categorie.fields.couleur.replace('#', '')}`
+    return `https://indicateurs.imgix.net/${indicateur.fields.id}_v${indicateur.sys.revision}.png`
   }
 </script>
 
@@ -75,12 +76,7 @@
     {#if ex}<li><button on:click={async () => {
       await fetch(`/indicateurs/upload.json?name=${indicateur.fields.id}_v${indicateur.sys.revision}`, {
         method: 'PUT',
-        body: (await exporting?.exportImage('png', {
-          minWidth:  630,
-          maxWidth:  630,
-          minHeight:  1200,
-          maxHeight:  1200
-        }))
+        body: (await exporting?.exportImage('png', {quality: 1}))
       })
       ex = false
       }}>Export</button></li>{/if}
@@ -92,7 +88,6 @@
     display: none;
   }
 
-  a.button.iconsOnly,
   button.iconsOnly {
     border: none;
 
