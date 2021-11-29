@@ -21,6 +21,7 @@
   export let iconsOnly = false
   let shareable: boolean
   let ex: boolean
+  let anchor: HTMLAnchorElement
 
   onMount(() => {
     shareable = !!navigator.share
@@ -29,7 +30,22 @@
       ex = true
     }
   })
+
+  async function download() {
+    fetch(imgix(indicateur))
+      .then(resp => resp.blob())
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob)
+        
+        anchor.href = url
+        anchor.download = `${indicateur.fields.id}_v${indicateur.sys.revision}.png`
+        anchor.click()
+        window.URL.revokeObjectURL(url)
+      })
+  }
 </script>
+
+<a bind:this={anchor} hidden aria-hidden="true"></a>
 
 {#if shareable}
 <button class:iconsOnly on:click={() => navigator.share({
@@ -52,9 +68,9 @@
 </Tooltip>
 {/if}
 <Tooltip top>
-  <a class="button" download="{indicateur.fields.id}_v{indicateur.sys.revision}" rel="external" href="{imgix(indicateur)}" class:iconsOnly slot="tip" aria-label={iconsOnly && "Télécharger"}>{#if !iconsOnly}Télécharger {/if}<Icon i="download" /></a>
+  <button on:click={() => download()} class:iconsOnly slot="tip" aria-label={iconsOnly && "Télécharger"}>{#if !iconsOnly}Télécharger {/if}<Icon i="download" /></button>
   <ul slot="tool">
-    <li><a download="{indicateur.fields.id}_v{indicateur.sys.revision}" rel="external" href="{imgix(indicateur)}">Format image</a></li>
+    <li><button on:click={() => download()}>Format image</button></li>
     <li><button on:click={() => exporting?.download('csv')}>Format CSV</button></li>
     {#if ex}<li><button on:click={async () => {
       await fetch(`/indicateurs/upload.json?name=${indicateur.fields.id}_v${indicateur.sys.revision}`, {
@@ -72,6 +88,10 @@
 </Tooltip>
 
 <style lang="scss">
+  a[hidden] {
+    display: none;
+  }
+
   a.button.iconsOnly,
   button.iconsOnly {
     border: none;
