@@ -78,14 +78,14 @@
     .right-align {
       display: flex;
       justify-content: flex-end;
-      flex: 1;
     }
 
     nav {
-      display: flex;
+      display: grid;
+      grid-auto-flow: column;
       font-size: 0.88rem;
       letter-spacing: 0.02rem;
-      column-gap: 56px;
+      column-gap: 50px;
 
       @media (max-width: 888px) {
         display: none;
