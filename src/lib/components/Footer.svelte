@@ -1,14 +1,16 @@
 <script context="module" lang="ts">
-  import type { Entry } from 'contentful'
+  import type { Asset, Entry } from 'contentful'
   import type { Lien } from './Header.svelte'
 </script>
 
 <script lang="ts">
   import Link from './Link.svelte'
+  import Picture from './Picture.svelte'
 
 	export let path: string
   export let navigation: Entry<{ liens: Entry<Lien>[] }>
   export let subnavigation: Entry<{ liens: Entry<Lien>[] }>
+  export let logo: Asset
 </script>
 
 <footer>
@@ -19,7 +21,11 @@
 
       {#if lien.fields.sousLiens}
       {#each lien.fields.sousLiens as l}
+      {#if l.fields.lien.includes('g15plus.quebec')}
+      <a class="g15plus" href={lien.fields.lien} target='_blank'><Picture media={logo} small /> {l.fields.titre}</a>
+      {:else}
       <Link lien={l} />
+      {/if}
       {/each}
       {/if}
     </div>
@@ -94,4 +100,14 @@
       }
     }
 	}
+
+  a.g15plus {
+    display: flex;
+    align-items: center;
+
+    :global(img) {
+      width: 2.5rem;
+      margin-right: 0.66rem;
+    }
+  }
 </style>
