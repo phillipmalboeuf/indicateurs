@@ -21,7 +21,7 @@
 
       {#if lien.fields.sousLiens}
       {#each lien.fields.sousLiens as l}
-      {#if l.fields.lien.includes('g15plus.quebec')}
+      {#if l.fields.lien?.includes('g15plus.quebec')}
       <a class="g15plus" href={lien.fields.lien} target='_blank'><Picture media={logo} small /> {l.fields.titre}</a>
       {:else}
       <Link lien={l} />
