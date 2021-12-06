@@ -4,7 +4,7 @@ import type { Entry } from 'contentful'
 
 // @ts-ignore
 export const get: RequestHandler = async ({ params, query }) => {
-  const locale = query.get('locale')
+  const locale = params.locale
 	const indicateurs = await entries<{ categorie: Entry<{ id: string}> }>('indicateur', locale, { 'fields.id': params.id })
 
   if (indicateurs.length > 0) {

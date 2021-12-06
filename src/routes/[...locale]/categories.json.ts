@@ -4,7 +4,7 @@ import type { Entry } from 'contentful'
 
 // @ts-ignore
 export const get: RequestHandler = async ({ params, query }) => {
-  const locale = query.get('locale')
+  const locale = params.locale
 	const [categories] = await Promise.all([
     entries('categorie', locale)
   ])

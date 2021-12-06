@@ -57,11 +57,11 @@
 {#key indicateur.fields.id}
 <StickyNav>
   <div slot="left">
-    <a class="button" href="/"><Icon i="chevron" small rotate={180} /> retour</a>
+    <a class="button" href="{$page.params.locale === 'en' ? "/en" : "/"}"><Icon i="chevron" small rotate={180} /> retour</a>
 
     {#if pilier}
     <h4>
-      <a href="/categories/{pilier.fields.id}">{pilier.fields.titre}</a> – <a href="/categories/{indicateur.fields.categorie.fields.id}">{indicateur.fields.categorie.fields.titre}</a>  
+      <a href="{$page.params.locale === 'en' ? "/en" : ""}/categories/{pilier.fields.id}">{pilier.fields.titre}</a> – <a href="{$page.params.locale === 'en' ? "/en" : ""}/categories/{indicateur.fields.categorie.fields.id}">{indicateur.fields.categorie.fields.titre}</a>  
     </h4>
     {/if}
   </div>
