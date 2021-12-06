@@ -9,16 +9,19 @@
     photo: Asset
     contenu: Entry<any>[]
     bouton: Entry<Lien>
+    dashboard: Entry<any>[]
   }
 
 </script>
 
 
 <script lang="ts">
+  import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer'
+
   import Contenu from './Contenu.svelte'
+  import Dashboard from './Dashboard.svelte'
   import Hero from './Hero.svelte'
   import StickyNav from './StickyNav.svelte'
-  import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer'
 
 	export let page: Entry<PageDocument>
   export let hero: boolean = false
@@ -48,14 +51,12 @@
     {#if page.fields.bouton}<a class="button" href={page.fields.bouton.fields.lien} target={page.fields.bouton.fields.externe && '_blank'}>{page.fields.bouton.fields.titre}</a>{/if}
   </div>
 </StickyNav>
-<nav>
-  
-
-  
-
-  <!-- <hr> -->
-</nav>
 {/if}
+
+{#if page.fields.dashboard}
+<Dashboard dashboard={page.fields.dashboard} />
+{/if}
+
 {#if page.fields.contenu}
 <Contenu contenu={page.fields.contenu} />
 {/if}

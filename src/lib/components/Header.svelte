@@ -44,7 +44,7 @@
   </nav>
 
   <div class="right-align">
-    <a class="locale" href={$page.params.locale === 'en' ? "/" : "/en"}><strong>{$page.params.locale === 'en' ? "FR" : "EN"}</strong></a>
+    <a class="locale" href={$page.params.locale === 'en' ? "/" : "/en"} hreflang={$page.params.locale === 'en' ? 'fr' : 'en'}><strong>{$page.params.locale === 'en' ? "FR" : "EN"}</strong></a>
     <Menu {navigation} {path} />
   </div>
 </header>

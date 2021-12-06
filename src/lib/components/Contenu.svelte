@@ -2,7 +2,7 @@
   import type { Entry } from 'contentful'
   import { onMount } from 'svelte'
   import ContenuIndicateur from './contenu/ContenuIndicateur.svelte'
-import Images from './contenu/Images.svelte';
+  import Images from './contenu/Images.svelte'
   import Liste from './contenu/Liste.svelte'
   import Logos from './contenu/Logos.svelte'
   import Tableau from './contenu/Tableau.svelte'
