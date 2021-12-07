@@ -44,7 +44,7 @@
     <!-- {#if indicateur.fields.lead}<p><small>{indicateur.fields.lead}</small></p>{/if} -->
   </aside>
   {:else}
-  <p><strong>Données à venir.</strong></p>
+  <p><strong>{$page.params.locale === 'en' ? "Data to come." : "Données à venir."}</strong></p>
   {/if}
 </article>
 {/if}
