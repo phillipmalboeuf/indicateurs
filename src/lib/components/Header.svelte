@@ -23,7 +23,7 @@
 
 <header>
   <div>
-    <a href={$page.params.locale === 'en' ? "/en" : "/"} class="logo"><strong>Les Indicateurs</strong></a>
+    <a href={$page.params.locale === 'en' ? "/en" : "/"} class="logo"><strong>{$page.params.locale === 'en' ? 'The Indicators' : 'Les Indicateurs'}</strong></a>
   </div>
   <nav>
     {#each navigation.fields.liens as lien}
