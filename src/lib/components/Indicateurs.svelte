@@ -17,7 +17,7 @@
 </script>
 
 <ul class:ex={$page.query.has("export")} style="grid-template-columns: repeat({indicateurs.length < 4 ? indicateurs.length : 4}, 1fr);">
-  {#each indicateurs as indicateur (indicateur.fields.id)}
+  {#each indicateurs.filter(indicateur => indicateur.fields) as indicateur (indicateur.fields.id)}
   {#if !indicateur.hidden}
   <li>
     {#if indicateur.fields.id === 'beigne' && Donut}

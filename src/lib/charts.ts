@@ -94,7 +94,9 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
 
   let xAxis = chart.xAxes.push(
     CategoryAxis.new(root, {
-      renderer: AxisRendererX.new(root, {}),
+      renderer: AxisRendererX.new(root, {
+        minGridDistance: 30
+      }),
       categoryField: "Date",
     })
   )
@@ -196,7 +198,9 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
 
   let xAxis = chart.xAxes.push(
     CategoryAxis.new(root, {
-      renderer: AxisRendererX.new(root, {}),
+      renderer: AxisRendererX.new(root, {
+        minGridDistance: 30
+      }),
       categoryField: "Date",
     })
   )

@@ -11,7 +11,7 @@
 </script>
 
 <script lang="ts">
-	import type { Entry } from 'contentful'
+	import type { Asset, Entry } from 'contentful'
 	import type { Lien } from '$lib/components/Header.svelte'
 	import Header from '$lib/components/Header.svelte'
 
@@ -21,6 +21,7 @@
 	export let principale: Entry<{ liens: Entry<Lien>[] }>
 	export let secondaire: Entry<{ liens: Entry<Lien>[] }>
 	export let tertiaire: Entry<{ liens: Entry<Lien>[] }>
+	export let logo: Asset
 </script>
 
 <Header navigation={principale} path={$page.path} />
@@ -29,7 +30,7 @@
 	<slot></slot>
 </main>
 
-<Footer navigation={secondaire} subnavigation={tertiaire} path={$page.path} />
+<Footer navigation={secondaire} subnavigation={tertiaire} {logo} path={$page.path} />
 
 <style lang="scss">
 	main {

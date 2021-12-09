@@ -10,6 +10,7 @@
   export let categories: Entry<Categorie>[]
   export let checked: string[] = []
   export let columns = false
+  export let base
 
   const all = [
     ...categories,
@@ -36,7 +37,7 @@
   afterUpdate(change)
 
   function change() {
-    window.history.pushState({ }, null, checked.length ? `?categories=${checked.join(',')}` : `?`)
+    window.history.pushState({ }, null, checked.length ? `?categories=${checked.join(',')}` : base)
 
     dispatch('update', checked)
   }

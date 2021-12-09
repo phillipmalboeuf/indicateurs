@@ -15,7 +15,6 @@
   import { respond } from '$lib/responses'
   import Filters from '$lib/components/Filters.svelte'
   import Indicateurs from '$lib/components/Indicateurs.svelte'
-  import { page } from '$app/stores'
 
   export const load: Load = async ({ page, fetch, session, stuff }) => {
 		return respond(fetch, `${page.params.locale === 'en' ? "/en" : ""}/categories/${page.params.id}.json`)
@@ -27,7 +26,7 @@
   import Hero from '$lib/components/Hero.svelte'
   import Icon from '$lib/components/Icon.svelte'
   import StickyNav from '$lib/components/StickyNav.svelte'
-  import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer'
+  import { page } from '$app/stores'
 
 	export let categorie: Entry<Categorie>
   export let indicateurs: Entry<Indicateur>[]
@@ -52,10 +51,10 @@
 {#key categorie.fields.id}
 <StickyNav>
   <div slot="left">
-    <a class="button" href="/"><Icon i="chevron" small rotate={180} /> retour</a>
+    <a class="button" href="{$page.params.locale === 'en' ? "/en" : "/"}"><Icon i="chevron" small rotate={180} /> retour</a>
 
     {#if pilier}
-    <h4><a href="/categories/{pilier.fields.id}">{pilier.fields.titre}</a></h4>
+    <h4><a href="{$page.params.locale === 'en' ? "/en" : ""}/categories/{pilier.fields.id}">{pilier.fields.titre}</a></h4>
     {/if}
   </div>
 </StickyNav>
@@ -71,7 +70,7 @@
     <aside>
       {#if categorie.fields.sousCategories}
       <h5>Sous-catégories</h5>
-      <Filters categories={categorie.fields.sousCategories} {checked} columns on:update={event => checked = event.detail} />
+      <Filters categories={categorie.fields.sousCategories} {checked} columns base={($page.params.locale ? '/en' : '') + `/categories/${categorie.fields.id}`} on:update={event => checked = event.detail} />
       {/if}
     </aside>
   </section>
@@ -86,7 +85,7 @@
   <aside>
     {#if categorie.fields.sousCategories}
     <h5>Sous-catégories</h5>
-    <Filters categories={categorie.fields.sousCategories} {checked} columns on:update={event => checked = event.detail} />
+    <Filters categories={categorie.fields.sousCategories} {checked} columns base={($page.params.locale ? '/en' : '') + `/categories/${categorie.fields.id}`} on:update={event => checked = event.detail} />
     {/if}
   </aside>
 </section>

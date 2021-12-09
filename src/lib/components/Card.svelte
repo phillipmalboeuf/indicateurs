@@ -7,6 +7,7 @@
   import Chart from './Chart.svelte'
   import Icon from './Icon.svelte'
   import Buttons from './Buttons.svelte'
+  import { page } from '$app/stores'
   // import Donut from './Donut.svelte'
 
   export let indicateur: Entry<Indicateur>
@@ -23,9 +24,9 @@
 {:else}
 <article style="color: {indicateur.fields.categorie?.fields.couleur}">
   {#if indicateur.fields.categorie}
-  <em><a href="/categories/{indicateur.fields.categorie.fields.id}">{indicateur.fields.categorie.fields.titre}</a></em><br />
+  <em><a href="{$page.params.locale === 'en' ? "/en" : ""}/categories/{indicateur.fields.categorie.fields.id}">{indicateur.fields.categorie.fields.titre}</a></em><br />
   {/if}
-  <a class="indicateurs" href="/indicateurs/{indicateur.fields.id}">{indicateur.fields.titre}</a>
+  <a class="indicateurs" href="{$page.params.locale === 'en' ? "/en" : ""}/indicateurs/{indicateur.fields.id}">{indicateur.fields.titre}</a>
 
   <!-- {#if indicateur.fields.lead}
   <p><small>{indicateur.fields.lead}</small></p>
@@ -35,7 +36,7 @@
   <Chart {...indicateur.fields} bind:exporting couleur={indicateur.fields.categorie.fields.couleur} small />
 
   <aside class="card-footer">
-    <a href="/indicateurs/{indicateur.fields.id}"><small>Plus d'info <Icon i="chevron" small /></small></a>
+    <a href="{$page.params.locale === 'en' ? "/en" : ""}/indicateurs/{indicateur.fields.id}"><small>Plus d'info <Icon i="chevron" small /></small></a>
     <div>
       <Buttons {indicateur} {exporting} iconsOnly />
     </div>
@@ -43,7 +44,7 @@
     <!-- {#if indicateur.fields.lead}<p><small>{indicateur.fields.lead}</small></p>{/if} -->
   </aside>
   {:else}
-  <p><strong>Données à venir.</strong></p>
+  <p><strong>{$page.params.locale === 'en' ? "Data to come." : "Données à venir."}</strong></p>
   {/if}
 </article>
 {/if}

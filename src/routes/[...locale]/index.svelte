@@ -18,6 +18,7 @@
   import Filters from '$lib/components/Filters.svelte'
   import Indicateurs from '$lib/components/Indicateurs.svelte'
   import Page from '$lib/components/Page.svelte'
+  import { page as p } from '$app/stores'
 
   export let piliers: Entry<Categorie>[]
   export let indicateurs: Entry<Indicateur>[]
@@ -29,7 +30,7 @@
 <Page {page} hero />
 
 {#if !$query.query.has('export')}
-<Filters categories={piliers} {checked} on:update={event => checked = event.detail} />
+<Filters categories={piliers} {checked} on:update={event => checked = event.detail} base={$p.params.locale ? '/en' : '/'} />
 {/if}
 
 <Indicateurs indicateurs={indicateurs = checked.length
