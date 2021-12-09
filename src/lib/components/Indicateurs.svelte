@@ -21,7 +21,7 @@
   {#if !indicateur.hidden}
   <li>
     {#if indicateur.fields.id === 'beigne' && Donut}
-    <svelte:component this={Donut} />
+    <svelte:component this={Donut} locale={$page.params.locale} />
     {:else}
     <Card {indicateur} />
     {/if}

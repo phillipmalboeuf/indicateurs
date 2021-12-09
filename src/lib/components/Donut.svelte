@@ -9,14 +9,49 @@
   import type { Entry } from 'contentful'
   import type { Categorie } from '$routes/categories/[id].svelte'
   import { Exporting } from '@amcharts/amcharts5/plugins/exporting'
-import Icon from './Icon.svelte';
+  import Icon from './Icon.svelte'
 
   export let categories: Entry<Categorie>[] = undefined
   let root: Root
   let element: HTMLElement
   export let exporting: Exporting = undefined
+  export let locale: string
 
-  const donut = {
+  const donut = locale === 'en'
+  ? {
+    'Out': {
+      'Sustainable mobility': 10,
+      'Biodiversity': 10,
+      'Land Use': 20,
+      'Sustainability': 100,
+      'Energy': 10,
+      'Water': 10,
+      'Air Quality and Climate': 10,
+    },
+    'Plafond': {
+      'ENVIRONNEMENTAL CEILING': 10,
+    },
+    'Milieu': {
+      'A sustainable and socially just space': 10,
+      'Inclusive and sustainable economic policy': 10,
+    },
+    'Plancher': {
+      'ECONOMIC AND SOCIAL FLOOR': 10,
+    },
+    'In': {
+      'Prosperity': 12,
+      'Innovation': 5,
+      'Employment': -10,
+      'Talent and Skills': 5,
+      'Poverty': 5,
+      'Quality of Life': 5,
+      'Health and Safety': 5,
+      'Housing': 5,
+      'Equality': 7,
+      'Culture': 5
+    }
+  }
+  : {
     'Out': {
       'Mobilité durable': 10,
       'Biodiversité': 10,
@@ -80,8 +115,8 @@ import Icon from './Icon.svelte';
     renderChart(chart, 'Plafond', percent(65), percent(73))
     renderChart(chart, 'Out', percent(75), percent(100))
 
-    renderArrow(chart, 'Dépassement', 0, 101.5)
-    renderArrow(chart, 'Insuffisance', 180, 71.1)
+    renderArrow(chart, locale === 'en' ? 'Excessiveness' : 'Dépassement', 0, 101.5)
+    renderArrow(chart, locale === 'en' ? 'Insufficiency' : 'Insuffisance', 180, 71.1)
 
     exporting = Exporting.new(root, {
       filePrefix: 'donut'
