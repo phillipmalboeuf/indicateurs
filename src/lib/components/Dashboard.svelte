@@ -72,7 +72,7 @@
     :global(video) {
       position: absolute;
       left: 0;
-      bottom: top;
+      bottom: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
