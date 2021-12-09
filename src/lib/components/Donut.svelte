@@ -126,8 +126,8 @@
 
   function renderArrow(chart: PieChart, text: string, rotation: number, x: number) {
     chart.chartContainer.children.push(Graphics.new(root, {
-      fill: color('#FB3F3F'),
-      stroke: color('#1D1F27'),
+      fill: color('#0013CF'),
+      stroke: color('#0013CF'),
       strokeWidth: 4,
       position: 'absolute',
       x: percent(x - 12),
@@ -163,6 +163,7 @@
         userData: {
           categorie: categories.find(c => c.fields.titre === key)?.fields.id
         },
+        fillOpacity: 0,
         fill: color(categories.find(c => c.fields.titre === key)?.fields.couleur || {
           'Plafond': '#EDF5E2',
           'Plancher': '#E2EEF5'
@@ -202,8 +203,8 @@
     series.slices.template.setAll({
       // fill: color('#069550'),
       stroke: color({
-        'Milieu': '#fff',
-      }[name] || '#1D1F27'),
+        // 'Milieu': '#fff',
+      }[name] || '#0013CF'),
       strokeWidth: 4,
       templateField: "template",
       cursorOverStyle: "pointer"
@@ -245,10 +246,10 @@
         }[name] || 'PP Neue Montreal',
       fontWeight: 'bold',
       fill: color({
-          'Plafond': '#1D2723',
-          'Milieu': '#1D2723',
-          'Plancher': '#231D27'
-        }[name] || '#fff'),
+          'Plafond': '#0013CF',
+          'Milieu': '#0013CF',
+          'Plancher': '#0013CF'
+        }[name] || '#0013CF'),
       oversizedBehavior: "wrap",
       maxWidth: 215,
       textAlign: inverted ? 'left' : 'center'
