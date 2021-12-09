@@ -43,7 +43,7 @@
 
   nav {
     display: grid;
-    min-height: 66vh;
+    min-height: 70vh;
     column-gap: calc(var(--gutter) / 2);
     row-gap: calc(var(--gutter) / 2);
     grid-template-columns: repeat(4, 1fr);
