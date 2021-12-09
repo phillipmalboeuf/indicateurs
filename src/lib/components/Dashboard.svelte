@@ -47,6 +47,19 @@
     column-gap: calc(var(--gutter) / 2);
     row-gap: calc(var(--gutter) / 2);
     grid-template-columns: repeat(4, 1fr);
+
+    @media (max-width: 888px) {
+      grid-template-columns: 1fr;
+
+      a {
+        grid-column-start: 1 !important;
+        grid-column-end: 2 !important;
+        grid-row-start: auto !important;
+        grid-row-end: auto !important;
+
+        min-height: 16vh;
+      }
+    }
   }
 
   figure {
@@ -71,12 +84,18 @@
     :global(img),
     :global(video) {
       position: absolute;
-      left: 0;
+      left: auto;
+      right: 0;
       bottom: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
       z-index: 0;
+
+      @media (max-width: 888px) {
+        object-fit: contain;
+        width: auto;
+      }
     }
   }
 
