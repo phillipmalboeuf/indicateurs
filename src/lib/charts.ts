@@ -131,8 +131,9 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
 
     series.columns.template.setAll({
       fillGradient: gradient,
-      //fill: Color.fromHSL(hsl.h, hsl.s, hsl.l),
-      stroke: Color.fromHSL(hsl.h, hsl.s, hsl.l),
+      fill: Color.fromHSL(hsl.h, hsl.s, hsl.l),
+      // stroke: Color.fromHSL(hsl.h, hsl.s, hsl.l),
+      strokeOpacity: 0,
       width: percent(56),
       cornerRadiusTL: 6,
       cornerRadiusTR: 6,
