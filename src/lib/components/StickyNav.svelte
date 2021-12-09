@@ -79,6 +79,7 @@
       left: 0;
       height: 3.88rem;
       width: 100%;
+      border: 2px solid var(--color);
 
       transition: background-color 100ms;
 

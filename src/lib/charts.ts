@@ -22,7 +22,7 @@ function csvToArray(str: string, delimiter = ",") {
 // import { color, create, createFromConfig, percent, Sprite, Tooltip } from "@amcharts/amcharts4/core"
 // import { XYChart as XYChart4, CategoryAxis as CategoryAxis4, Cursor, Legend as Legend4, LineSeries, PieChart, PieSeries, SerialChart, ValueAxis as ValueAxis4, XYCursor } from "@amcharts/amcharts4/charts"
 
-import { Bullet, Circle, Color, color, DataProcessor, Label, Legend, percent, Root, Theme, Tooltip } from '@amcharts/amcharts5'
+import { Bullet, Circle, Color, color, DataProcessor, Label, Legend, LinearGradient, percent, Root, Theme, Tooltip } from '@amcharts/amcharts5'
 import { XYChart, ValueAxis, CategoryAxis, AxisRendererX, ColumnSeries, AxisRendererY, LineSeries, AxisLabel, XYCursor } from '@amcharts/amcharts5/xy'
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated"
 import am5themes_Dark from "@amcharts/amcharts5/themes/Dark"
@@ -84,13 +84,13 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
     }))
   }
   
-  title && chart.leftAxesContainer.children.push(Label.new(root, {
-    text: title,
-    rotation: -90,
-    y: percent(50),
-    centerX: percent(50),
-    fontSize: '0.75em'
-  }))
+  // title && chart.leftAxesContainer.children.push(Label.new(root, {
+  //   text: title,
+  //   rotation: -90,
+  //   y: percent(50),
+  //   centerX: percent(50),
+  //   fontSize: '0.75em'
+  // }))
 
   let xAxis = chart.xAxes.push(
     CategoryAxis.new(root, {
@@ -108,6 +108,15 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
     const hsl = color(couleur).toHSL()
     hsl.h += i * 0.05
 
+    let gradient = LinearGradient.new(root, {
+      stops: [{
+        color: Color.fromHSL(hsl.h, hsl.s, hsl.l)
+      }, {
+        color: Color.fromHSL(hsl.h, hsl.s, hsl.l),
+        opacity: 0
+      }]
+    });
+
     let series = chart.series.push(ColumnSeries.new(root, {
       name,
       xAxis,
@@ -119,9 +128,10 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
     }))
 
     series.columns.template.setAll({
-      fill: Color.fromHSL(hsl.h, hsl.s, hsl.l),
+      fillGradient: gradient,
+      //fill: Color.fromHSL(hsl.h, hsl.s, hsl.l),
       stroke: Color.fromHSL(hsl.h, hsl.s, hsl.l),
-      width: percent(42),
+      width: percent(56),
       cornerRadiusTL: 6,
       cornerRadiusTR: 6,
       ...i > 0 && {
