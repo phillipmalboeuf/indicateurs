@@ -87,7 +87,7 @@
           text: titre,
           fontSize: '1.25em',
           oversizedBehavior: "wrap",
-          paddingBottom: 33
+          paddingBottom: 33,
         }))
 
         chart.chartContainer.children.unshift(Label.new(chart._root, {
