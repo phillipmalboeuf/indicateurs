@@ -27,6 +27,7 @@ export async function handle({ request, resolve }) {
 		...response,
 		headers: {
 			...response.headers,
+			'Link': '</fonts/PPNeueMontreal-Book.woff2>; rel="preload"; as="font"; type="font/woff2"; crossorigin="anonymous", </fonts/PPNeueMontreal-Medium.woff2>; rel="preload"; as="font"; type="font/woff2"; crossorigin="anonymous", </fonts/PPNeueMachina-Bold.woff2>; rel="preload"; as="font"; type="font/woff2"; crossorigin="anonymous",',
 			'Cache-Control': 's-maxage=1, stale-while-revalidate'
 		}
 	};
