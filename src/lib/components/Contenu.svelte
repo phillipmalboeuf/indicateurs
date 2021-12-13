@@ -168,5 +168,9 @@
         display: block;
       }
     }
+
+    @media (max-width: 666px) {
+      display: none;
+    }
   }
 </style>

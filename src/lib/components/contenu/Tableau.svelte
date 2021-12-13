@@ -85,6 +85,10 @@
     background: var(--dark);
     border: 1px solid white;
     border-collapse: collapse;
+
+    @media (max-width: 888px) {
+      display: block;
+    }
     
 
     a.button {
@@ -98,6 +102,11 @@
       vertical-align: top;
       padding: 1em;
       border: 1px solid white;
+
+      @media (max-width: 888px) {
+        display: block;
+        width: 100%;
+      }
     }
 
     th {

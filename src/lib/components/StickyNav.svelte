@@ -70,6 +70,14 @@
       margin-top: 1rem;
     }
 
+    @media (max-width: 666px) {
+      padding-top: 0.5rem;
+
+      hr {
+        margin-top: 0.5rem;
+      }
+    }
+
     &:before {
       content: "";
       background: transparent;

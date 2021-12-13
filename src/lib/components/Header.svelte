@@ -43,7 +43,7 @@
     {/each}
   </nav>
 
-  <div class="right-align">
+  <div class="right">
     <a class="locale" href={$page.params.locale === 'en' ? "/" : "/en"} hreflang={$page.params.locale === 'en' ? 'fr' : 'en'}><strong>{$page.params.locale === 'en' ? "FR" : "EN"}</strong></a>
     <Menu {navigation} {path} />
   </div>
@@ -75,9 +75,13 @@
       flex: 1;
     }
 
-    .right-align {
+    .right {
       display: flex;
       justify-content: flex-end;
+
+      @media (max-width: 888px) {
+        flex: 0;
+      }
     }
 
     nav {

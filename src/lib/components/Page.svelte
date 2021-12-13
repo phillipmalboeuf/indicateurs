@@ -73,6 +73,10 @@
       font-size: 1.3rem;
       font-family: var(--font);
       margin-bottom: 0;
+
+      @media (max-width: 666px) {
+        display: none;
+      }
     }
   }
 
