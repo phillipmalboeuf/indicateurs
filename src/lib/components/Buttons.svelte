@@ -44,35 +44,39 @@
         window.URL.revokeObjectURL(url)
       })
   }
+
+  const url = $page.params.locale === 'en' 
+    ? `https://indicateurs.quebec/en/indicateurs/${indicateur.fields.id}`
+    : `https://indicateurs.quebec/indicateurs/${indicateur.fields.id}`
 </script>
 
 <a bind:this={anchor} hidden aria-hidden="true"></a>
 
 {#if shareable}
 <button class:iconsOnly on:click={() => navigator.share({
-  url: `https://indicateurs.quebec/indicateurs/${indicateur.fields.id}`,
+  url,
   text: `${indicateur.fields.lead} – ${indicateur.fields.titre}`
-})} aria-label={iconsOnly && "Partager"}>{#if !iconsOnly}Partager {/if}<Icon i="share" /></button>
+})} aria-label={iconsOnly && "Partager"}>{#if !iconsOnly}{$page.params.locale === 'en' ? "Share" : "Partager"} {/if}<Icon i="share" /></button>
 {:else}
 <Tooltip top>
-  <button class:iconsOnly slot="tip" on:click={() => false} aria-label={iconsOnly && "Partager"}>{#if !iconsOnly}Partager {/if}<Icon i="share" /></button>
+  <button class:iconsOnly slot="tip" on:click={() => false} aria-label={iconsOnly && "Partager"}>{#if !iconsOnly}{$page.params.locale === 'en' ? "Share" : "Partager"} {/if}<Icon i="share" /></button>
   <ul slot="tool">
-    <li><a href="https://twitter.com/intent/tweet?url=https://indicateurs.quebec/indicateurs/{indicateur.fields.id}&text={`${indicateur.fields.lead} – ${indicateur.fields.titre}`}" target="_blank">Partager sur Twitter</a></li>
-    <li><a href="https://www.facebook.com/sharer.php?u=https://indicateurs.quebec/indicateurs/{indicateur.fields.id}" target="_blank">Partager sur Facebook</a></li>
-    <li><a href="https://www.linkedin.com/shareArticle?url=https://indicateurs.quebec/indicateurs/{indicateur.fields.id}&title={indicateur.fields.titre}&summary={indicateur.fields.lead}" target="_blank">Partager sur LinkedIn</a></li>
+    <li><a href="https://twitter.com/intent/tweet?url={url}&text={`${indicateur.fields.lead} – ${indicateur.fields.titre}`}" target="_blank">{$page.params.locale === 'en' ? "Share on Twitter" : "Partager sur Twitter"}</a></li>
+    <li><a href="https://www.facebook.com/sharer.php?u={url}" target="_blank">{$page.params.locale === 'en' ? "Share on Facebook" : "Partager sur Facebook"}</a></li>
+    <li><a href="https://www.linkedin.com/shareArticle?url={url}&title={indicateur.fields.titre}&summary={indicateur.fields.lead}" target="_blank">{$page.params.locale === 'en' ? "Share on LinkedIn" : "Partager sur LinkedIn"}</a></li>
     <li class="url">
-      <label for="url">URL de partage:</label>
+      <label for="url">{$page.params.locale === 'en' ? "URL to Share:" : "URL de partage :"}</label>
       <input type='url' id="url" readonly on:click={e => e.currentTarget.setSelectionRange(0, e.currentTarget.value.length)} 
-        value="https://indicateurs.quebec/indicateurs/{indicateur.fields.id}" />
+        value={url} />
     </li>
   </ul>
 </Tooltip>
 {/if}
 <Tooltip top>
-  <button on:click={() => download()} class:iconsOnly slot="tip" aria-label={iconsOnly && "Télécharger"}>{#if !iconsOnly}Télécharger {/if}<Icon i="download" /></button>
+  <button on:click={() => download()} class:iconsOnly slot="tip" aria-label={iconsOnly && "Télécharger"}>{#if !iconsOnly}{$page.params.locale === 'en' ? "Download" : "Télécharger"} {/if}<Icon i="download" /></button>
   <ul slot="tool">
-    <li><button on:click={() => download()}>Format image</button></li>
-    <li><button on:click={() => exporting?.download('csv')}>Format CSV</button></li>
+    <li><button on:click={() => download()}>{$page.params.locale === 'en' ? "Image format" : "Format image"}</button></li>
+    <li><button on:click={() => exporting?.download('csv')}>{$page.params.locale === 'en' ? "CSV format" : "Format CSV"}</button></li>
     {#if ex}<li><button on:click={async () => {
       await fetch(`/indicateurs/upload.json?name=${indicateur.fields.id}_v${indicateur.sys.revision}`, {
         method: 'PUT',
