@@ -84,13 +84,13 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
     }))
   }
   
-  // title && chart.leftAxesContainer.children.push(Label.new(root, {
-  //   text: title,
-  //   rotation: -90,
-  //   y: percent(50),
-  //   centerX: percent(50),
-  //   fontSize: '0.75em'
-  // }))
+  title && chart.leftAxesContainer.children.push(Label.new(root, {
+    text: title,
+    rotation: -90,
+    y: percent(50),
+    centerX: percent(50),
+    fontSize: '0.75em'
+  }))
 
   let xAxis = chart.xAxes.push(
     CategoryAxis.new(root, {
