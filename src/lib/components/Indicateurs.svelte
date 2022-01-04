@@ -16,7 +16,7 @@
   })
 </script>
 
-<ul class:ex={$page.query.has("export")} style="grid-template-columns: repeat({indicateurs.length < 4 ? indicateurs.length : 4}, 1fr){indicateurs.length === 1 ? ' !important' : ''};">
+<ul class:ex={$page.query.has("export")} style="grid-template-columns: repeat({indicateurs.length < 4 ? indicateurs.length : 4}, 1fr);">
   {#each indicateurs.filter(indicateur => indicateur.fields) as indicateur (indicateur.fields.id)}
   {#if !indicateur.hidden}
   <li>
