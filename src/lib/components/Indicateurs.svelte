@@ -16,7 +16,7 @@
   })
 </script>
 
-<ul class:ex={$page.query.has("export")} style="grid-template-columns: repeat({indicateurs.length < 4 ? indicateurs.length : 4}, 1fr){indicateurs.length === 1 ? ' !important' : ''};">
+<ul class:one={indicateurs.length === 1} class:ex={$page.query.has("export")} style="grid-template-columns: repeat({indicateurs.length < 4 ? indicateurs.length : 4}, 1fr);">
   {#each indicateurs.filter(indicateur => indicateur.fields) as indicateur (indicateur.fields.id)}
   {#if !indicateur.hidden}
   <li>
@@ -52,13 +52,13 @@
   }
 
   @media (max-width: 1400px) {
-    ul {
+    ul:not(.one) {
       grid-template-columns: repeat(3, 1fr) !important;
     }
   }
 
   @media (max-width: 1000px) {
-    ul {
+    ul:not(.one) {
       grid-template-columns: repeat(2, 1fr) !important;
     }
   }
