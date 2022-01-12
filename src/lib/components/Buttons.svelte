@@ -2,7 +2,7 @@
   
   export function imgix(indicateur: Entry<Indicateur>) {
     // return `https://indicateurs.imgix.net/${indicateur.fields.id}_v${indicateur.sys.revision}.png?txt=indicateurs.quebec/indicateurs/${indicateur.fields.id}&txt-color=${indicateur.fields.categorie.fields.couleur.replace('#', '')}`
-    return `https://indicateurs.imgix.net/${indicateur.fields.id}_v${indicateur.sys.revision}.png`
+    return `https://indicateurs.imgix.net/${indicateur.fields.id}_v${indicateur.sys.revision}.png?q=100`
   }
 </script>
 
@@ -73,9 +73,9 @@
 </Tooltip>
 {/if}
 <Tooltip top>
-  <button on:click={() => download()} class:iconsOnly slot="tip" aria-label={iconsOnly && "Télécharger"}>{#if !iconsOnly}{$page.params.locale === 'en' ? "Download" : "Télécharger"} {/if}<Icon i="download" /></button>
+  <a href="{imgix(indicateur)}&dl" class:iconsOnly slot="tip" aria-label={iconsOnly && "Télécharger"}>{#if !iconsOnly}{$page.params.locale === 'en' ? "Download" : "Télécharger"} {/if}<Icon i="download" /></a>
   <ul slot="tool">
-    <li><button on:click={() => download()}>{$page.params.locale === 'en' ? "Image format" : "Format image"}</button></li>
+    <li><a href="{imgix(indicateur)}&dl">{$page.params.locale === 'en' ? "Image format" : "Format image"}</a></li>
     <li><button on:click={() => exporting?.download('csv')}>{$page.params.locale === 'en' ? "CSV format" : "Format CSV"}</button></li>
     {#if ex}<li><button on:click={async () => {
       await fetch(`/indicateurs/upload.json?name=${indicateur.fields.id}_v${indicateur.sys.revision}`, {
