@@ -275,7 +275,7 @@
   figure {
     margin: 0;
     width: 100%;
-    padding-bottom: 100%;
+    padding-bottom: 99%;
     /* pointer-events: none; */
   }
 
