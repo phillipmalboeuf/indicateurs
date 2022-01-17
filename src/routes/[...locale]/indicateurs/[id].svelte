@@ -92,7 +92,7 @@
     {#if indicateur.fields.data}
     <Chart bind:exporting {...indicateur.fields} couleur={indicateur.fields.categorie.fields.couleur} />
     {:else}
-    <p><strong>{$page.params.locale === 'en' ? "Indicator to document." : "Indicateur à documenter."}</strong></p>
+    <p><strong>{$page.params.locale === 'en' ? "Indicator to be documented." : "Indicateur à documenter."}</strong></p>
     {/if}
   </figure>
 </section>
