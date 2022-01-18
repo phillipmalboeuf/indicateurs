@@ -64,7 +64,7 @@
   }
 
   @media (max-width: 800px) {
-    ul {
+    ul:not(.one) {
       grid-template-columns: 1fr !important;
     }
   }
