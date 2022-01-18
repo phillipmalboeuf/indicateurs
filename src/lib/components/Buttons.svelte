@@ -73,9 +73,9 @@
 </Tooltip>
 {/if}
 <Tooltip top>
-  <a href="{imgix(indicateur)}&dl" class:iconsOnly slot="tip" aria-label={iconsOnly && "Télécharger"}>{#if !iconsOnly}{$page.params.locale === 'en' ? "Download" : "Télécharger"} {/if}<Icon i="download" /></a>
+  <a class="button" href="{imgix(indicateur)}&dl" class:iconsOnly slot="tip" aria-label={iconsOnly && "Télécharger"}>{#if !iconsOnly}{$page.params.locale === 'en' ? "Download" : "Télécharger"} {/if}<Icon i="download" /></a>
   <ul slot="tool">
-    <li><a href="{imgix(indicateur)}&dl">{$page.params.locale === 'en' ? "Image format" : "Format image"}</a></li>
+    <li><a class="button" href="{imgix(indicateur)}&dl">{$page.params.locale === 'en' ? "Image format" : "Format image"}</a></li>
     <li><button on:click={() => exporting?.download('csv')}>{$page.params.locale === 'en' ? "CSV format" : "Format CSV"}</button></li>
     {#if ex}<li><button on:click={async () => {
       await fetch(`/indicateurs/upload.json?name=${indicateur.fields.id}_v${indicateur.sys.revision}`, {
@@ -92,7 +92,8 @@
     display: none;
   }
 
-  button.iconsOnly {
+  button.iconsOnly,
+  .button.iconsOnly {
     border: none;
 
     &:hover,
@@ -121,7 +122,8 @@
       padding: 6px 12px;
     }
     
-    button {
+    button,
+    .button {
       font-size: 1rem;
       border: none;
     }
