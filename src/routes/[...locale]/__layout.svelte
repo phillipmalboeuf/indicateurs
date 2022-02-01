@@ -22,7 +22,37 @@
 	export let secondaire: Entry<{ liens: Entry<Lien>[] }>
 	export let tertiaire: Entry<{ liens: Entry<Lien>[] }>
 	export let logo: Asset
+
+	const ga = 'G-YJ5HYDM8JD'
+
+	
+	if (typeof window !== "undefined") {
+		// @ts-ignore
+		window.dataLayer = window.dataLayer || []
+		// @ts-ignore
+		window.gtag = function gtag() {
+			// @ts-ignore
+			window.dataLayer.push(arguments)
+		}
+		// @ts-ignore
+		window.gtag("js", new Date())
+		// @ts-ignore
+		window.gtag("config", ga, { 'send_page_view': false })
+	}
+	$: {
+		// @ts-ignore
+		if (typeof gtag !== "undefined"){
+			// @ts-ignore
+			window.gtag("config", ga, {
+				page_path: $page.path,
+			})
+		}
+	}
 </script>
+
+<svelte:head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id={ga}"></script>
+</svelte:head>
 
 <Header navigation={principale} path={$page.path} />
 
