@@ -1,8 +1,11 @@
 import { createClient } from 'contentful'
 
+const preview = !!import.meta.env.VITE_PREVIEW
+
 export const contentful = createClient({
   space: 'hldkryaz0p2i',
-  accessToken: 'd4DjmPoHFsAZCRGzxYq7wL65ih-FRMjvEf1lsJq5cIQ',
+  accessToken: preview ? 'aHdk-mL_aVpZRAeXAZWmdvPutmhhswlPP5WGUcHOZhM' : 'd4DjmPoHFsAZCRGzxYq7wL65ih-FRMjvEf1lsJq5cIQ',
+  ...preview && { host: 'preview.contentful.com' }
 })
 
 export async function entry<T>(id: string, locale: string, query: {[key: string]: any}={}, include=2) {
