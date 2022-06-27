@@ -1,5 +1,5 @@
 export function csvToChartData(data: string) {
-  return csvToArray(data)
+  return csvToArray(data, data.includes('\t') ? '\t' : ',')
 }
 
 function csvToArray(str: string, delimiter = ",") {
