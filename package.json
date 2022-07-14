@@ -12,7 +12,6 @@
     "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "devDependencies": {
-    "@amcharts/amcharts4": "^4.10.22",
     "@contentful/rich-text-plain-text-renderer": "^15.6.2",
     "@sveltejs/adapter-vercel": "next",
     "@sveltejs/kit": "next",

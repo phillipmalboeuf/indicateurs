@@ -17,6 +17,7 @@
 
 	import { getStores, navigating, page, session } from '$app/stores'
 	import Footer from '$lib/components/Footer.svelte'
+	import Region from '$lib/components/Region.svelte'
 
 	export let principale: Entry<{ liens: Entry<Lien>[] }>
 	export let secondaire: Entry<{ liens: Entry<Lien>[] }>
@@ -60,6 +61,7 @@
 	<slot></slot>
 </main>
 
+<Region />
 <Footer navigation={secondaire} subnavigation={tertiaire} {logo} path={$page.path} />
 
 <style lang="scss">

@@ -12,6 +12,8 @@
   import { createCourbe, createHistogramme, createPyramide, createTarte, csvToChartData } from '$lib/charts'
   import { Exporting, ExportingMenu } from '@amcharts/amcharts5/plugins/exporting'
   import type { Chart } from '@amcharts/amcharts5/.internal/core/render/Chart'
+  import type { XYChart } from '@amcharts/amcharts5/xy'
+  import { region } from '$lib/stores'
 
 
   let chart: Chart
@@ -131,6 +133,20 @@
     observer?.disconnect()
     chart?._root.dispose()
   })
+
+  $: { 
+    if (chart && $region) {
+      if ((chart as XYChart).series) {
+        (chart as XYChart).series.each(serie => {
+          if ($region === 'Tout' || serie._settings.name === $region) {
+            serie.show()
+          } else {
+            serie.hide()
+          }
+        })
+      }
+    }
+  }
 </script>
 
 <figure class:small bind:this={element}></figure>
