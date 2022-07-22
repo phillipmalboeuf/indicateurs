@@ -6,7 +6,7 @@ function csvToArray(str: string, delimiter = ",") {
   const headers = str.slice(0, str.indexOf("\n")).split(delimiter)
 
   const rows = str.slice(str.indexOf("\n") + 1).split("\n")
-
+  // `'${values[index].substring(2)}`
   const arr = rows.map(function (row) {
     const values = row.split(delimiter)
     const el = headers.reduce(function (object, header, index) {
@@ -20,7 +20,7 @@ function csvToArray(str: string, delimiter = ",") {
 }
 
 import { Bullet, Circle, Color, color, DataProcessor, Label, Legend, LinearGradient, percent, Root, Theme, Tooltip } from '@amcharts/amcharts5'
-import { XYChart, ValueAxis, CategoryAxis, AxisRendererX, ColumnSeries, AxisRendererY, LineSeries, AxisLabel, XYCursor } from '@amcharts/amcharts5/xy'
+import { XYChart, ValueAxis, CategoryAxis, AxisRendererX, ColumnSeries, AxisRendererY, LineSeries, AxisLabel, XYCursor, SmoothedXLineSeries } from '@amcharts/amcharts5/xy'
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated"
 import am5themes_Dark from "@amcharts/amcharts5/themes/Dark"
 import am5locales_fr from "@amcharts/amcharts5/locales/fr_FR"
@@ -35,7 +35,7 @@ export function init(element: HTMLElement, locale: string) {
   const myTheme = Theme.new(root);
 
   myTheme.rule("Label").setAll({
-    fill: color("#EDF5E2"),
+    fill: color("#908F92"),
     fontSize: "0.88em"
   })
 
@@ -86,7 +86,8 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
     rotation: -90,
     y: percent(50),
     centerX: percent(50),
-    fontSize: '0.75em'
+    fontSize: '0.75em',
+    fill: color('#EDF5E2')
   }))
 
   let xAxis = chart.xAxes.push(
@@ -150,7 +151,10 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
   })
 
   if (keys.length > 1) {
-    let legend = chart.children.push(Legend.new(root, {}));
+    let legend = chart.children.push(Legend.new(root, {}))
+    legend.labels.template.setAll({
+      fill: color('#EDF5E2')
+    })
     legend.data.setAll(chart.series.values)
   }
 
@@ -191,17 +195,23 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
     rotation: -90,
     y: percent(50),
     centerX: percent(50),
-    fontSize: '0.75em'
+    fontSize: '0.75em',
+    fill: color('#EDF5E2')
   }))
 
   let xAxis = chart.xAxes.push(
     CategoryAxis.new(root, {
       renderer: AxisRendererX.new(root, {
-        minGridDistance: 30
+        minGridDistance: 30,
+        
       }),
       categoryField: "Date",
     })
   )
+  xAxis.get("renderer").labels.template.adapters.add("text", function(text, target) {
+    //@ts-ignore
+    return target.dataItem ? `‘${target.dataItem?._settings.category.substring(2)}` : text
+  })
   xAxis.data.setAll(seriesData)
 
 
@@ -213,7 +223,7 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
     const hsl = color(couleur).toHSL()
     hsl.h += i * 0.05
     
-    let series = chart.series.push(LineSeries.new(root, {
+    let series = chart.series.push(SmoothedXLineSeries.new(root, {
       name,
       xAxis,
       yAxis,
@@ -229,9 +239,7 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
 
     series.strokes.template.setAll({
       // stroke: color(couleur),
-      
       strokeWidth: 3,
-      
     })
 
     // series.bullets.push(function() {
@@ -251,7 +259,10 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
   })
 
   if (keys.length > 1) {
-    let legend = chart.children.push(Legend.new(root, {}));
+    let legend = chart.children.push(Legend.new(root, {}))
+    legend.labels.template.setAll({
+      fill: color('#EDF5E2')
+    })
     legend.data.setAll(chart.series.values)
   }
 
@@ -273,7 +284,8 @@ export function createPyramide(element: HTMLElement, seriesData: any[], min: num
     rotation: -90,
     y: percent(50),
     centerX: percent(50),
-    fontSize: '0.75em'
+    fontSize: '0.75em',
+    fill: color('#EDF5E2')
   }))
 
 
