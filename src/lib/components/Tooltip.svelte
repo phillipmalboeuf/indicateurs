@@ -11,7 +11,7 @@
   <slot name="tip" />
 
   <div class:top class:light>
-    <Icon i="chevron" />
+    <!-- <Icon i="chevron" /> -->
     <div>
       <slot name="tool" />
     </div>
@@ -63,6 +63,8 @@
       > div {
         background: var(--dark);
         border-radius: 0.66rem;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
         padding: 0.88rem;
       }
 
