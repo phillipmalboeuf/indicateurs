@@ -234,14 +234,14 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
       
     })
 
-    series.bullets.push(function() {
-      return Bullet.new(root, {
-        sprite: Circle.new(root, {
-          radius: 4,
-          fill: series.get("fill")
-        })
-      })
-    })
+    // series.bullets.push(function() {
+    //   return Bullet.new(root, {
+    //     sprite: Circle.new(root, {
+    //       radius: 4,
+    //       fill: series.get("fill")
+    //     })
+    //   })
+    // })
 
     series.data.processor = DataProcessor.new(root, {
       numericFields: [name]
