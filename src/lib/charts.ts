@@ -71,6 +71,11 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
       renderer: AxisRendererY.new(root, {})
     })
   )
+  yAxis.get("renderer").labels.template.setAll({
+    centerY: percent(90),
+    centerX: percent(0),
+    inside: true
+  })
 
   if (min > 0) {
     yAxis.labelsContainer.children.push(Label.new(root, {
@@ -188,10 +193,11 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
 
   if (min > 0) {
     yAxis.labelsContainer.children.push(Label.new(root, {
+      position: 'absolute',
       text: 'tronqué',
       y: percent(100),
-      x: -50,
-      fontSize: '0.66em'
+      x: -30,
+      fontSize: '0.66em',
     }))
   }
   
