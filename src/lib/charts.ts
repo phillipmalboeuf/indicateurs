@@ -180,6 +180,11 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
       renderer: AxisRendererY.new(root, {})
     })
   )
+  yAxis.get("renderer").labels.template.setAll({
+    centerY: percent(90),
+    centerX: percent(0),
+    inside: true
+  })
 
   if (min > 0) {
     yAxis.labelsContainer.children.push(Label.new(root, {
@@ -208,6 +213,10 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
       categoryField: "Date",
     })
   )
+  xAxis.get("renderer").labels.template.setAll({
+    // centerX: percent(0),
+    paddingTop: 10
+  })
   xAxis.get("renderer").labels.template.adapters.add("text", function(text, target) {
     //@ts-ignore
     return target.dataItem ? `‘${target.dataItem?._settings.category.substring(2)}` : text
@@ -259,7 +268,10 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
   })
 
   if (keys.length > 1) {
-    let legend = chart.children.push(Legend.new(root, {}))
+    let legend = chart.children.push(Legend.new(root, {
+      // x: percent(100),
+      // centerX: percent(100)
+    }))
     legend.labels.template.setAll({
       fill: color('#EDF5E2')
     })
