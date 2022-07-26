@@ -37,6 +37,8 @@
 	export let indicateur: Entry<Indicateur>
   export let pilier: Entry<Categorie>
   let exporting: Exporting
+
+  let full = false
 </script>
 
 <svelte:head>
@@ -67,7 +69,7 @@
   </div>
 </StickyNav>
 
-<section>
+<section class:full>
   <h1 class="mobile" style="color: {indicateur.fields.categorie.fields.couleur}">{indicateur.fields.titre}</h1>
 
   <article>
@@ -89,8 +91,11 @@
   </article>
 
   <figure class:ex={$page.query.has("export")}>
+    <div>
+      <button on:click={() => full = !full}>{#if full}Moitié d'écran ↴{:else}Plein écran ⤢{/if}</button>
+    </div>
     {#if indicateur.fields.data}
-    <Chart bind:exporting {...indicateur.fields} couleur={indicateur.fields.categorie.fields.couleur} />
+    <Chart bind:exporting {...indicateur.fields} small={full} couleur={indicateur.fields.categorie.fields.couleur} />
     {:else}
     <p><strong>{$page.params.locale === 'en' ? "Indicator to be documented." : "Indicateur à documenter."}</strong></p>
     {/if}
@@ -146,6 +151,24 @@
   figure {
     grid-column: span 3;
     margin: 0;
+
+    .full & {
+      grid-column: span 6;
+      grid-row-start: 1;
+      margin-bottom: var(--gutter);
+    }
+
+    div {
+      display: flex;
+      column-gap: calc(var(--gutter) / 4);
+      justify-content: flex-end;
+
+      button:first-child {
+        @media (max-width: 888px) {
+          display: none;
+        }
+      }
+    }
 
     &.ex {
       grid-column: span 6;

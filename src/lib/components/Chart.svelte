@@ -158,25 +158,13 @@
     margin: var(--gutter) 0 0;
   }
 
-  // figure.small {
-  //   height: max(20vh, 20vw);
-  // }
+  figure.small {
+    padding-bottom: 66%;
+  }
 
-  // @media (max-width: 1400px) {
-  //    figure.small {
-  //     height: max(30vh, 30vw);
-  //   }
-  // }
-
-  // @media (max-width: 1000px) {
-  //    figure.small {
-  //     height: max(40vh, 40vw);
-  //   }
-  // }
-
-  // @media (max-width: 800px) {
-  //    figure.small {
-  //     height: max(50vh, 50vw);
-  //   }
-  // }
+  @media (max-width: 800px) {
+    figure.small {
+      padding-bottom: 100%;
+    }
+  }
 </style>
