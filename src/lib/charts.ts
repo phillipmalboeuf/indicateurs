@@ -275,8 +275,8 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
 
   if (keys.length > 1) {
     let legend = chart.children.push(Legend.new(root, {
-      // x: percent(100),
-      // centerX: percent(100)
+      x: percent(150),
+      centerX: percent(150)
     }))
     legend.labels.template.setAll({
       fill: color('#EDF5E2')

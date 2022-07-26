@@ -33,7 +33,7 @@
   {/if} -->
 
   {#if indicateur.fields.data}
-  <Chart {...indicateur.fields} bind:exporting couleur={indicateur.fields.categorie.fields.couleur} small />
+  <Chart {...indicateur.fields} bind:exporting couleur={indicateur.fields.categorie.fields.couleur} />
 
   <aside class="card-footer">
     <a href="{$page.params.locale === 'en' ? "/en" : ""}/indicateurs/{indicateur.fields.id}"><small>{$page.params.locale === 'en' ? "More info" : "Plus d'info"} <Icon i="chevron" small /></small></a>
