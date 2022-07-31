@@ -40,7 +40,7 @@
       z-index: 5;
       top: 100%;
       left: 50%;
-      width: 14rem;
+      width: 16rem;
       pointer-events: none;
       opacity: 0;
       padding-top: 0.5rem;
@@ -63,8 +63,8 @@
       > div {
         background: var(--dark);
         border-radius: 0.66rem;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+        border: var(--border);
+        box-shadow: var(--shadow);
         padding: 0.88rem;
       }
 

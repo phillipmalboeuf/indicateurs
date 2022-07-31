@@ -69,8 +69,8 @@
     
     <aside>
       {#if categorie.fields.sousCategories}
-      <h5>Sous-catégories</h5>
-      <Filters categories={categorie.fields.sousCategories} {checked} columns base={($page.params.locale ? '/en' : '') + `/categories/${categorie.fields.id}`} on:update={event => checked = event.detail} />
+      <!-- <h5>Sous-catégories</h5> -->
+      <Filters categories={categorie.fields.sousCategories} {checked} base={($page.params.locale ? '/en' : '') + `/categories/${categorie.fields.id}`} on:update={event => checked = event.detail} />
       {/if}
     </aside>
   </section>
@@ -84,8 +84,8 @@
   
   <aside>
     {#if categorie.fields.sousCategories}
-    <h5>Sous-catégories</h5>
-    <Filters categories={categorie.fields.sousCategories} {checked} columns base={($page.params.locale ? '/en' : '') + `/categories/${categorie.fields.id}`} on:update={event => checked = event.detail} />
+    <!-- <h5>Sous-catégories</h5> -->
+    <Filters categories={categorie.fields.sousCategories} {checked} base={($page.params.locale ? '/en' : '') + `/categories/${categorie.fields.id}`} on:update={event => checked = event.detail} />
     {/if}
   </aside>
 </section>

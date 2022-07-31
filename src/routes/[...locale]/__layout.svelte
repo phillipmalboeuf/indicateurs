@@ -61,7 +61,7 @@
 	<slot></slot>
 </main>
 
-<Region />
+<!-- <Region /> -->
 <Footer navigation={secondaire} subnavigation={tertiaire} {logo} path={$page.path} />
 
 <style lang="scss">
