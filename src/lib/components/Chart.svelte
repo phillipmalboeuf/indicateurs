@@ -138,10 +138,16 @@
     if (chart && $region) {
       if ((chart as XYChart).series) {
         (chart as XYChart).series.each(serie => {
-          if ($region === 'Tout' || serie._settings.name === $region) {
-            serie.show()
+          if ($region.includes(serie._settings.name)) {
+            // serie.show()
+            serie.setAll({
+              opacity: 1
+            })
           } else {
-            serie.hide()
+            serie.setAll({
+              opacity: 0.1
+            })
+            // serie.hide()
           }
         })
       }

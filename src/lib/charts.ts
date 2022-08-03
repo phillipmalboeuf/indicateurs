@@ -50,7 +50,7 @@ export function init(element: HTMLElement, locale: string) {
   return root
 }
 
-
+const regions = ["Québec", "Ontario", "Canada"]
 
 export function createHistogramme(element: HTMLElement, seriesData: any[], min: number, max: number, title: string, couleur: string, locale: string) {
   let root = init(element, locale)
@@ -103,6 +103,14 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
       categoryField: "Date",
     })
   )
+  xAxis.get("renderer").labels.template.setAll({
+    // centerX: percent(0),
+    paddingTop: 10
+  })
+  xAxis.get("renderer").labels.template.adapters.add("text", function(text, target) {
+    //@ts-ignore
+    return target.dataItem ? `‘${target.dataItem?._settings.category.substring(2)}` : text
+  })
   xAxis.data.setAll(seriesData)
 
 
@@ -128,7 +136,7 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
       yAxis,
       valueYField: name,
       categoryXField: "Date",
-      stacked: keys.length > 1,
+      stacked: keys.filter(k => !regions.includes(k)).length > 1,
       tooltip: Tooltip.new(root, {}),
     }))
 
@@ -137,7 +145,7 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
       fill: Color.fromHSL(hsl.h, hsl.s, hsl.l),
       // stroke: Color.fromHSL(hsl.h, hsl.s, hsl.l),
       strokeOpacity: 0,
-      width: percent(56),
+      width: percent(88),
       cornerRadiusTL: 6,
       cornerRadiusTR: 6,
       ...i > 0 && {
@@ -155,7 +163,7 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
     series.data.setAll(seriesData)
   })
 
-  if (keys.length > 1) {
+  if (keys.filter(k => !regions.includes(k)).length > 1) {
     let legend = chart.children.push(Legend.new(root, {}))
     legend.labels.template.setAll({
       fill: color('#EDF5E2')
@@ -273,7 +281,7 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
     series.data.setAll(seriesData)
   })
 
-  if (keys.length > 1) {
+  if (keys.filter(k => !regions.includes(k)).length > 1) {
     let legend = chart.children.push(Legend.new(root, {
       x: percent(150),
       centerX: percent(150)

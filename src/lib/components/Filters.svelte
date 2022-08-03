@@ -52,19 +52,19 @@
 
 <form>
   <Tooltip>
-    <button slot="tip" class="filter">Région <Icon i="chevron" rotate={90} /></button>
+    <button type="button" slot="tip" class="filter">Régions <Icon i="chevron" rotate={90} /></button>
     <ul class="piliers" slot="tool">
-      {#each ["Québec", "Ontario", "Canada"] as region}
+      {#each ["Québec", "Ontario", "Canada"] as r}
       <li style="--color: currentColor">
-        <input on:click={click} bind:group={region} type="checkbox" name={region} id={region} value={region} />
-        <label for={region}>{region}</label>
+        <input on:click={click} bind:group={$region} type="checkbox" name={r} id={r} value={r} />
+        <label for={r}>{r}</label>
       </li>
       {/each}
     </ul>
   </Tooltip>
 
   <Tooltip>
-    <button slot="tip" class="filter">Pilliers <Icon i="chevron" rotate={90} /></button>
+    <button type="button" slot="tip" class="filter">Pilliers <Icon i="chevron" rotate={90} /></button>
     <ul class="piliers" slot="tool">
       {#each categories as categorie}
       {#if categorie.fields.sousCategories?.length > 0}
