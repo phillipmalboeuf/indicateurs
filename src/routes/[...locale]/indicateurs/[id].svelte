@@ -91,13 +91,13 @@
   </article>
 
   <figure class:ex={$page.query.has("export")}>
+    {#if indicateur.fields.data}
     <div>
       <button on:click={() => full = !full}>{#if full}Moitié d'écran ↴{:else}Plein écran ⤢{/if}</button>
     </div>
-    {#if indicateur.fields.data}
     <Chart bind:exporting {...indicateur.fields} small={full} couleur={indicateur.fields.categorie.fields.couleur} />
     {:else}
-    <p><strong>{$page.params.locale === 'en' ? "Indicator to be documented." : "Indicateur à documenter."}</strong></p>
+    <em class="empty">{$page.params.locale === 'en' ? "To be documented" : "À documenter"}</em>
     {/if}
   </figure>
 </section>
@@ -181,6 +181,20 @@
     @media (max-width: 888px) {
       grid-row-start: 2;
       margin-bottom: var(--gutter);
+    }
+  }
+
+  em {
+    font-style: normal;
+    color: var(--muted);
+
+    &.empty {
+      display: block;
+      background-color: var(--darkishy);
+      text-align: center;
+      padding: 12vw 0;
+      border-radius: var(--corner);
+      margin: 1em 0;
     }
   }
 

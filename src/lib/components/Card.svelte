@@ -36,15 +36,16 @@
   <Chart {...indicateur.fields} bind:exporting couleur={indicateur.fields.categorie.fields.couleur} />
 
   <aside class="card-footer">
-    <a href="{$page.params.locale === 'en' ? "/en" : ""}/indicateurs/{indicateur.fields.id}"><small>{$page.params.locale === 'en' ? "More info" : "Plus d'info"} <Icon i="chevron" small /></small></a>
+    <a href="{$page.params.locale === 'en' ? "/en" : ""}/indicateurs/{indicateur.fields.id}"><small>{$page.params.locale === 'en' ? "Details" : "Détails"} <Icon i="chevron" small /></small></a>
     <div>
       <Buttons {indicateur} {exporting} iconsOnly />
     </div>
-
-    <!-- {#if indicateur.fields.lead}<p><small>{indicateur.fields.lead}</small></p>{/if} -->
   </aside>
   {:else}
-  <p><strong>{$page.params.locale === 'en' ? "Indicator to be documented." : "Indicateur à documenter."}</strong></p>
+  <em class="empty">{$page.params.locale === 'en' ? "To be documented" : "À documenter"}</em>
+  <aside class="card-footer">
+    <a href="{$page.params.locale === 'en' ? "/en" : ""}/indicateurs/{indicateur.fields.id}"><small>{$page.params.locale === 'en' ? "Details" : "Détails"} <Icon i="chevron" small /></small></a>
+  </aside>
   {/if}
 </article>
 {/if}
@@ -69,10 +70,15 @@
   em {
     font-style: normal;
     color: var(--muted);
-  }
 
-  p {
-    margin: 0.5em 0 0;
+    &.empty {
+      display: block;
+      background-color: var(--darkishy);
+      text-align: center;
+      padding: 9vw 0;
+      border-radius: var(--corner);
+      margin: 1em 0;
+    }
   }
 
   aside {
