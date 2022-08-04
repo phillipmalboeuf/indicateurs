@@ -26,6 +26,7 @@ import am5themes_Dark from "@amcharts/amcharts5/themes/Dark"
 import am5locales_fr from "@amcharts/amcharts5/locales/fr_FR"
 import am5locales_en from "@amcharts/amcharts5/locales/en_CA"
 import { FunnelSeries, PieChart, PieSeries, PyramidSeries, SlicedChart } from '@amcharts/amcharts5/percent'
+import type { iHSL } from '@amcharts/amcharts5/.internal/core/util/Utils'
 
 
 export function init(element: HTMLElement, locale: string) {
@@ -49,8 +50,6 @@ export function init(element: HTMLElement, locale: string) {
 
   return root
 }
-
-const regions = ["Québec", "Ontario", "Canada"]
 
 export function createHistogramme(element: HTMLElement, seriesData: any[], min: number, max: number, title: string, couleur: string, locale: string) {
   let root = init(element, locale)
@@ -104,7 +103,6 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
     })
   )
   xAxis.get("renderer").labels.template.setAll({
-    // centerX: percent(0),
     paddingTop: 10
   })
   xAxis.get("renderer").labels.template.adapters.add("text", function(text, target) {
@@ -113,13 +111,29 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
   })
   xAxis.data.setAll(seriesData)
 
-
-  const keys = Object.keys(seriesData[0]).filter(key => !['Date', 'Région'].includes(key))
+  let subs = {}
+  let regions = {}
   
+  const keys = Object.keys(seriesData[0]).filter(key => !['Date', 'Région'].includes(key))
 
   keys.forEach((name, i) => {
-    const hsl = color(couleur).toHSL()
-    hsl.h += i * 0.05
+    let hsl: iHSL = color(couleur).toHSL()
+    if (name.includes('–')) {
+      const [region, s] = name.split('–')
+      hsl.h += Object.keys(regions).length * 0.05
+      
+      if (regions[region]) {
+        hsl.l -= Object.keys(subs).length * 0.05
+        if (!subs[s]) {
+          subs[s] = hsl.l
+        }
+      } else {
+        regions[region] = true
+        subs = { [s]: hsl.l }
+      }
+    } else {
+      hsl.h += i * 0.05
+    }
 
     let gradient = LinearGradient.new(root, {
       stops: [{
@@ -136,7 +150,7 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
       yAxis,
       valueYField: name,
       categoryXField: "Date",
-      stacked: keys.filter(k => !regions.includes(k)).length > 1,
+      // stacked: hsl.h !== color(couleur).toHSL().h,
       tooltip: Tooltip.new(root, {}),
     }))
 
@@ -163,12 +177,19 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
     series.data.setAll(seriesData)
   })
 
-  if (keys.filter(k => !regions.includes(k)).length > 1) {
-    let legend = chart.children.push(Legend.new(root, {}))
+  if (Object.keys(subs).length > 1) {
+    let legend = chart.children.push(Legend.new(root, {
+      nameField: "name",
+      fillField: "color",
+    }))
     legend.labels.template.setAll({
       fill: color('#EDF5E2')
     })
-    legend.data.setAll(chart.series.values)
+    let c = color(couleur).toHSL()
+    legend.data.setAll(Object.keys(subs).map(s => ({
+      name: s,
+      color: Color.fromHSL(c.h, c.s, subs[s])
+    })))
   }
 
   return chart
@@ -237,14 +258,29 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
   })
   xAxis.data.setAll(seriesData)
 
-
+  let subs = {}
+  let regions = {}
   const keys = Object.keys(seriesData[0]).filter(key => !['Date', 'Région'].includes(key))
-  
 
   keys.forEach((name, i) => {
 
-    const hsl = color(couleur).toHSL()
-    hsl.h += i * 0.05
+    let hsl: iHSL = color(couleur).toHSL()
+    if (name.includes('–')) {
+      const [region, s] = name.split('–')
+      hsl.h += Object.keys(regions).length * 0.05
+      
+      if (regions[region]) {
+        hsl.l -= Object.keys(subs).length * 0.05
+        if (!subs[s]) {
+          subs[s] = hsl.l
+        }
+      } else {
+        regions[region] = true
+        subs = { [s]: hsl.l }
+      }
+    } else {
+      hsl.h += i * 0.05
+    }
     
     let series = chart.series.push(SmoothedXLineSeries.new(root, {
       name,
@@ -281,15 +317,19 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
     series.data.setAll(seriesData)
   })
 
-  if (keys.filter(k => !regions.includes(k)).length > 1) {
+  if (Object.keys(subs).length > 0) {
     let legend = chart.children.push(Legend.new(root, {
-      x: percent(150),
-      centerX: percent(150)
+      nameField: "name",
+      fillField: "color",
     }))
     legend.labels.template.setAll({
       fill: color('#EDF5E2')
     })
-    legend.data.setAll(chart.series.values)
+    let c = color(couleur).toHSL()
+    legend.data.setAll(Object.keys(subs).map(s => ({
+      name: s,
+      color: Color.fromHSL(c.h, c.s, subs[s])
+    })))
   }
 
   return chart

@@ -138,7 +138,7 @@
     if (chart && $region) {
       if ((chart as XYChart).series) {
         (chart as XYChart).series.each(serie => {
-          if ($region.includes(serie._settings.name)) {
+          if ($region.includes(serie._settings.name.split('–')[0])) {
             // serie.show()
             serie.setAll({
               opacity: 1
