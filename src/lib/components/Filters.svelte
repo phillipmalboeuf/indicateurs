@@ -10,12 +10,12 @@
 
   import { region } from '$lib/stores'
 
-  export let categories: Entry<Categorie>[]
+  export let categories: Entry<Categorie>[] = undefined
   export let checked: string[] = []
   // export let columns = false
-  export let base
+  export let base: string = undefined
 
-  const all = [
+  const all = categories && [
     ...categories,
     ...categories.filter(categorie => categorie.fields.sousCategories).map(categorie => categorie.fields.sousCategories.flat()).flat()
   ]
@@ -50,7 +50,7 @@
   }
 </script>
 
-<form>
+<form class:right={!categories}>
   <Tooltip>
     <button type="button" slot="tip" class="filter">Régions <Icon i="chevron" rotate={90} /></button>
     <ul class="piliers" slot="tool">
@@ -63,6 +63,7 @@
     </ul>
   </Tooltip>
 
+  {#if categories}
   <Tooltip>
     <button type="button" slot="tip" class="filter">Pilliers <Icon i="chevron" rotate={90} /></button>
     <ul class="piliers" slot="tool">
@@ -90,6 +91,7 @@
       {/each}
     </ul>
   </Tooltip>
+  {/if}
 </form>
 
 <div>
@@ -107,6 +109,10 @@
     justify-content: center;
     column-gap: var(--gutter);
     margin-bottom: calc(var(--gutter) * 2);
+
+    &.right {
+      justify-content: flex-end;
+    }
 
     button {
       background: var(--dark);

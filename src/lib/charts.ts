@@ -181,6 +181,8 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
     let legend = chart.children.push(Legend.new(root, {
       nameField: "name",
       fillField: "color",
+      x: percent(150),
+      centerX: percent(150)
     }))
     legend.labels.template.setAll({
       fill: color('#EDF5E2')
@@ -321,6 +323,8 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
     let legend = chart.children.push(Legend.new(root, {
       nameField: "name",
       fillField: "color",
+      x: percent(150),
+      centerX: percent(150)
     }))
     legend.labels.template.setAll({
       fill: color('#EDF5E2')

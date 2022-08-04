@@ -33,6 +33,7 @@
   import Icon from '$lib/components/Icon.svelte'
   import StickyNav from '$lib/components/StickyNav.svelte'
   import Buttons, { imgix } from '$lib/components/Buttons.svelte'
+import Filters from '$lib/components/Filters.svelte'
 
 	export let indicateur: Entry<Indicateur>
   export let pilier: Entry<Categorie>
@@ -96,6 +97,7 @@
       <button on:click={() => full = !full}>{#if full}Moitié d'écran ↴{:else}Plein écran ⤢{/if}</button>
     </div>
     <Chart bind:exporting {...indicateur.fields} small={full} couleur={indicateur.fields.categorie.fields.couleur} />
+    <Filters />
     {:else}
     <em class="empty">{$page.params.locale === 'en' ? "To be documented" : "À documenter"}</em>
     {/if}
