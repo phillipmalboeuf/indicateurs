@@ -22,9 +22,9 @@
   <!-- <Donut /> -->
 </article>
 {:else}
-<article style="color: {indicateur.fields.categorie?.fields.couleur}">
+<article>
   {#if indicateur.fields.categorie}
-  <em><a href="{$page.params.locale === 'en' ? "/en" : ""}/categories/{indicateur.fields.categorie.fields.id}">{indicateur.fields.categorie.fields.titre}</a></em><br />
+  <em style="color: {indicateur.fields.categorie?.fields.couleur}"><a href="{$page.params.locale === 'en' ? "/en" : ""}/categories/{indicateur.fields.categorie.fields.id}">{indicateur.fields.categorie.fields.titre}</a></em><br />
   {/if}
   <a class="indicateurs" href="{$page.params.locale === 'en' ? "/en" : ""}/indicateurs/{indicateur.fields.id}">{indicateur.fields.titre}</a>
 

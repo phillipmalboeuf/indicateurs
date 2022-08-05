@@ -63,7 +63,7 @@ import Filters from '$lib/components/Filters.svelte'
     <a class="button" href="{$page.params.locale === 'en' ? "/en" : "/"}"><Icon i="chevron" small rotate={180} /> retour</a>
 
     {#if pilier}
-    <h4>
+    <h4 style="color: {indicateur.fields.categorie.fields.couleur}">
       <a href="{$page.params.locale === 'en' ? "/en" : ""}/categories/{pilier.fields.id}">{pilier.fields.titre}</a> – <a href="{$page.params.locale === 'en' ? "/en" : ""}/categories/{indicateur.fields.categorie.fields.id}">{indicateur.fields.categorie.fields.titre}</a>  
     </h4>
     {/if}
@@ -71,10 +71,10 @@ import Filters from '$lib/components/Filters.svelte'
 </StickyNav>
 
 <section class:full>
-  <h1 class="mobile" style="color: {indicateur.fields.categorie.fields.couleur}">{indicateur.fields.titre}</h1>
+  <h1 class="mobile">{indicateur.fields.titre}</h1>
 
   <article>
-    <h1 style="color: {indicateur.fields.categorie.fields.couleur}">{indicateur.fields.titre}</h1>
+    <h1>{indicateur.fields.titre}</h1>
     {#if indicateur.fields.lead}<p>{indicateur.fields.lead}</p>{/if}
     {#if indicateur.fields.description}<Document body={indicateur.fields.description} />{/if}
 

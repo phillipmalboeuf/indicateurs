@@ -28,6 +28,11 @@ import am5locales_en from "@amcharts/amcharts5/locales/en_CA"
 import { FunnelSeries, PieChart, PieSeries, PyramidSeries, SlicedChart } from '@amcharts/amcharts5/percent'
 import type { iHSL } from '@amcharts/amcharts5/.internal/core/util/Utils'
 
+export const colors = {
+  'Canada': color('#EF3340'),
+  'Québec': color('#3979D8'),
+  'Ontario': color('#F3CC00')
+}
 
 export function init(element: HTMLElement, locale: string) {
   let root = Root.new(element)
@@ -117,13 +122,13 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
   const keys = Object.keys(seriesData[0]).filter(key => !['Date', 'Région'].includes(key))
 
   keys.forEach((name, i) => {
-    let hsl: iHSL = color(couleur).toHSL()
+    let hsl: iHSL = color(colors[name.split('–')[0]] || couleur).toHSL()
     if (name.includes('–')) {
       const [region, s] = name.split('–')
-      hsl.h += Object.keys(regions).length * 0.05
+      // hsl.h += Object.keys(regions).length * 0.05
       
       if (regions[region]) {
-        hsl.l -= Object.keys(subs).length * 0.05
+        hsl.l -= Object.keys(subs).length * 0.1
         if (!subs[s]) {
           subs[s] = hsl.l
         }
@@ -132,9 +137,9 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
         subs = { [s]: hsl.l }
       }
     } else {
-      hsl.h += i * 0.05
+      // hsl.h += i * 0.05
     }
-
+    
     let gradient = LinearGradient.new(root, {
       stops: [{
         color: Color.fromHSL(hsl.h, hsl.s, hsl.l)
@@ -187,7 +192,7 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
     legend.labels.template.setAll({
       fill: color('#EDF5E2')
     })
-    let c = color(couleur).toHSL()
+    let c = colors['Québec'].toHSL()
     legend.data.setAll(Object.keys(subs).map(s => ({
       name: s,
       color: Color.fromHSL(c.h, c.s, subs[s])
@@ -264,11 +269,11 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
   const keys = Object.keys(seriesData[0]).filter(key => !['Date', 'Région'].includes(key))
 
   keys.forEach((name, i) => {
+    let hsl: iHSL = color(colors[name.split('–')[0]] || couleur).toHSL()
 
-    let hsl: iHSL = color(couleur).toHSL()
     if (name.includes('–')) {
       const [region, s] = name.split('–')
-      hsl.h += Object.keys(regions).length * 0.05
+      // hsl.h += Object.keys(regions).length * 0.05
       
       if (regions[region]) {
         hsl.l -= Object.keys(subs).length * 0.05
@@ -280,7 +285,7 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
         subs = { [s]: hsl.l }
       }
     } else {
-      hsl.h += i * 0.05
+      // hsl.h += i * 0.05
     }
     
     let series = chart.series.push(SmoothedXLineSeries.new(root, {
@@ -294,7 +299,6 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
       tooltip: Tooltip.new(root, {
         labelText: `${keys.length > 1 ? '{name}, ' : ''}{categoryX}: {valueY}`
       }),
-      // tooltipText: 
     }))
 
     series.strokes.template.setAll({
@@ -342,7 +346,7 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
     legend.labels.template.setAll({
       fill: color('#EDF5E2')
     })
-    let c = color(couleur).toHSL()
+    let c = colors['Québec'].toHSL()
     legend.data.setAll(Object.keys(subs).map(s => ({
       name: s,
       color: Color.fromHSL(c.h, c.s, subs[s])

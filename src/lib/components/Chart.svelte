@@ -136,7 +136,7 @@
 
   $: { 
     if (chart && $region) {
-      if ((chart as XYChart).series) {
+      if ((chart as XYChart).series && (chart as XYChart).series.values.find(serie => serie._settings.name.split('–')[0] === "Québec")) {
         (chart as XYChart).series.each(serie => {
           if ($region.includes(serie._settings.name.split('–')[0])) {
             // serie.show()

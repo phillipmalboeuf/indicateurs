@@ -9,6 +9,7 @@
   import Icon from './Icon.svelte'
 
   import { region } from '$lib/stores'
+import { colors } from '$lib/charts';
 
   export let categories: Entry<Categorie>[] = undefined
   export let checked: string[] = []
@@ -55,7 +56,7 @@
     <button type="button" slot="tip" class="filter">Juridictions <Icon i="chevron" rotate={90} /></button>
     <ul class="piliers" slot="tool">
       {#each ["Québec", "Ontario", "Canada"] as r}
-      <li style="--color: currentColor">
+      <li style="--color: {colors[r]}">
         <input on:click={click} bind:group={$region} type="checkbox" name={r} id={r} value={r} />
         <label for={r}>{r}</label>
       </li>
