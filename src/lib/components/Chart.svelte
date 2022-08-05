@@ -140,10 +140,16 @@
         (chart as XYChart).series.each(serie => {
           if ($region.includes(serie._settings.name.split('–')[0])) {
             // serie.show()
+            serie.getTooltip().setAll({
+              forceHidden: false
+            })
             serie.setAll({
               opacity: 1
             })
           } else {
+            serie.getTooltip().setAll({
+              forceHidden: true
+            })
             serie.setAll({
               opacity: 0.1
             })

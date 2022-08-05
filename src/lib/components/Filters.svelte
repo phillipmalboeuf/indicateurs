@@ -52,7 +52,7 @@
 
 <form class:right={!categories}>
   <Tooltip>
-    <button type="button" slot="tip" class="filter">Régions <Icon i="chevron" rotate={90} /></button>
+    <button type="button" slot="tip" class="filter">Juridictions <Icon i="chevron" rotate={90} /></button>
     <ul class="piliers" slot="tool">
       {#each ["Québec", "Ontario", "Canada"] as r}
       <li style="--color: currentColor">

@@ -203,7 +203,6 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
     XYChart.new(root, {
       panY: false,
       layout: root.verticalLayout,
-      cursor: XYCursor.new(root, {}),
       paddingLeft: 0,
       paddingRight: 0,
     })
@@ -317,6 +316,20 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
     })
     
     series.data.setAll(seriesData)
+  })
+
+  chart.set("cursor", XYCursor.new(root, {
+    // snapToSeries: chart.series.values
+  }))
+
+  let cursor = chart.get("cursor")
+
+  cursor.lineX.setAll({
+    visible: false
+  })
+
+  cursor.lineY.setAll({
+    visible: false
   })
 
   if (Object.keys(subs).length > 0) {
