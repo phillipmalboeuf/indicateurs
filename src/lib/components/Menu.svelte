@@ -23,7 +23,8 @@
   <button class="close" on:click={() => visible = false}><Icon i="close" /></button>
 
 	<ul on:click={() => visible = false}>
-		{#each navigation.fields.liens as lien}
+		<li><a href={$page.params.locale === 'en' ? "/en" : "/"} class="logo"><strong>{$page.params.locale === 'en' ? 'The Indicators' : 'Les Indicateurs'}</strong></a></li>
+		{#each navigation.fields.liens as lien, i}
 		<li>
     {#if lien.fields.sousLiens?.length > 0}
 		<Link active={path.includes(lien.fields.lien)} {lien} />
@@ -40,7 +41,7 @@
     {/each}
 
 		<li>
-			<a class="locale" href={$page.params.locale === 'en' ? "/" : "/en"}><strong>{$page.params.locale === 'en' ? "FR" : "EN"}</strong></a>
+			<a class="locale" href={$page.params.locale === 'en' ? "/" : "/en"}><strong>{$page.params.locale === 'en' ? "Français" : "English"}</strong></a>
 		</li>
 	</ul>
 </nav>
@@ -53,33 +54,54 @@
 		left: 0;
     z-index: 2;
     width: 100%;
-    max-height: 100vh;
+    height: 100vh;
     color: var(--light);
     background: black;
     
     overflow-y: scroll;
-    padding: calc(var(--gutter)*2) var(--gutter) calc(var(--gutter)*3);
+    padding: calc(var(--gutter) /2) var(--gutter) calc(var(--gutter)*3);
 
     // display: grid;
     // grid-template-columns: repeat(12, 1fr);
     // column-gap: var(--margins);
 
-		ul {
+		> ul {
 			list-style: none;
 			padding-left: 0;
+			margin: 0;
 
-			text-align: center;
+			// text-align: center;
+
+			> li {
+				margin: 0 0 0.5em;
+
+				> ul {
+					list-style: none;
+
+					> li {
+						margin: 0.25em 0;
+					}
+				}
+			}
 		}
 
 		li {
-			margin: 0.5em 0;
+			// margin: 0 0 0.5em;
+
+			// &:first-child {
+			// 	margin-bottom: 2em;
+			// }
+
+			// &:last-child {
+			// 	margin-top: 1.5em;
+			// }
 		}
 
 		> ul {
 
 			> li {
 				font-size: 1.5rem;
-				margin-top: 2rem;
+				// margin-top: 2rem;
 
 				li {
 					font-size: 1rem;
@@ -88,8 +110,14 @@
 		}
   }
 
-	a.locale {
+	a.locale,
+	a.logo {
+		font-size: 1rem;
 		font-family: var(--alt);
+	}
+
+	a.logo {
+		color: var(--highlight);
 	}
 
 	button.menu {
