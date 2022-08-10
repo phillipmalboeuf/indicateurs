@@ -6,6 +6,7 @@
   import Liste from './contenu/Liste.svelte'
   import Logos from './contenu/Logos.svelte'
   import Tableau from './contenu/Tableau.svelte'
+  import Tendances from './contenu/Tendances.svelte'
   import Text from './contenu/Text.svelte'
   import Tooltip from './Tooltip.svelte'
 
@@ -69,6 +70,8 @@
     <Liste {entry} />
     {:else if entry.sys.contentType.sys.id === 'tableau'}
     <Tableau {entry} />
+    {:else if entry.sys.contentType.sys.id === 'tendances'}
+    <Tendances {entry} />
     {:else if entry.sys.contentType.sys.id === 'contenuIndicateur'}
     <ContenuIndicateur {entry} />
     {:else if entry.sys.contentType.sys.id === 'images'}
