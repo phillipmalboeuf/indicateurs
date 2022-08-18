@@ -299,6 +299,7 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
       tooltip: Tooltip.new(root, {
         labelText: `${keys.length > 1 ? '{name}, ' : ''}{categoryX}: {valueY}`
       }),
+      connect: false
     }))
 
     series.strokes.template.setAll({
@@ -316,7 +317,8 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
     // })
 
     series.data.processor = DataProcessor.new(root, {
-      numericFields: [name]
+      numericFields: [name],
+      emptyAs: NaN,
     })
     
     series.data.setAll(seriesData)
