@@ -8,8 +8,9 @@ export const get: RequestHandler = async ({ params, query }) => {
   const system = await entry<{ piliers: Entry<any>[], indicateurs: Entry<any>[] }>('3qLoiQqZxJNss30lTE0mdA', locale)
   const categories = [
     ...system.fields.piliers,
-    ...system.fields.piliers.flatMap(pilier => pilier.fields.sousCategories)
+    ...system.fields.piliers.flatMap(pilier => pilier.fields.sousCategories || [])
   ]
+  console.log(categories)
   const categorie = categories.find(c => c.fields.id === params.id)
   const pilier = categories.find(c => c.fields.sousCategories?.find(s => s.fields.id === params.id))
   const sousCategories = categorie.fields.sousCategories?.map(s => s.fields.id)
