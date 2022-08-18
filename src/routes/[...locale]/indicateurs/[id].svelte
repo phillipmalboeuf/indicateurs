@@ -13,6 +13,11 @@
     data: string
     minimum: number
     maximum: number
+    altTitreDeLaxe: string
+    altType: string
+    altData: string
+    altMinimum: number
+    altMaximum: number
 		categorie: Entry<Categorie>
   }
 
@@ -33,13 +38,14 @@
   import Icon from '$lib/components/Icon.svelte'
   import StickyNav from '$lib/components/StickyNav.svelte'
   import Buttons, { imgix } from '$lib/components/Buttons.svelte'
-import Filters from '$lib/components/Filters.svelte'
+  import Filters from '$lib/components/Filters.svelte'
 
 	export let indicateur: Entry<Indicateur>
   export let pilier: Entry<Categorie>
   let exporting: Exporting
 
   let full = false
+  let alt = false
 </script>
 
 <svelte:head>
@@ -63,8 +69,8 @@ import Filters from '$lib/components/Filters.svelte'
     <a class="button" href="{$page.params.locale === 'en' ? "/en" : "/"}"><Icon i="chevron" small rotate={180} /> retour</a>
 
     {#if pilier}
-    <h4 style="color: {indicateur.fields.categorie.fields.couleur}">
-      <a href="{$page.params.locale === 'en' ? "/en" : ""}/categories/{pilier.fields.id}">{pilier.fields.titre}</a> – <a href="{$page.params.locale === 'en' ? "/en" : ""}/categories/{indicateur.fields.categorie.fields.id}">{indicateur.fields.categorie.fields.titre}</a>  
+    <h4>
+      <a style="color: {pilier.fields.couleur}" href="{$page.params.locale === 'en' ? "/en" : ""}/categories/{pilier.fields.id}">{pilier.fields.titre}</a> – <a style="color: {indicateur.fields.categorie.fields.couleur}" href="{$page.params.locale === 'en' ? "/en" : ""}/categories/{indicateur.fields.categorie.fields.id}">{indicateur.fields.categorie.fields.titre}</a>  
     </h4>
     {/if}
   </div>
@@ -77,6 +83,13 @@ import Filters from '$lib/components/Filters.svelte'
     <h1>{indicateur.fields.titre}</h1>
     {#if indicateur.fields.lead}<p>{indicateur.fields.lead}</p>{/if}
     {#if indicateur.fields.description}<Document body={indicateur.fields.description} />{/if}
+
+    {#if indicateur.fields.altData}
+    <aside>
+      <button on:click={() => alt = false}>{indicateur.fields.titreDeLaxe || "Original"}</button><br>
+      <button on:click={() => alt = true}>{indicateur.fields.altTitreDeLaxe || "Alternative"}</button>
+    </aside>
+    {/if}
 
     {#if indicateur.fields.data}
     <aside>
@@ -96,7 +109,19 @@ import Filters from '$lib/components/Filters.svelte'
     <div>
       <button on:click={() => full = !full}>{#if full}Moitié d'écran ↴{:else}Plein écran ⤢{/if}</button>
     </div>
-    <Chart bind:exporting {...indicateur.fields} small={full} couleur={indicateur.fields.categorie.fields.couleur} />
+    {#key alt}
+    <Chart 
+      id={indicateur.fields.id}
+      titre={indicateur.fields.titre}
+      sources={indicateur.fields.sources}
+      categorie={indicateur.fields.categorie}
+      data={alt ? indicateur.fields.altData : indicateur.fields.data}
+      type={alt ? indicateur.fields.altType : indicateur.fields.type}
+      minimum={alt ? indicateur.fields.altMinimum : indicateur.fields.minimum}
+      maximum={alt ? indicateur.fields.altMaximum : indicateur.fields.maximum}
+      titreDeLaxe={alt ? indicateur.fields.altTitreDeLaxe : indicateur.fields.titreDeLaxe}
+      bind:exporting small={full} couleur={indicateur.fields.categorie.fields.couleur} />
+    {/key}
     <Filters />
     {:else}
     <em class="empty">{$page.params.locale === 'en' ? "To be documented" : "À documenter"}</em>

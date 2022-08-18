@@ -10,7 +10,6 @@ export const get: RequestHandler = async ({ params, query }) => {
     ...system.fields.piliers,
     ...system.fields.piliers.flatMap(pilier => pilier.fields.sousCategories || [])
   ]
-  console.log(categories)
   const categorie = categories.find(c => c.fields.id === params.id)
   const pilier = categories.find(c => c.fields.sousCategories?.find(s => s.fields.id === params.id))
   const sousCategories = categorie.fields.sousCategories?.map(s => s.fields.id)
