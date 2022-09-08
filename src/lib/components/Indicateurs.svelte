@@ -7,11 +7,14 @@
   import { page } from '$app/stores'
 
   export let indicateurs: Entry<Indicateur>[]
-  let Donut
+  let Component
 
   onMount(async () => {
     if (indicateurs.find(indicateur => indicateur.fields.id === 'beigne')) {
-      Donut = (await import('./Donut.svelte')).default
+      Component = (await import('./Donut.svelte')).default
+    }
+    if (indicateurs.find(indicateur => indicateur.fields.id === 'progres')) {
+      Component = (await import('./Progress.svelte')).default
     }
   })
 </script>
@@ -20,8 +23,10 @@
   {#each indicateurs.filter(indicateur => indicateur.fields) as indicateur (indicateur.fields.id)}
   {#if !indicateur.hidden}
   <li>
-    {#if indicateur.fields.id === 'beigne' && Donut}
-    <svelte:component this={Donut} locale={$page.params.locale} />
+    {#if (indicateur.fields.id === 'beigne' || indicateur.fields.id === 'progres')}
+    {#if Component}
+    <svelte:component this={Component} locale={$page.params.locale} />
+    {/if}
     {:else}
     <Card {indicateur} />
     {/if}
