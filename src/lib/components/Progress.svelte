@@ -19,47 +19,24 @@
 
   const donut = locale === 'en'
   ? {
-    'Out': {
-      'Sustainable mobility': 10,
-      'Biodiversity': 10,
-      'Land Use': 20,
-      'Sustainability': 100,
-      'Energy': 10,
-      'Water': 10,
-      'Air Quality and Climate': 10,
+    'Up': {
+      'Environment': {bottom:4, top: 15},
+      'Society': {bottom:12, top: 22},
+      'Economy': {bottom:11, top: 17},
     },
-    'In': {
-      'Prosperity': 12,
-      'Innovation': 5,
-      'Employment': -10,
-      'Talent and Skills': 5,
-      'Poverty': 5,
-      'Quality of Life': 5,
-      'Health and Safety': 5,
-      'Housing': 5,
-      'Equality': 7,
-      'Culture': 5
-    }
+    'Plancher': {
+      '': {bottom:1, top:1},
+    },
   }
   : {
     'Up': {
-      'Environnement': 4/15,
-      'Société': 12/22,
-      'Économie': 11/17,
+      'Environnement': {bottom:4, top: 15},
+      'Société': {bottom:12, top: 22},
+      'Économie': {bottom:11, top: 17},
     },
     'Plancher': {
-      '': 1,
+      '': {bottom:1, top:1},
     },
-    // 'Stable': {
-    //   'Environnement': 9/15,
-    //   'Société': 9/22,
-    //   'Économie': 4/17,
-    // },
-    // 'Down': {
-    //   'Environnement': 2/15,
-    //   'Société': 1/22,
-    //   'Économie': 2/17,
-    // }
   }
 
   onMount(async () => {
@@ -102,13 +79,15 @@
   function renderChart(chart: PieChart, name: string, innerRadius: number | Percent, radius: number | Percent, inverted?: boolean) {
     const data = Object.keys(donut[name]).map(key => ({
       Catégorie: key,
-      Valeur: donut[name][key],
+      Valeur: donut[name][key].bottom / donut[name][key].top,
+      Bottom: donut[name][key].bottom,
+      Top: donut[name][key].top,
       Width: 1,
       template: {
         userData: {
           categorie: categories.find(c => c.fields.titre === key)?.fields.id
         },
-        scale: donut[name][key],
+        scale: donut[name][key].bottom / donut[name][key].top,
         fill: color(categories.find(c => c.fields.titre === key)?.fields.couleur || {
           'Plafond': '#EDF5E2',
           'Plancher': '#E2EEF5'
@@ -155,12 +134,6 @@
       cursorOverStyle: "pointer",
     })
 
-    series.slices.template.states.create("hover", {
-      shiftRadius: 0,
-      // scale: 1,
-      opacity: 0.88
-    })
-
     series.slices.template.states.create("active", {
       shiftRadius: 0,
     })
@@ -171,11 +144,13 @@
       }
     })
 
+    series.slices.template.events.on('pointerover', undefined)
+
     series.labels.template.setAll({
       fontSize: {
         'Milieu': '2.66rem',
       }[name] || '2.66rem',
-      text: "{category}",
+      text: "{category} {Bottom} / {Top}",
       textType: inverted ? "radial" : "circular",
       centerX: percent(100),
       radius: {
