@@ -13,7 +13,7 @@
     if (indicateurs.find(indicateur => indicateur.fields.id === 'beigne')) {
       Component = (await import('./Donut.svelte')).default
     }
-    if (indicateurs.find(indicateur => indicateur.fields.id === 'progres')) {
+    if (indicateurs.find(indicateur => indicateur.fields.id.startsWith('progres'))) {
       Component = (await import('./Progress.svelte')).default
     }
   })
@@ -23,9 +23,10 @@
   {#each indicateurs.filter(indicateur => indicateur.fields) as indicateur (indicateur.fields.id)}
   {#if !indicateur.hidden}
   <li>
-    {#if (indicateur.fields.id === 'beigne' || indicateur.fields.id === 'progres')}
+    
+    {#if (indicateur.fields.id === 'beigne' || indicateur.fields.id.startsWith('progres'))}
     {#if Component}
-    <svelte:component this={Component} locale={$page.params.locale} />
+    <svelte:component this={Component} locale={$page.params.locale} juri={indicateur.fields.id.startsWith('progres') && indicateur.fields.id.split('–')[1]} />
     {/if}
     {:else}
     <Card {indicateur} />

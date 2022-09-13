@@ -20,4 +20,4 @@
   let exporting: Exporting
 </script>
 
-<Progress bind:exporting locale={$page.params.locale} />
+<Progress bind:exporting locale={$page.params.locale} juri={'Québec'} />

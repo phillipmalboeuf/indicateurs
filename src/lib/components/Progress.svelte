@@ -16,13 +16,33 @@
   let element: HTMLElement
   export let exporting: Exporting = undefined
   export let locale: string
+  export let juri: string
 
+  console.log(juri)
+
+  const values = {
+    'Québec': {
+      'Environnement': {bottom:4, top: 15},
+      'Société': {bottom:12, top: 22},
+      'Économie': {bottom:11, top: 17},
+    },
+    'Ontario': {
+      'Environnement': {bottom:4, top: 15},
+      'Société': {bottom:8, top: 22},
+      'Économie': {bottom:9, top: 17},
+    },
+    'Canada': {
+      'Environnement': {bottom:4, top: 15},
+      'Société': {bottom:9, top: 22},
+      'Économie': {bottom:9, top: 17},
+    },
+  }
   const donut = locale === 'en'
   ? {
     'Up': {
-      'Environment': {bottom:4, top: 15},
-      'Society': {bottom:12, top: 22},
-      'Economy': {bottom:11, top: 17},
+      'Environment': values[juri]['Environnement'],
+      'Society': values[juri]['Société'],
+      'Economy': values[juri]['Économie'],
     },
     'Plancher': {
       '': {bottom:1, top:1},
@@ -30,9 +50,9 @@
   }
   : {
     'Up': {
-      'Environnement': {bottom:4, top: 15},
-      'Société': {bottom:12, top: 22},
-      'Économie': {bottom:11, top: 17},
+      'Environnement': values[juri]['Environnement'],
+      'Société': values[juri]['Société'],
+      'Économie': values[juri]['Économie'],
     },
     'Plancher': {
       '': {bottom:1, top:1},
@@ -149,6 +169,8 @@
     series.labels.template.setAll({
       fontSize: {
         'Milieu': '2.66rem',
+        'Plancher': '0rem',
+        'Up': '4.66rem',
       }[name] || '2.66rem',
       text: "{category} {Bottom} / {Top}",
       textType: inverted ? "radial" : "circular",
