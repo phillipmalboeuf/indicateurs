@@ -99,7 +99,7 @@
   function renderChart(chart: PieChart, name: string, innerRadius: number | Percent, radius: number | Percent, inverted?: boolean) {
     const data = Object.keys(donut[name]).map(key => ({
       Catégorie: key,
-      Valeur: donut[name][key].bottom / donut[name][key].top,
+      Valeur: 1,
       Bottom: donut[name][key].bottom,
       Top: donut[name][key].top,
       Width: 1,
