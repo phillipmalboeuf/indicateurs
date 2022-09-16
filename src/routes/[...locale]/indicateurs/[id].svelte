@@ -172,7 +172,7 @@
   aside {
     margin-bottom: var(--gutter);
     display: flex;
-    column-gap: calc(var(--gutter) / 2);
+    column-gap: calc(var(--gutter) / 4);
   }
 
   figure {
