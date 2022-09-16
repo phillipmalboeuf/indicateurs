@@ -51,6 +51,7 @@
 
     li h6 {
       text-align: center;
+      margin-bottom: 0;
     }
 
     &.ex {

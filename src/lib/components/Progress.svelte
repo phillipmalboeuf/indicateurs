@@ -18,8 +18,6 @@
   export let locale: string
   export let juri: string
 
-  console.log(juri)
-
   const values = {
     'Québec': {
       'Environnement': {bottom:4, top: 15},
@@ -83,8 +81,9 @@
       })
     )
     
-    renderChart(chart, 'Up', percent(0), percent(88))
-    renderChart(chart, 'Plancher', percent(89), percent(92))
+    renderChart(chart, 'Up', percent(0), percent(89), true, false)
+    renderChart(chart, 'Up', percent(0), percent(88), false, true)
+    renderChart(chart, 'Plancher', percent(89), percent(92), false, false)
     // renderChart(chart, 'Stable', percent(34), percent(74))
     // renderChart(chart, 'Down', percent(75), percent(100))
 
@@ -96,7 +95,7 @@
   })
 
 
-  function renderChart(chart: PieChart, name: string, innerRadius: number | Percent, radius: number | Percent, inverted?: boolean) {
+  function renderChart(chart: PieChart, name: string, innerRadius: number | Percent, radius: number | Percent, back?: boolean, labels?: boolean) {
     const data = Object.keys(donut[name]).map(key => ({
       Catégorie: key,
       Valeur: 1,
@@ -107,8 +106,8 @@
         userData: {
           categorie: categories.find(c => c.fields.titre === key)?.fields.id
         },
-        scale: donut[name][key].bottom / donut[name][key].top,
-        fill: color(categories.find(c => c.fields.titre === key)?.fields.couleur || {
+        scale: back ? 1 : donut[name][key].bottom / donut[name][key].top,
+        fill: color(back ? '#1D1F27' : categories.find(c => c.fields.titre === key)?.fields.couleur || {
           'Plafond': '#EDF5E2',
           'Plancher': '#E2EEF5'
         }[name] || '#FFF')
@@ -146,7 +145,7 @@
 
     series.slices.template.setAll({
       // fill: color('#069550'),
-      stroke: color({
+      stroke: color(back ? '#EDF5E2' : {
         'Milieu': '#fff',
       }[name] || '#1D1F27'),
       strokeWidth: 4,
@@ -166,14 +165,14 @@
 
     series.slices.template.events.on('pointerover', undefined)
 
-    series.labels.template.setAll({
+    labels && series.labels.template.setAll({
       fontSize: {
         'Milieu': '2.66rem',
         'Plancher': '0rem',
         'Up': '4.66rem',
       }[name] || '2.66rem',
       text: "{category} {Bottom} / {Top}",
-      textType: inverted ? "radial" : "circular",
+      textType: "circular",
       centerX: percent(100),
       radius: {
         'Plafond': 18,
@@ -194,7 +193,7 @@
         }[name] || '#fff'),
       oversizedBehavior: "wrap",
       maxWidth: 215,
-      textAlign: inverted ? 'left' : 'center'
+      textAlign: 'center'
     });
 
     series.data.setAll(data)
