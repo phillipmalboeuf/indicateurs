@@ -26,6 +26,7 @@
     
     {#if (indicateur.fields.id === 'beigne' || indicateur.fields.id.startsWith('progres'))}
     {#if Component}
+    {#if indicateur.fields.id.startsWith('progres')}<h6>{indicateur.fields.titre}</h6>{/if}
     <svelte:component this={Component} locale={$page.params.locale} juri={indicateur.fields.id.startsWith('progres') && indicateur.fields.id.split('–')[1]} />
     {/if}
     {:else}
@@ -47,6 +48,10 @@
     column-gap: var(--gutter);
     row-gap: var(--gutter);
     overflow-x: hidden;
+
+    li h6 {
+      text-align: center;
+    }
 
     &.ex {
       grid-template-columns: repeat(2, 1fr) !important;
