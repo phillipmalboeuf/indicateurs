@@ -94,6 +94,9 @@
     })
   })
 
+  // A = pi * r ^ 2
+  // squareroot(0.5/pi) = r
+
 
   function renderChart(chart: PieChart, name: string, innerRadius: number | Percent, radius: number | Percent, back?: boolean, labels?: boolean) {
     const data = Object.keys(donut[name]).map(key => ({
@@ -106,7 +109,7 @@
         userData: {
           categorie: categories.find(c => c.fields.titre === key)?.fields.id
         },
-        scale: back ? 1 : donut[name][key].bottom / donut[name][key].top,
+        scale: back ? 1 : Math.sqrt(donut[name][key].bottom / donut[name][key].top),
         fill: color(back ? '#1D1F27' : categories.find(c => c.fields.titre === key)?.fields.couleur || {
           'Plafond': '#EDF5E2',
           'Plancher': '#E2EEF5'
