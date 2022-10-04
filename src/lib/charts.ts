@@ -248,7 +248,7 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
   let xAxis = chart.xAxes.push(
     CategoryAxis.new(root, {
       renderer: AxisRendererX.new(root, {
-        minGridDistance: 30,
+        minGridDistance: 55,
         
       }),
       categoryField: "Date",
@@ -260,7 +260,7 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
   })
   xAxis.get("renderer").labels.template.adapters.add("text", function(text, target) {
     //@ts-ignore
-    return target.dataItem ? `‘${target.dataItem?._settings.category.substring(2)}` : text
+    return target.dataItem ? target.dataItem?._settings.category.split('-').map(c => `‘${c.substring(2)}`).join('-') : text
   })
   xAxis.data.setAll(seriesData)
 

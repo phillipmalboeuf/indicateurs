@@ -109,8 +109,14 @@
 
     :global(h2),
     :global(h4),
-    :global(h6) {
+    :global(h6),
+    :global(u) {
       color: var(--highlight);
+    }
+
+    :global(u) {
+      font-weight: bold;
+      text-decoration: none;
     }
 
     :global(strong) {
