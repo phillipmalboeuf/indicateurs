@@ -226,7 +226,7 @@
 
   button {
     position: absolute;
-    bottom: var(--gutter);
-    right: var(--gutter);
+    bottom: 0;
+    right: 0;
   }
 </style>
