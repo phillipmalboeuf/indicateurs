@@ -178,12 +178,13 @@
       textType: "circular",
       centerX: percent(100),
       radius: {
+        'Up': 50,
         'Plafond': 18,
         'Milieu': 45,
         'Plancher': 13,
         'Out': 75
       }[name],
-      inside: true,
+      inside: false,
       fontFamily: {
           'Plafond': 'PP Neue Machina',
           'Plancher': 'PP Neue Machina'
