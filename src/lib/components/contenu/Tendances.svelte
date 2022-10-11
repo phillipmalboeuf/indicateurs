@@ -77,7 +77,7 @@
     td {
       article {
         text-align: center;
-        padding: calc(var(--gutter) * 1.5) calc(var(--gutter) * 1.5) calc(var(--gutter) * 0.5);
+        padding: calc(var(--gutter) * 1.33) 0 calc(var(--gutter) * 0.5);
         background-color: var(--darkish );
         border: var(--border);
         border-radius: var(--corner);
