@@ -2,7 +2,7 @@
   
   export function imgix(indicateur: Entry<Indicateur>) {
     // return `https://indicateurs.imgix.net/${indicateur.fields.id}_v${indicateur.sys.revision}.png?txt=indicateurs.quebec/indicateurs/${indicateur.fields.id}&txt-color=${indicateur.fields.categorie.fields.couleur.replace('#', '')}`
-    return `https://indicateurs.imgix.net/${indicateur.fields.id}_v${indicateur.sys.revision}.png?q=100`
+    return `https://indicateurs.imgix.net/indicateur_${indicateur.fields.id}_v${indicateur.sys.revision}.png?q=100`
   }
 </script>
 
@@ -78,7 +78,7 @@
     <li><a class="button" href="{imgix(indicateur)}&dl">{$page.params.locale === 'en' ? "Image format" : "Format image"}</a></li>
     <li><button on:click={() => exporting?.download('csv')}>{$page.params.locale === 'en' ? "CSV format" : "Format CSV"}</button></li>
     {#if ex}<li><button on:click={async () => {
-      await fetch(`/indicateurs/upload.json?name=${indicateur.fields.id}_v${indicateur.sys.revision}`, {
+      await fetch(`/indicateurs/upload.json?name=indicateur_${indicateur.fields.id}_v${indicateur.sys.revision}`, {
         method: 'PUT',
         body: (await exporting?.exportImage('png', {quality: 1}))
       })

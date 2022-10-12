@@ -70,12 +70,12 @@
 
       if ($page.query.has("export")) {
         chart.setAll({
-          width: percent(50),
-          centerX: percent(-50)
+          width: percent(90),
+          centerX: percent(0)
         })
         if (sources) chart.chartContainer.children.push(Label.new(chart._root, {
           width: percent(100),
-          centerX: percent(48),
+          centerX: percent(0),
           text: documentToPlainTextString(sources),
           fontSize: '0.75em',
           oversizedBehavior: "wrap",
@@ -85,7 +85,7 @@
         
         chart.chartContainer.children.unshift(Label.new(chart._root, {
           width: percent(100),
-          centerX: percent(48),
+          centerX: percent(0),
           text: titre,
           fontSize: '1.25em',
           oversizedBehavior: "wrap",
@@ -94,7 +94,7 @@
 
         chart.chartContainer.children.unshift(Label.new(chart._root, {
           width: percent(100),
-          centerX: percent(48),
+          centerX: percent(0),
           text: categorie.fields.titre,
           fill: color(categorie.fields.couleur),
           fontSize: '1.5em',
@@ -102,7 +102,7 @@
 
         chart.chartContainer.children.push(Label.new(chart._root, {
           width: percent(100),
-          centerX: percent(-48),
+          centerX: percent(-0),
           y: percent(95),
           text: `© indicateurs.quebec/indicateurs/${id}`,
           fontSize: '0.75em',
