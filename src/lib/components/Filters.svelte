@@ -66,7 +66,7 @@ import { colors } from '$lib/charts';
 
   {#if categories}
   <Tooltip>
-    <button type="button" slot="tip" class="filter">Pilliers <Icon i="chevron" rotate={90} /></button>
+    <button type="button" slot="tip" class="filter">Piliers <Icon i="chevron" rotate={90} /></button>
     <ul class="piliers" slot="tool">
       {#each categories as categorie}
       {#if categorie.fields.sousCategories?.length > 0}
