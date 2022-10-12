@@ -19,7 +19,7 @@ function csvToArray(str: string, delimiter = ",") {
   return arr;
 }
 
-import { Bullet, Circle, Color, color, DataProcessor, Label, Legend, LinearGradient, percent, Root, Theme, Tooltip } from '@amcharts/amcharts5'
+import { Bullet, Circle, Color, color, DataProcessor, Label, Legend, LinearGradient, percent, Root, Scrollbar, Theme, Tooltip } from '@amcharts/amcharts5'
 import { XYChart, ValueAxis, CategoryAxis, AxisRendererX, ColumnSeries, AxisRendererY, LineSeries, AxisLabel, XYCursor, SmoothedXLineSeries } from '@amcharts/amcharts5/xy'
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated"
 import am5themes_Dark from "@amcharts/amcharts5/themes/Dark"
@@ -27,6 +27,7 @@ import am5locales_fr from "@amcharts/amcharts5/locales/fr_FR"
 import am5locales_en from "@amcharts/amcharts5/locales/en_CA"
 import { FunnelSeries, PieChart, PieSeries, PyramidSeries, SlicedChart } from '@amcharts/amcharts5/percent'
 import type { iHSL } from '@amcharts/amcharts5/.internal/core/util/Utils'
+import { region } from './stores'
 
 export const colors = {
   'Canada': color('#EF3340'),
@@ -184,14 +185,15 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
 
   if (Object.keys(subs).length > 1) {
     let legend = chart.children.push(Legend.new(root, {
-      nameField: "name",
-      fillField: "color",
-      x: percent(150),
-      centerX: percent(150)
+      // nameField: "name",
+      // fillField: "color",
+      x: percent(100),
+      centerX: percent(100)
     }))
     legend.labels.template.setAll({
       fill: color('#EDF5E2')
     })
+    legend.valueLabels.template.set("forceHidden", true)
     let c = colors['Québec'].toHSL()
     legend.data.setAll(Object.keys(subs).map(s => ({
       name: s,
@@ -342,12 +344,13 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
     let legend = chart.children.push(Legend.new(root, {
       nameField: "name",
       fillField: "color",
-      x: percent(150),
-      centerX: percent(150)
+      x: percent(100),
+      centerX: percent(100)
     }))
     legend.labels.template.setAll({
       fill: color('#EDF5E2')
     })
+    legend.valueLabels.template.set("forceHidden", true)
     let c = colors['Québec'].toHSL()
     legend.data.setAll(Object.keys(subs).map(s => ({
       name: s,
