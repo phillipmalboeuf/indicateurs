@@ -188,7 +188,8 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
       // nameField: "name",
       // fillField: "color",
       x: percent(100),
-      centerX: percent(100)
+      centerX: percent(100),
+      clickTarget: "none"
     }))
     legend.labels.template.setAll({
       fill: color('#EDF5E2')
@@ -345,7 +346,8 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
       nameField: "name",
       fillField: "color",
       x: percent(100),
-      centerX: percent(100)
+      centerX: percent(100),
+      clickTarget: "none"
     }))
     legend.labels.template.setAll({
       fill: color('#EDF5E2')
