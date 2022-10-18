@@ -78,7 +78,7 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
   )
   yAxis.get("renderer").labels.template.setAll({
     centerY: percent(90),
-    centerX: percent(0),
+    centerX: title ? -30 : 0,
     inside: true
   })
 
@@ -225,7 +225,7 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
   )
   yAxis.get("renderer").labels.template.setAll({
     centerY: percent(90),
-    centerX: percent(0),
+    centerX: title ? -30 : 0,
     inside: true
   })
 
