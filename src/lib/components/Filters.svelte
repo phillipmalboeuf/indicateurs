@@ -9,7 +9,8 @@
   import Icon from './Icon.svelte'
 
   import { region } from '$lib/stores'
-import { colors } from '$lib/charts';
+  import { colors } from '$lib/charts'
+  import { page } from '$app/stores'
 
   export let categories: Entry<Categorie>[] = undefined
   export let checked: string[] = []
@@ -66,7 +67,7 @@ import { colors } from '$lib/charts';
 
   {#if categories}
   <Tooltip>
-    <button type="button" slot="tip" class="filter">Piliers <Icon i="chevron" rotate={90} /></button>
+    <button type="button" slot="tip" class="filter">{$page.params.locale === 'en' ? "Pillars" : "Piliers"} <Icon i="chevron" rotate={90} /></button>
     <ul class="piliers" slot="tool">
       {#each categories as categorie}
       {#if categorie.fields.sousCategories?.length > 0}
