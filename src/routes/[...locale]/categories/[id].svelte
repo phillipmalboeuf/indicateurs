@@ -51,7 +51,7 @@
 {#key categorie.fields.id}
 <StickyNav>
   <div slot="left">
-    <a class="button" href="{$page.params.locale === 'en' ? "/en" : "/"}"><Icon i="chevron" small rotate={180} /> retour</a>
+    <a class="button" href="{$page.params.locale === 'en' ? "/en" : "/"}"><Icon i="chevron" small rotate={180} /> {$page.params.locale === 'en' ? "back" : "retour"}</a>
 
     {#if pilier}
     <h4><a href="{$page.params.locale === 'en' ? "/en" : ""}/categories/{pilier.fields.id}">{pilier.fields.titre}</a></h4>

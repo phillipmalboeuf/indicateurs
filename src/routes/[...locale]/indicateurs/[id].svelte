@@ -66,7 +66,7 @@
 {#key indicateur.fields.id}
 <StickyNav>
   <div slot="left">
-    <a class="button" href="{$page.params.locale === 'en' ? "/en" : "/"}"><Icon i="chevron" small rotate={180} /> retour</a>
+    <a class="button" href="{$page.params.locale === 'en' ? "/en" : "/"}"><Icon i="chevron" small rotate={180} /> {$page.params.locale === 'en' ? "back" : "retour"}</a>
 
     {#if pilier}
     <h4>
@@ -107,7 +107,7 @@
   <figure class:ex={$page.query.has("export")}>
     {#if indicateur.fields.data}
     <div>
-      <button on:click={() => full = !full}>{#if full}Moitié d'écran ↴{:else}Plein écran ⤢{/if}</button>
+      <button on:click={() => full = !full}>{#if $page.params.locale === 'en'}{#if full}Half screen ↴{:else}Full screen ⤢{/if}{:else}{#if full}Moitié d'écran ↴{:else}Plein écran ⤢{/if}{/if}</button>
     </div>
     {#key alt}
     <Chart 

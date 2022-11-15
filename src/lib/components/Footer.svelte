@@ -6,6 +6,7 @@
 <script lang="ts">
   import Link from './Link.svelte'
   import Picture from './Picture.svelte'
+  import { page } from '$app/stores'
 
 	export let path: string
   export let navigation: Entry<{ liens: Entry<Lien>[] }>
@@ -35,7 +36,7 @@
   <hr>
 
   <nav>
-    <div>© 2021, Les Indicateurs. Tous droits réservés.</div>
+    <div>© 2022, {$page.params.locale === 'en' ? "The Indicators. All rights reserved" : "Les Indicateurs. Tous droits réservés."}</div>
     {#each subnavigation.fields.liens as lien}
     <div>
       <Link active={path.includes(lien.fields.lien)} {lien} />
