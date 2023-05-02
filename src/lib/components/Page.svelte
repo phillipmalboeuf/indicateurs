@@ -58,7 +58,7 @@
 {/if}
 
 {#if page.fields.contenu}
-<Contenu contenu={page.fields.contenu} />
+<Contenu contenu={page.fields.contenu} noNav={hero} />
 {/if}
 {/key}
 
@@ -67,7 +67,7 @@
 
   h1 {
     text-align: center;
-    max-width: calc(var(--width) / 1.5);
+    max-width: calc(var(--width) / 1.75);
 
     &.sticky {
       font-size: 1.3rem;

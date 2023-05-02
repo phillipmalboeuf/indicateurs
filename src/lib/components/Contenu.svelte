@@ -11,6 +11,8 @@
   import Tooltip from './Tooltip.svelte'
 
   export let contenu: Entry<any>[]
+  export let noNav = false
+
   let active: string
   let elements: {[key: string]: Element} = {}
   let showMenu = false
@@ -44,7 +46,8 @@
 </script>
 
 
-<section>
+<section class:noNav>
+  {#if !noNav}
   <nav>
     {#each contenu.filter(c => c.fields.id) as entry}
     <a href="#{entry.fields.id}" class:active={active === entry.fields.id} on:click={show}>{entry.fields.titre}</a>
@@ -60,6 +63,7 @@
     </Tooltip>
     {/if}
   </nav>
+  {/if}
 
   <div>
     {#each contenu as entry}
@@ -104,6 +108,17 @@
 
       @media (max-width: 888px) {
         grid-column: span 12;
+      }
+    }
+
+    &.noNav {
+      > div {
+        grid-column-start: 3;
+        grid-column-end: 11;
+
+        // @media (max-width: 888px) {
+        //   grid-column: span 12;
+        // }
       }
     }
 

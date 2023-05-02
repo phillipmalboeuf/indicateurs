@@ -19,7 +19,7 @@ function csvToArray(str: string, delimiter = ",") {
   return arr;
 }
 
-import { Bullet, Circle, Color, color, DataProcessor, Label, Legend, LinearGradient, percent, Root, Scrollbar, Theme, Tooltip } from '@amcharts/amcharts5'
+import { Bullet, Circle, Color, color, DataProcessor, Label, Legend, LinearGradient, percent, Picture, Root, Scrollbar, Theme, Tooltip } from '@amcharts/amcharts5'
 import { XYChart, ValueAxis, CategoryAxis, AxisRendererX, ColumnSeries, AxisRendererY, LineSeries, AxisLabel, XYCursor, SmoothedXLineSeries } from '@amcharts/amcharts5/xy'
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated"
 import am5themes_Dark from "@amcharts/amcharts5/themes/Dark"
@@ -31,8 +31,8 @@ import { region } from './stores'
 
 export const colors = {
   'Canada': color('#EF3340'),
-  'Québec': color('#3979D8'),
-  'Ontario': color('#F3CC00')
+  'Québec': color('#003DA5'),
+  'Ontario': color('#FFF')
 }
 
 export function init(element: HTMLElement, locale: string) {

@@ -24,10 +24,6 @@
   export let indicateurs: Entry<Indicateur>[]
   export let page: Entry<PageDocument>
 
-  $: {
-    page.fields.contenu = undefined
-  }
-
   let checked: string[] = $query.query.get('categories')?.split(',') || []
 </script>
 

@@ -7,7 +7,7 @@ import type { Entry } from 'contentful'
 export const get: RequestHandler = async ({ params, query }) => {
   const locale = params.locale
 	const [page, system] = await Promise.all([
-    entry('5nm4pR4zIs8IhngVKfeSlk', locale),
+    entry('5nm4pR4zIs8IhngVKfeSlk', locale, {}, 4),
     entry<{ piliers: Entry<any>[], indicateurs: Entry<any>[] }>('3qLoiQqZxJNss30lTE0mdA', locale)
   ])
 

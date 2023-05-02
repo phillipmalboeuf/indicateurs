@@ -24,7 +24,7 @@
 {:else}
 <article>
   {#if indicateur.fields.categorie}
-  <em style="color: {indicateur.fields.categorie?.fields.couleur}"><a href="{$page.params.locale === 'en' ? "/en" : ""}/categories/{indicateur.fields.categorie.fields.id}">{indicateur.fields.categorie.fields.titre}</a></em><br />
+  <em style="color: {indicateur.fields.categorie?.fields?.couleur}"><a href="{$page.params.locale === 'en' ? "/en" : ""}/categories/{indicateur.fields.categorie?.fields?.id}">{indicateur.fields.categorie?.fields?.titre}</a></em><br />
   {/if}
   <a class="indicateurs" href="{$page.params.locale === 'en' ? "/en" : ""}/indicateurs/{indicateur.fields.id}">{indicateur.fields.titre}</a>
 
@@ -33,7 +33,7 @@
   {/if} -->
 
   {#if indicateur.fields.data}
-  <Chart {...indicateur.fields} bind:exporting couleur={indicateur.fields.categorie.fields.couleur} />
+  <Chart {...indicateur.fields} bind:exporting couleur={indicateur.fields.categorie?.fields?.couleur} />
 
   <aside class="card-footer">
     <a href="{$page.params.locale === 'en' ? "/en" : ""}/indicateurs/{indicateur.fields.id}"><small>{$page.params.locale === 'en' ? "Details" : "Détails"} <Icon i="chevron" small /></small></a>
