@@ -27,7 +27,7 @@
   onMount(() => {
     shareable = !!navigator.share
 
-    if ($page.query.has("export")) {
+    if ($page.url.searchParams.has("export")) {
       ex = true
     }
   })

@@ -2,8 +2,8 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="alternate shortcut icon" href="/favicon.png" type="image/png"/>
-    <link rel="shortcut icon" href="/favicon.svg" type="image/svg+xml" />
+		<link rel="alternate shortcut icon" href="%sveltekit.assets%/favicon.png" type="image/png"/>
+    <link rel="shortcut icon" href="%sveltekit.assets%/favicon.svg" type="image/svg+xml" />
 
 		<!-- <link rel="preload" as="font" href="/fonts/PPNeueMontreal-Book.woff2" type="font/woff2" crossorigin="anonymous" />
 		<link rel="preload" as="font" href="/fonts/PPNeueMontreal-Medium.woff2" type="font/woff2" crossorigin="anonymous" />
@@ -39,9 +39,9 @@
 		</style>
 
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		%svelte.head%
+		%sveltekit.head%
 	</head>
 	<body>
-		<div id="svelte">%svelte.body%</div>
+		<div id="svelte">%sveltekit.body%</div>
 	</body>
 </html>
