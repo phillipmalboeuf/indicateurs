@@ -2,17 +2,10 @@
   import { page } from '$app/stores'
 
   import type { Entry, Asset } from 'contentful'
-  import type { Lien } from './Header.svelte'
   import Picture from './Picture.svelte'
+  import type { TypeDashSkeleton } from '$lib/clients/content_types'
 
-  export let dashboard: Entry<Lien & {
-    image: Asset
-    emphasis: boolean
-    colStart: number
-    colEnd: number
-    rowStart: number
-    rowEnd: number
-  }>[]
+  export let dashboard: Entry<TypeDashSkeleton>[]
 </script>
 
 

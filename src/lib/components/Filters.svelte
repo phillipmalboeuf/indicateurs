@@ -1,8 +1,8 @@
 <script lang="ts">
   import type { Entry } from 'contentful'
   
-  import type { Indicateur } from '$routes/indicateurs/[id].svelte'
-  import type { Categorie } from '$routes/categories/[id].svelte'
+  // import type { Indicateur } from '$routes/indicateurs/[id].svelte'
+  import type { TypeCategorieSkeleton } from '$lib/clients/content_types'
 
   import { afterUpdate, createEventDispatcher } from 'svelte'
   import Tooltip from './Tooltip.svelte'
@@ -12,7 +12,7 @@
   import { colors } from '$lib/charts'
   import { page } from '$app/stores'
 
-  export let categories: Entry<Categorie>[] = undefined
+  export let categories: Entry<TypeCategorieSkeleton>[] = undefined
   export let checked: string[] = []
   // export let columns = false
   export let base: string = undefined

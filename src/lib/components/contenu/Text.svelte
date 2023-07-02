@@ -1,12 +1,10 @@
 <script lang="ts">
-  import type { Entry, RichTextContent } from 'contentful'
+  import type { Entry } from 'contentful'
+  import type { TypeTextSkeleton } from '$lib/clients/content_types'
+  
   import Document from '../document/Document.svelte'
 
-  export let entry: Entry<{
-    titre: string
-    id: string
-    corps: RichTextContent
-  }>
+  export let entry: Entry<TypeTextSkeleton>
 </script>
 
 <section id={entry.fields.id}>

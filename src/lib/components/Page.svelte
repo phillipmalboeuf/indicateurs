@@ -1,29 +1,14 @@
-<script context="module" lang="ts">
-  import type { Asset, Entry, RichTextContent } from 'contentful'
-  import type { Lien } from './Header.svelte'
-
-  export interface PageDocument {
-    titre: string
-    id: string
-    description: any
-    photo: Asset
-    contenu: Entry<any>[]
-    bouton: Entry<Lien>
-    dashboard: Entry<any>[]
-  }
-
-</script>
-
-
 <script lang="ts">
+  import type { Entry } from 'contentful'
   import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer'
+  import type { TypePageSkeleton } from '$lib/clients/content_types'
 
   import Contenu from './Contenu.svelte'
   import Dashboard from './Dashboard.svelte'
   import Hero from './Hero.svelte'
   import StickyNav from './StickyNav.svelte'
 
-	export let page: Entry<PageDocument>
+	export let page: Entry<TypePageSkeleton>
   export let hero: boolean = false
 </script>
 

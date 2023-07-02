@@ -13,6 +13,7 @@
   }
 </style>
 
+{#if media}
 {#if media.fields.file.contentType.startsWith('video/')}
 <video src="{media.fields.file.url}" autoplay muted loop playsinline />
 {:else}
@@ -37,4 +38,5 @@
 
 {#if !noDescription && media.fields.description}
 <small>{media.fields.description}</small>
+{/if}
 {/if}

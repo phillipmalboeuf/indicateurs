@@ -1,18 +1,12 @@
 <script lang="ts">
-  import type { Entry, RichTextContent } from 'contentful'
+  import type { Entry } from 'contentful'
 
-  import type { Indicateur } from '$routes/indicateurs/[id].svelte'
   import Document from '../document/Document.svelte'
   import type { Lien } from '../Header.svelte'
   import Indicateurs from '../Indicateurs.svelte'
+  import type { TypeContenuIndicateurSkeleton } from '$lib/clients/content_types'
 
-  export let entry: Entry<{
-    titre: string
-    id: string
-    corps: RichTextContent
-    aprs: RichTextContent
-    indicateurs: Entry<Indicateur>[]
-  }>
+  export let entry: Entry<TypeContenuIndicateurSkeleton>
 </script>
 
 <section id={entry.fields.id}>

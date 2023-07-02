@@ -7,10 +7,11 @@
   import Link from './Link.svelte'
   import Picture from './Picture.svelte'
   import { page } from '$app/stores'
+  import type { TypeNavigationSkeleton } from '$lib/clients/content_types'
 
 	export let path: string
-  export let navigation: Entry<{ liens: Entry<Lien>[] }>
-  export let subnavigation: Entry<{ liens: Entry<Lien>[] }>
+  export let navigation: Entry<TypeNavigationSkeleton>
+  export let subnavigation: Entry<TypeNavigationSkeleton>
   export let logo: Asset
 </script>
 

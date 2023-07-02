@@ -1,17 +1,12 @@
 <script lang="ts">
-  import type { Entry, RichTextContent } from 'contentful'
+  import type { Entry } from 'contentful'
   import Document from '../document/Document.svelte'
 
   import { color, Color } from '@amcharts/amcharts5'
   import { csvToChartData } from '$lib/charts'
+    import type { TypeTendancesSkeleton } from '$lib/clients/content_types';
 
-  export let entry: Entry<{
-    titre: string
-    id: string
-    corps: RichTextContent
-    data: string
-    flecheSeulement: boolean
-  }>
+  export let entry: Entry<TypeTendancesSkeleton>
 
   const data: {[key: string]: number}[] = csvToChartData(entry.fields.data)
 

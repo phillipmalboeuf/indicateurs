@@ -1,14 +1,10 @@
 <script lang="ts">
-  import type { Asset, Entry, RichTextContent } from 'contentful'
+  import type { Asset, Entry } from 'contentful'
   import Document from '../document/Document.svelte'
   import Picture from '../Picture.svelte'
+    import type { TypeLogosSkeleton } from '$lib/clients/content_types';
 
-  export let entry: Entry<{
-    titre: string
-    id: string
-    corps: RichTextContent
-    logos: Asset[]
-  }>
+  export let entry: Entry<TypeLogosSkeleton>
 </script>
 
 <section id={entry.fields.id}>

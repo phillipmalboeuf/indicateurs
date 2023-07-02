@@ -2,19 +2,19 @@
 
 <script lang="ts">
   import type { Entry } from 'contentful'
-  import type { Categorie } from '$routes/categories/[id].svelte'
   import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer'
 
   import { onMount, onDestroy } from 'svelte'
   import { page } from '$app/stores'
 
-  import { color, Label, percent, Root } from '@amcharts/amcharts5'
+  import { color, Label, percent } from '@amcharts/amcharts5'
   import { createCourbe, createHistogramme, createPyramide, createTarte, csvToChartData } from '$lib/charts'
   import { Exporting, ExportingMenu } from '@amcharts/amcharts5/plugins/exporting'
   import type { Chart } from '@amcharts/amcharts5/.internal/core/render/Chart'
   import type { XYChart } from '@amcharts/amcharts5/xy'
   import { region } from '$lib/stores'
-
+  
+  import type { TypeCategorieSkeleton } from '$lib/clients/content_types'
 
   let chart: Chart
   let element: HTMLElement
@@ -25,7 +25,7 @@
   export let id: string
   export let titre: string
   export let sources: any
-  export let categorie: Entry<Categorie>
+  export let categorie: Entry<TypeCategorieSkeleton>
   export let data: string
   export let type: string
   export let minimum: number
@@ -68,7 +68,7 @@
         // menu: ExportingMenu.new(chart._root, {})
       })
 
-      if ($page.query.has("export")) {
+      if ($page.url.searchParams.has("export")) {
         chart.setAll({
           width: percent(90),
           centerX: percent(0)
@@ -165,6 +165,7 @@
 
 <style lang="scss">
   figure {
+    display: block;
     width: 100%;
     padding-bottom: 100%;
     margin: var(--gutter) 0 0;

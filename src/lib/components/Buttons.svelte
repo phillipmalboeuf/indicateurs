@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
   
-  export function imgix(indicateur: Entry<Indicateur>) {
+  export function imgix(indicateur: Entry<TypeIndicateurSkeleton>) {
     // return `https://indicateurs.imgix.net/${indicateur.fields.id}_v${indicateur.sys.revision}.png?txt=indicateurs.quebec/indicateurs/${indicateur.fields.id}&txt-color=${indicateur.fields.categorie.fields.couleur.replace('#', '')}`
     return `https://indicateurs.imgix.net/indicateur_${indicateur.fields.id}_v${indicateur.sys.revision}.png?q=100`
   }
@@ -13,11 +13,11 @@
   import Icon from '$lib/components/Icon.svelte'
   import Tooltip from '$lib/components/Tooltip.svelte'
   import type { Entry } from 'contentful'
-  import type { Indicateur } from '$routes/indicateurs/[id].svelte'
   import { page } from '$app/stores'
+  import type { TypeIndicateurSkeleton } from '$lib/clients/content_types';
 
 
-	export let indicateur: Entry<Indicateur>
+	export let indicateur: Entry<TypeIndicateurSkeleton>
   export let exporting: Exporting
   export let iconsOnly = false
   let shareable: boolean

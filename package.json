@@ -9,10 +9,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "devDependencies": {
-    "@contentful/rich-text-plain-text-renderer": "^15.6.2",
+    "@contentful/rich-text-plain-text-renderer": "^16.0.5",
     "@sveltejs/adapter-vercel": "^3.0.1",
     "@sveltejs/kit": "^1.21.0",
     "sass": "^1.63.6",
@@ -24,8 +24,6 @@
   "type": "module",
   "dependencies": {
     "@amcharts/amcharts5": "^5.3.17",
-    "axios": "^0.24.0",
-    "base64-arraybuffer": "^1.0.1",
-    "contentful": "^9.1.4"
+    "contentful": "^10.3.1"
   }
 }

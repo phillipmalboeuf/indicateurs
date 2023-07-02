@@ -2,15 +2,16 @@
   import { fade, fly } from 'svelte/transition'
   import type { Exporting } from '@amcharts/amcharts5/plugins/exporting'
 
-  import type { Indicateur } from '$routes/indicateurs/[id].svelte'
+  // import type { Indicateur } from '$routes/indicateurs/[id].svelte'
   import type { Entry } from 'contentful'
   import Chart from './Chart.svelte'
   import Icon from './Icon.svelte'
   import Buttons from './Buttons.svelte'
   import { page } from '$app/stores'
+  import type { TypeIndicateurSkeleton } from '$lib/clients/content_types'
   // import Donut from './Donut.svelte'
 
-  export let indicateur: Entry<Indicateur>
+  export let indicateur: Entry<TypeIndicateurSkeleton>
   let exporting: Exporting
 
   // const beigne = indicateur.fields.id === 'beigne'

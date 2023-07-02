@@ -1,12 +1,5 @@
 <script context="module" lang="ts">
   import type { Entry } from 'contentful'
-
-	export interface Lien {
-    titre: string
-    lien: string
-    externe: boolean
-    sousLiens: Entry<Lien>[]
-  }
 </script>
 
 <script lang="ts">
@@ -14,11 +7,10 @@
   import { page } from '$app/stores'
   import Link from './Link.svelte'
   import Menu from './Menu.svelte'
+  import type { TypeNavigationSkeleton } from '$lib/clients/content_types'
 
 	export let path: string
-  export let navigation: Entry<{
-		liens: Entry<Lien>[]
-	}>
+  export let navigation: Entry<TypeNavigationSkeleton>
 </script>
 
 <header>

@@ -1,11 +1,8 @@
 import type { RequestHandler } from '@sveltejs/kit'
 import type { Entry } from 'contentful'
-import { decode } from 'base64-arraybuffer'
 
-import axios from 'axios'
 import { createHash } from 'crypto'
 
-// @ts-ignore
 export const put: RequestHandler = async ({ params, query, body }) => {
 
   const image = Buffer.from(body.toString().replace('data:image/png;base64,', ''), 'base64')

@@ -4,14 +4,12 @@
   import { fade, fly } from 'svelte/transition'
 	import { page } from '$app/stores'
 
-	import type { Lien } from './Header.svelte'
 	import Icon from './Icon.svelte'
 	import Link from './Link.svelte'
+  import type { TypeNavigationSkeleton } from '$lib/clients/content_types'
   
 	export let path: string
-  export let navigation: Entry<{
-		liens: Entry<Lien>[]
-	}>
+  export let navigation: Entry<TypeNavigationSkeleton>
 
   let visible: boolean
 </script>

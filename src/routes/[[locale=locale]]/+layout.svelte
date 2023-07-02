@@ -1,28 +1,16 @@
-<script context="module" lang="ts">
-	import '../../app.css'
-
-	export async function load({ page, fetch, session, context }) {
-		const res = await fetch(`${page.params.locale === 'en' ? "/en" : ""}/layout.json`)
-
-		return {
-			props: await res.json()
-		}
-	}
-</script>
-
 <script lang="ts">
+	import '../../app.css'
+	
 	import type { Asset, Entry } from 'contentful'
-	import type { Lien } from '$lib/components/Header.svelte'
 	import Header from '$lib/components/Header.svelte'
 
-	import { getStores, navigating, page, session } from '$app/stores'
+	import { getStores, navigating, page } from '$app/stores'
 	import Footer from '$lib/components/Footer.svelte'
 	import Region from '$lib/components/Region.svelte'
 
-	export let principale: Entry<{ liens: Entry<Lien>[] }>
-	export let secondaire: Entry<{ liens: Entry<Lien>[] }>
-	export let tertiaire: Entry<{ liens: Entry<Lien>[] }>
-	export let logo: Asset
+
+	import type { PageData } from './$types'
+  export let data: PageData
 
 	const ga = 'G-YJ5HYDM8JD'
 
@@ -45,7 +33,7 @@
 		if (typeof gtag !== "undefined"){
 			// @ts-ignore
 			window.gtag("config", ga, {
-				page_path: $page.path,
+				page_path: $page.url.pathname,
 			})
 		}
 	}
@@ -55,14 +43,14 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id={ga}"></script>
 </svelte:head>
 
-<Header navigation={principale} path={$page.path} />
+<Header navigation={data.principale} path={$page.url.pathname} />
 
 <main class:navigating={$navigating} id="main">
 	<slot></slot>
 </main>
 
 <!-- <Region /> -->
-<Footer navigation={secondaire} subnavigation={tertiaire} {logo} path={$page.path} />
+<Footer navigation={data.secondaire} subnavigation={data.tertiaire} logo={data.logo} path={$page.url.pathname} />
 
 <style lang="scss">
 	main {

@@ -13,8 +13,8 @@
 		"paths": {
 			"$lib": ["src/lib"],
 			"$lib/*": ["src/lib/*"],
-			"$routes": ["src/routes/[...locale]"],
-			"$routes/*": ["src/routes/[...locale]/*"]
+			"$routes": ["src/routes/[locale=locale]"],
+			"$routes/*": ["src/routes/[locale=locale]/*"]
 		}
 	}
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias

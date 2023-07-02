@@ -14,9 +14,7 @@
   import Progress from '$lib/components/Progress.svelte'
   import type { Exporting } from '@amcharts/amcharts5/plugins/exporting'
   import type { Entry } from 'contentful'
-  import type { Categorie } from './categories/[id].svelte'
 
-  // export let categories: Entry<Categorie>[]
   let exporting: Exporting
 </script>
 

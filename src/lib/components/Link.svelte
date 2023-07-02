@@ -1,9 +1,9 @@
 <script lang="ts">
   import { page } from '$app/stores'
+  import type { TypeLienDeNavigationSkeleton } from '$lib/clients/content_types'
   import type { Entry } from 'contentful'
-  import type { Lien } from './Header.svelte'
 
-  export let lien: Entry<Lien>
+  export let lien: Entry<TypeLienDeNavigationSkeleton>
   export let active = false
 </script>
 

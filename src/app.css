@@ -14,7 +14,7 @@
   --emphasis: #0013CF;
 
   --font: "PP Neue Montreal", Helvetica, sans-serif;
-  --alt: "PP Neue Machina", Helvetica, sans-serif;
+  --alt: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 
   --shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   --border: 1px solid rgba(255, 255, 255, 0.3);

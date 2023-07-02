@@ -1,12 +1,13 @@
 <script lang="ts">
   import type { Entry } from 'contentful'
-  import type { Indicateur } from '$routes/indicateurs/[id].svelte'
+  // import type { Indicateur } from '$routes/indicateurs/[id].svelte'
 
   import Card from '$lib/components/Card.svelte'
   import { onMount } from 'svelte'
   import { page } from '$app/stores'
+  import type { TypeIndicateurSkeleton } from '$lib/clients/content_types'
 
-  export let indicateurs: Entry<Indicateur>[]
+  export let indicateurs: Entry<TypeIndicateurSkeleton>[]
   let Component
 
   onMount(async () => {
@@ -19,7 +20,7 @@
   })
 </script>
 
-<ul class:one={indicateurs.length === 1} class:ex={$page.query.has("export")} style="grid-template-columns: repeat({indicateurs.length < 4 ? indicateurs.length : 4}, 1fr);">
+<ul class:one={indicateurs.length === 1} class:ex={$page.url.searchParams.has("export")} style="grid-template-columns: repeat({indicateurs.length < 4 ? indicateurs.length : 4}, 1fr);">
   {#each indicateurs.filter(indicateur => indicateur.fields) as indicateur (indicateur.fields.id)}
   {#if !indicateur.hidden}
   <li>
