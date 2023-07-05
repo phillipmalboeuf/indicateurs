@@ -49,13 +49,14 @@ body {
 
 h1, h2, h3 {
   font-family: var(--alt);
+  font-weight: 500;
   margin: 0 0 0.5em;
   white-space: pre-line;
   word-break: break-word;
 }
 
 h4, h5, h6 {
-  font-weight: bold;
+  font-weight: 400;
   margin: 0 0 1em;
   white-space: pre-line;
 }

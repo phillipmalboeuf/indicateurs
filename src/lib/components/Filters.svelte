@@ -12,7 +12,7 @@
   import { colors } from '$lib/charts'
   import { page } from '$app/stores'
 
-  export let categories: Entry<TypeCategorieSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">[] = undefined
+  export let categories: Entry<TypeCategorieSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">[]
   export let checked: string[] = []
   // export let columns = false
   export let base: string = undefined
@@ -53,7 +53,8 @@
 </script>
 
 <form class:right={!categories}>
-  <Tooltip>
+  <h4>{$page.params.locale === 'en' ? "Categories" : "Catégories"}</h4>
+  <!-- <Tooltip>
     <button type="button" slot="tip" class="filter">{$page.params.locale === 'en' ? "Jurisdictions" : "Juridictions"} <Icon i="chevron" rotate={90} /></button>
     <ul class="piliers" slot="tool">
       {#each ["Québec", "Ontario", "Canada"] as r}
@@ -63,36 +64,34 @@
       </li>
       {/each}
     </ul>
-  </Tooltip>
+  </Tooltip> -->
 
   {#if categories}
+  {#each categories as categorie}
   <Tooltip>
-    <button type="button" slot="tip" class="filter">{$page.params.locale === 'en' ? "Pillars" : "Piliers"} <Icon i="chevron" rotate={90} /></button>
+    <button type="button" slot="tip" class="filter">{categorie.fields.titre} <Icon i="chevron" rotate={90} /></button>
     <ul class="piliers" slot="tool">
-      {#each categories as categorie}
       {#if categorie.fields.sousCategories?.length > 0}
-      <li style="--color: {categorie.fields.couleur}">
+      <!-- <li style="--color: {categorie.fields.couleur}">
         <input on:click={click} bind:group={checked} type="checkbox" name={categorie.fields.id} id={categorie.fields.id} value={categorie.fields.id} />
         <label for={categorie.fields.id}>{categorie.fields.titre}</label>
-      </li>
+      </li> -->
 
-      <ul>
-        {#each categorie.fields.sousCategories as sousCategorie}
-        <li style="--color: {sousCategorie.fields.couleur}">
-          <input on:click={click} bind:group={checked} type="checkbox" name={sousCategorie.fields.id} id={sousCategorie.fields.id} value={sousCategorie.fields.id} />
-          <label for={sousCategorie.fields.id}>{sousCategorie.fields.titre}</label>
-        </li>
-        {/each}
-      </ul>
+      {#each categorie.fields.sousCategories as sousCategorie}
+      <li style="--color: {sousCategorie.fields.couleur}">
+        <input on:click={click} bind:group={checked} type="checkbox" name={sousCategorie.fields.id} id={sousCategorie.fields.id} value={sousCategorie.fields.id} />
+        <label for={sousCategorie.fields.id}>{sousCategorie.fields.titre}</label>
+      </li>
+      {/each}
       {:else}
       <li style="--color: {categorie.fields.couleur}">
         <input on:click={click} bind:group={checked} type="checkbox" name={categorie.fields.id} id={categorie.fields.id} value={categorie.fields.id} />
         <label for={categorie.fields.id}>{categorie.fields.titre}</label>
       </li>
       {/if}
-      {/each}
     </ul>
   </Tooltip>
+  {/each}
   {/if}
 </form>
 
@@ -108,19 +107,29 @@
 
   form {
     display: flex;
-    justify-content: center;
-    column-gap: var(--gutter);
-    margin-bottom: calc(var(--gutter) * 2);
+    // justify-content: space-between;
+    align-items: center;
+    column-gap: calc(var(--gutter) / 2);
+    padding: calc(var(--gutter) / 2) 0;
+    margin-bottom: var(--gutter);
+    border: 1px solid var(--muted);
+    border-left: none;
+    border-right: none;
+
+    > h4 {
+      flex: 1;
+      margin-bottom: 0;
+    }
 
     &.right {
       justify-content: flex-end;
     }
 
     button {
-      background: var(--dark);
-      padding: calc(var(--gutter) / 2) calc(var(--gutter) / 1.5);
+      background: transparent;
+      padding: calc(var(--gutter) / 4) calc(var(--gutter) / 1.5);
       border-radius: calc(var(--corner) / 2);
-      border: var(--border);
+      border: none;
       min-width: 20vw;
 
       display: flex;
@@ -134,9 +143,9 @@
     padding-left: 0;
     margin: 0;
 
-    li + & {
-      padding-left: 1em;
-    }
+    // li + & {
+    //   padding-left: 1em;
+    // }
   }
 
   li {
@@ -178,9 +187,11 @@
 
   div {
     display: flex;
+    justify-content: flex-end;
     flex-wrap: wrap;
     column-gap: 0.5rem;
     row-gap: 0.5rem;
+    margin-bottom: var(--gutter);
 
     button {
       background: var(--color);
