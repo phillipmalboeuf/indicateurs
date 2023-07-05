@@ -12,7 +12,7 @@
   import { colors } from '$lib/charts'
   import { page } from '$app/stores'
 
-  export let categories: Entry<TypeCategorieSkeleton>[] = undefined
+  export let categories: Entry<TypeCategorieSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">[] = undefined
   export let checked: string[] = []
   // export let columns = false
   export let base: string = undefined

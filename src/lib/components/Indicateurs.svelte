@@ -7,7 +7,7 @@
   import { page } from '$app/stores'
   import type { TypeIndicateurSkeleton } from '$lib/clients/content_types'
 
-  export let indicateurs: Entry<TypeIndicateurSkeleton>[]
+  export let indicateurs: Entry<TypeIndicateurSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">[]
   let Component
 
   onMount(async () => {

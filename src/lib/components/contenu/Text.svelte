@@ -1,10 +1,10 @@
 <script lang="ts">
   import type { Entry } from 'contentful'
   import type { TypeTextSkeleton } from '$lib/clients/content_types'
-  
+
   import Document from '../document/Document.svelte'
 
-  export let entry: Entry<TypeTextSkeleton>
+  export let entry: Entry<TypeTextSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
 </script>
 
 <section id={entry.fields.id}>

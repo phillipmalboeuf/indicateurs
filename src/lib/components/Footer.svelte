@@ -1,6 +1,5 @@
 <script context="module" lang="ts">
   import type { Asset, Entry } from 'contentful'
-  import type { Lien } from './Header.svelte'
 </script>
 
 <script lang="ts">
@@ -10,9 +9,9 @@
   import type { TypeNavigationSkeleton } from '$lib/clients/content_types'
 
 	export let path: string
-  export let navigation: Entry<TypeNavigationSkeleton>
-  export let subnavigation: Entry<TypeNavigationSkeleton>
-  export let logo: Asset
+  export let navigation: Entry<TypeNavigationSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
+  export let subnavigation: Entry<TypeNavigationSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
+  export let logo: Asset<"WITHOUT_UNRESOLVABLE_LINKS">
 </script>
 
 <footer>

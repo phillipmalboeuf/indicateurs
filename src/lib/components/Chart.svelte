@@ -24,14 +24,14 @@
 
   export let id: string
   export let titre: string
-  export let sources: any
-  export let categorie: Entry<TypeCategorieSkeleton>
-  export let data: string
-  export let type: string
-  export let minimum: number
-  export let maximum: number
-  export let titreDeLaxe: string
-  export let couleur: string
+  export let sources: any = undefined
+  export let categorie: Entry<TypeCategorieSkeleton, "WITHOUT_UNRESOLVABLE_LINKS"> = undefined
+  export let data: string = undefined
+  export let type: string = undefined
+  export let minimum: number = undefined
+  export let maximum: number = undefined
+  export let titreDeLaxe: string = undefined
+  export let couleur: string = undefined
   export let small: boolean = false
 
   const dataSource = csvToChartData(data)

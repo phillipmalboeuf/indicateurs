@@ -6,7 +6,7 @@
   import Picture from '../Picture.svelte'
   import type { TypeImagesSkeleton } from '$lib/clients/content_types'
 
-  export let entry: Entry<TypeImagesSkeleton>
+  export let entry: Entry<TypeImagesSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
 </script>
 
 <section id={entry.fields.id}>

@@ -3,7 +3,7 @@
   import type { TypeLienDeNavigationSkeleton } from '$lib/clients/content_types'
   import type { Entry } from 'contentful'
 
-  export let lien: Entry<TypeLienDeNavigationSkeleton>
+  export let lien: Entry<TypeLienDeNavigationSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
   export let active = false
 </script>
 

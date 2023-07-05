@@ -11,7 +11,7 @@
   import { Exporting } from '@amcharts/amcharts5/plugins/exporting'
   import Icon from './Icon.svelte'
 
-  export let categories: Entry<TypeCategorieSkeleton>[] = undefined
+  export let categories: Entry<TypeCategorieSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">[] = undefined
   let root: Root
   let element: HTMLElement
   export let exporting: Exporting = undefined

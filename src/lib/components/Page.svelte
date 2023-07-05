@@ -8,7 +8,7 @@
   import Hero from './Hero.svelte'
   import StickyNav from './StickyNav.svelte'
 
-	export let page: Entry<TypePageSkeleton>
+	export let page: Entry<TypePageSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
   export let hero: boolean = false
 </script>
 

@@ -10,7 +10,7 @@
   import type { TypeNavigationSkeleton } from '$lib/clients/content_types'
 
 	export let path: string
-  export let navigation: Entry<TypeNavigationSkeleton>
+  export let navigation: Entry<TypeNavigationSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
 </script>
 
 <header>

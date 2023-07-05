@@ -2,11 +2,10 @@
   import type { Entry } from 'contentful'
 
   import Document from '../document/Document.svelte'
-  import type { Lien } from '../Header.svelte'
   import Indicateurs from '../Indicateurs.svelte'
   import type { TypeContenuIndicateurSkeleton } from '$lib/clients/content_types'
 
-  export let entry: Entry<TypeContenuIndicateurSkeleton>
+  export let entry: Entry<TypeContenuIndicateurSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
 </script>
 
 <section id={entry.fields.id}>

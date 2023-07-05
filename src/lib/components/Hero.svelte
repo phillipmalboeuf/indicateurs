@@ -3,7 +3,7 @@
   import { onMount } from 'svelte'
   import Picture from './Picture.svelte'
 
-  export let media: Asset
+  export let media: Asset<"WITHOUT_UNRESOLVABLE_LINKS">
 
   let scrollY: number
   let height: number

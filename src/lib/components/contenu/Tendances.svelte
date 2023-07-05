@@ -4,9 +4,9 @@
 
   import { color, Color } from '@amcharts/amcharts5'
   import { csvToChartData } from '$lib/charts'
-    import type { TypeTendancesSkeleton } from '$lib/clients/content_types';
+  import type { TypeTendancesSkeleton } from '$lib/clients/content_types'
 
-  export let entry: Entry<TypeTendancesSkeleton>
+  export let entry: Entry<TypeTendancesSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
 
   const data: {[key: string]: number}[] = csvToChartData(entry.fields.data)
 

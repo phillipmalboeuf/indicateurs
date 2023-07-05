@@ -3,7 +3,7 @@
   import Document from '../document/Document.svelte'
   import type { TypeListeSkeleton } from '$lib/clients/content_types'
 
-  export let entry: Entry<TypeListeSkeleton>
+  export let entry: Entry<TypeListeSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
 </script>
 
 <section id={entry.fields.id}>

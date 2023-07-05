@@ -3,7 +3,7 @@
   import Document from '../document/Document.svelte'
   import type { TypeTableauSkeleton } from '$lib/clients/content_types'
 
-  export let entry: Entry<TypeTableauSkeleton>
+  export let entry: Entry<TypeTableauSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
 
   let expanded = {}
 </script>

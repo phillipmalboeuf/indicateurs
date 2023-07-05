@@ -1,5 +1,7 @@
-<script>
-  export let media
+<script lang="ts">
+  import type { Asset } from 'contentful'
+
+  export let media: Asset<"WITHOUT_UNRESOLVABLE_LINKS">
   export let small = false
   export let noDescription = false
   export let ar = undefined

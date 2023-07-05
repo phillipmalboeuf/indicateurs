@@ -11,7 +11,7 @@
   import Icon from './Icon.svelte'
   import type { TypeCategorieSkeleton } from '$lib/clients/content_types'
 
-  export let categories: Entry<TypeCategorieSkeleton>[] = undefined
+  export let categories: Entry<TypeCategorieSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">[] = undefined
   let root: Root
   let element: HTMLElement
   export let exporting: Exporting = undefined

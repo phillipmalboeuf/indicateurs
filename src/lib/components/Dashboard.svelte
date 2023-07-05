@@ -5,7 +5,7 @@
   import Picture from './Picture.svelte'
   import type { TypeDashSkeleton } from '$lib/clients/content_types'
 
-  export let dashboard: Entry<TypeDashSkeleton>[]
+  export let dashboard: Entry<TypeDashSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">[]
 </script>
 
 
