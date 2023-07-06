@@ -62,7 +62,7 @@
   h1,
   aside {
     // text-align: center;
-    max-width: calc(var(--width) / 2);
+    max-width: calc(var(--width) / 2.25);
 
     // &.sticky {
     //   font-size: 1.3rem;

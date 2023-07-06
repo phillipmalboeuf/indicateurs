@@ -58,7 +58,7 @@
   }
 
   onMount(async () => {
-    categories = (await (await fetch(locale === 'en' ? '/en/categories.json' : '/categories.json')).json()).categories
+    categories = (await (await fetch(locale === 'en' ? '/en/categories/json' : '/categories/json')).json()).categories
 
     root = Root.new(element)
     root._logo.dispose()
