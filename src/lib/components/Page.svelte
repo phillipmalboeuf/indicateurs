@@ -53,11 +53,11 @@
 </StickyNav>
 {/if}
 
-{#if page.fields.dashboard}
+{#if !hero && page.fields.dashboard}
 <Dashboard dashboard={page.fields.dashboard} />
 {/if}
 
-{#if page.fields.contenu}
+{#if !hero && page.fields.contenu}
 <Contenu contenu={page.fields.contenu} />
 {/if}
 {/key}
