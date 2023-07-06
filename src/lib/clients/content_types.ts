@@ -26,6 +26,7 @@ export type TypeContenuIndicateur<Modifiers extends ChainModifiers, Locales exte
 export interface TypeDashFields {
     titre?: EntryFieldTypes.Symbol;
     lien?: EntryFieldTypes.Symbol;
+    text?: EntryFieldTypes.Text;
     externe?: EntryFieldTypes.Boolean;
     bleu?: EntryFieldTypes.Boolean;
     emphasis?: EntryFieldTypes.Boolean;

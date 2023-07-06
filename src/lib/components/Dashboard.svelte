@@ -17,7 +17,12 @@
       style="grid-column-start: {dash.fields.colStart}; grid-column-end: {dash.fields.colEnd}; grid-row-start: {dash.fields.rowStart}; grid-row-end: {dash.fields.rowEnd};">
       <figure class:emphasis={dash.fields.emphasis} class:bleu={dash.fields.bleu}>
         {#if dash.fields.image}<Picture media={dash.fields.image} small />{/if}
-        <figcaption>{dash.fields.titre}</figcaption>
+        <figcaption>
+          <h3>{dash.fields.titre}</h3>
+          {#if dash.fields.text}
+          <p>{dash.fields.text}</p>
+          {/if}
+        </figcaption>
       </figure>
     </a>
     {/each}
@@ -26,7 +31,7 @@
 
 <style lang="scss">
   section {
-    max-width: var(--width);
+    // max-width: var(--width);
     margin: var(--gutter) auto 0;
 
     @media (max-width: 1100px) {
@@ -36,7 +41,7 @@
 
   nav {
     display: grid;
-    min-height: 70vh;
+    min-height: 85vh;
     column-gap: calc(var(--gutter) / 2);
     row-gap: calc(var(--gutter) / 2);
     grid-template-columns: repeat(4, 1fr);
@@ -75,8 +80,28 @@
     }
 
     &:not(.bleu) {
+      padding: calc(var(--gutter) * 1.5) calc(var(--gutter) / 1);
       color: var(--light);
       background-color: var(--darkish);
+
+      a:hover &,
+      a:focus & {
+        color: var(--highlight);
+      }
+
+      &:not(.emphasis) {
+        text-align: center;
+      }
+
+      &.emphasis {
+        background-color: white;
+        color: black;
+
+        a:hover &,
+        a:focus & {
+          color: var(--emphasis);
+        }
+      }
     }
 
     :global(img),
@@ -101,8 +126,8 @@
     figcaption {
       position: relative;
       // font-family: var(--alt);
-      font-size: 1.88rem;
-      font-weight: bold;
+      // font-size: 1.88rem;
+      // font-weight: bold;
       width: 90%;
     }
 </style>
