@@ -15,7 +15,7 @@
     <a href={((!dash.fields.externe && $page.params.locale === 'en') ? "/en" : "") + dash.fields.lien}
       target={dash.fields.externe && '_blank'}
       style="grid-column-start: {dash.fields.colStart}; grid-column-end: {dash.fields.colEnd}; grid-row-start: {dash.fields.rowStart}; grid-row-end: {dash.fields.rowEnd};">
-      <figure class:emphasis={dash.fields.emphasis}>
+      <figure class:emphasis={dash.fields.emphasis} class:bleu={dash.fields.bleu}>
         {#if dash.fields.image}<Picture media={dash.fields.image} small />{/if}
         <figcaption>{dash.fields.titre}</figcaption>
       </figure>
@@ -60,7 +60,7 @@
     overflow: hidden;
     padding: calc(var(--gutter) / 2);
     background-color: var(--darkish);
-    border-radius: var(--corner);
+    border-radius: calc(var(--corner) / 2);
     margin: 0;
     height: 100%;
 
@@ -72,6 +72,11 @@
       a:focus & {
         color: var(--dark);
       }
+    }
+
+    &:not(.bleu) {
+      color: var(--light);
+      background-color: var(--darkish);
     }
 
     :global(img),

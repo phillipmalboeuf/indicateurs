@@ -58,12 +58,12 @@
 
     nav {
       width: 100%;
-      max-width: var(--width);
+      // max-width: var(--width);
       margin: 0 auto;
 
       font-size: 0.88rem;
 
-      padding: var(--gutter);
+      padding: var(--gutter) calc(var(--gutter) * 2);
 
       display: flex;
       justify-content: space-between;

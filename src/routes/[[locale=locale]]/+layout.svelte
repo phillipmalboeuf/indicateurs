@@ -1,13 +1,11 @@
 <script lang="ts">
 	import '../../app.css'
 	
-	import type { Asset, Entry } from 'contentful'
 	import Header from '$lib/components/Header.svelte'
 
 	import { getStores, navigating, page } from '$app/stores'
 	import Footer from '$lib/components/Footer.svelte'
 	import Region from '$lib/components/Region.svelte'
-
 
 	import type { PageData } from './$types'
   export let data: PageData
@@ -49,13 +47,13 @@
 	<slot></slot>
 </main>
 
-<!-- <Region /> -->
+<Region />
 <Footer navigation={data.secondaire} subnavigation={data.tertiaire} logo={data.logo} path={$page.url.pathname} />
 
 <style lang="scss">
 	main {
     min-height: 88vh;
-    padding: 0 var(--gutter);
+    padding: 0 calc(var(--gutter) * 2);
 	}
 
 	main:before {

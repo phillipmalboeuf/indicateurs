@@ -8,8 +8,8 @@
   import Tooltip from './Tooltip.svelte'
   import Icon from './Icon.svelte'
 
-  import { region } from '$lib/stores'
-  import { colors } from '$lib/charts'
+  // import { region } from '$lib/stores'
+  // import { colors } from '$lib/charts'
   import { page } from '$app/stores'
 
   export let categories: Entry<TypeCategorieSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">[]
@@ -54,17 +54,6 @@
 
 <form class:right={!categories}>
   <h4>{$page.params.locale === 'en' ? "Categories" : "Catégories"}</h4>
-  <!-- <Tooltip>
-    <button type="button" slot="tip" class="filter">{$page.params.locale === 'en' ? "Jurisdictions" : "Juridictions"} <Icon i="chevron" rotate={90} /></button>
-    <ul class="piliers" slot="tool">
-      {#each ["Québec", "Ontario", "Canada"] as r}
-      <li style="--color: {colors[r]}">
-        <input on:click={click} bind:group={$region} type="checkbox" name={r} id={r} value={r} />
-        <label for={r}>{r}</label>
-      </li>
-      {/each}
-    </ul>
-  </Tooltip> -->
 
   {#if categories}
   {#each categories as categorie}
@@ -111,7 +100,8 @@
     align-items: center;
     column-gap: calc(var(--gutter) / 2);
     padding: calc(var(--gutter) / 2) 0;
-    margin-bottom: var(--gutter);
+    margin: var(--gutter) auto calc(var(--gutter) * 1.5);
+    max-width: var(--width);
     border: 1px solid var(--muted);
     border-left: none;
     border-right: none;

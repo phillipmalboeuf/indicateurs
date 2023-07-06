@@ -27,6 +27,7 @@ export interface TypeDashFields {
     titre?: EntryFieldTypes.Symbol;
     lien?: EntryFieldTypes.Symbol;
     externe?: EntryFieldTypes.Boolean;
+    bleu?: EntryFieldTypes.Boolean;
     emphasis?: EntryFieldTypes.Boolean;
     image?: EntryFieldTypes.AssetLink;
     colStart?: EntryFieldTypes.Integer;

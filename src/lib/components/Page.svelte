@@ -7,6 +7,7 @@
   import Dashboard from './Dashboard.svelte'
   import Hero from './Hero.svelte'
   import StickyNav from './StickyNav.svelte'
+    import Document from './document/Document.svelte';
 
 	export let page: Entry<TypePageSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
   export let hero: boolean = false
@@ -28,14 +29,22 @@
   {#if page.fields.titre}
   <h1>{page.fields.titre}</h1>
   {/if}
+
+  {#if page.fields.description}
+  <aside>
+    <Document body={page.fields.description} />
+  </aside>
+  {/if}
+
+  {#if page.fields.bouton}<a href={page.fields.bouton.fields.lien} target={page.fields.bouton.fields.externe && '_blank'}><u>{page.fields.bouton.fields.titre}</u></a>{/if}
 </Hero>
 {:else}
-<StickyNav>
+<!-- <StickyNav>
   <h1 class="sticky" slot="left">{page.fields.titre}</h1>
   <div slot="right">
     {#if page.fields.bouton}<a class="button" href={page.fields.bouton.fields.lien} target={page.fields.bouton.fields.externe && '_blank'}>{page.fields.bouton.fields.titre}</a>{/if}
   </div>
-</StickyNav>
+</StickyNav> -->
 {/if}
 
 {#if page.fields.dashboard}
@@ -50,23 +59,32 @@
 
 <style lang="scss">
 
-  h1 {
-    text-align: center;
-    max-width: calc(var(--width) / 1.75);
+  h1,
+  aside {
+    // text-align: center;
+    max-width: calc(var(--width) / 2);
 
-    &.sticky {
-      font-size: 1.3rem;
-      font-family: var(--font);
-      margin-bottom: 0;
+    // &.sticky {
+    //   font-size: 1.3rem;
+    //   font-family: var(--font);
+    //   margin-bottom: 0;
 
-      @media (max-width: 666px) {
-        display: none;
-      }
-    }
+    //   @media (max-width: 666px) {
+    //     display: none;
+    //   }
+    // }
   }
 
-  a.button {
-    position: relative;
-    z-index: 12;
+  aside {
+    margin-bottom: 2em;
   }
+
+  a {
+    color: var(--highlight);
+  }
+
+  // a.button {
+  //   position: relative;
+  //   z-index: 12;
+  // }
 </style>

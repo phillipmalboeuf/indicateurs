@@ -15,7 +15,13 @@
 
 <header>
   <div>
-    <a href={$page.params.locale === 'en' ? "/en" : "/"} class="logo"><strong>{$page.params.locale === 'en' ? 'The Indicators' : 'Les Indicateurs'}</strong></a>
+    <a href={$page.params.locale === 'en' ? "/en" : "/"} class="logo">
+      <svg width="1em" height="1.1em" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 59.9606C24 57.1992 26.2386 54.9606 29 54.9606H51C53.7614 54.9606 56 57.1991 56 59.9606V112H24V59.9606Z" fill="#F1D268"/>
+<path d="M72 32C72 29.2386 74.2386 27 77 27H99C101.761 27 104 29.2386 104 32V112H72V32Z" fill="#F1D268"/>
+</svg>
+      <strong>{$page.params.locale === 'en' ? 'The Indicators' : 'Les Indicateurs'}</strong>
+    </a>
   </div>
   <nav>
     {#each navigation.fields.liens as lien}
@@ -47,7 +53,7 @@
     flex: 1;
     position: relative;
     z-index: 8;
-    max-width: var(--width);
+    // max-width: var(--width);
     margin: 0 auto;
     height: 48px;
     //background: var(--dark);    
@@ -55,7 +61,7 @@
     justify-content: center;
     align-items: center;
 
-    padding: var(--gutter);
+    padding: var(--gutter) calc(var(--gutter) * 2);
 
     @media (max-width: 888px) {
       a.locale {
@@ -103,6 +109,10 @@
 
   .logo {
     font-size: 1rem;
-    color: var(--highlight);
+    // color: var(--highlight);
+
+    svg {
+      vertical-align: text-top;
+    }
   }
 </style>

@@ -139,21 +139,21 @@
       if ((chart as XYChart).series && (chart as XYChart).series.values.find(serie => serie._settings.name.split('–')[0] === "Québec")) {
         (chart as XYChart).series.each(serie => {
           if ($region.includes(serie._settings.name.split('–')[0])) {
-            // serie.show()
-            serie.getTooltip().setAll({
-              forceHidden: false
-            })
-            serie.setAll({
-              opacity: 1
-            })
+            serie.show(0)
+            // serie.getTooltip().setAll({
+            //   forceHidden: false
+            // })
+            // serie.setAll({
+            //   opacity: 1
+            // })
           } else {
-            serie.getTooltip().setAll({
-              forceHidden: true
-            })
-            serie.setAll({
-              opacity: 0.1
-            })
-            // serie.hide()
+            // serie.getTooltip().setAll({
+            //   forceHidden: true
+            // })
+            // serie.setAll({
+            //   opacity: 0.1
+            // })
+            serie.hide(0)
           }
         })
       }

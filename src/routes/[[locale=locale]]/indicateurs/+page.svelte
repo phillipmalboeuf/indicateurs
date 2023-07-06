@@ -14,7 +14,7 @@
   let checked: string[] = $query.url.searchParams.get('categories')?.split(',') || []
 </script>
 
-<Page page={data.page} hero />
+<Page page={data.page} />
 
 {#if !$query.url.searchParams.has('export')}
 <Filters categories={data.piliers} {checked} on:update={event => checked = event.detail} base={$p.params.locale ? '/en' : '/'} />

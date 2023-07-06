@@ -7,4 +7,4 @@
   export let active = false
 </script>
 
-<a class:active href={((!lien.fields.externe && $page.params.locale === 'en') ? "/en" : "") + lien.fields.lien} target={lien.fields.externe && '_blank'}>{lien.fields.titre}</a>
+<a class:active href={((!lien.fields.externe && $page.params.locale === 'en') ? "/en" : "") + ({'/': '/indicateurs'}[lien.fields.lien] || lien.fields.lien)} target={lien.fields.externe && '_blank'}>{lien.fields.titre}</a>
