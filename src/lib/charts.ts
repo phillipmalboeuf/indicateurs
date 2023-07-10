@@ -27,13 +27,7 @@ import am5locales_fr from "@amcharts/amcharts5/locales/fr_FR"
 import am5locales_en from "@amcharts/amcharts5/locales/en_CA"
 import { FunnelSeries, PieChart, PieSeries, PyramidSeries, SlicedChart } from '@amcharts/amcharts5/percent'
 import type { iHSL } from '@amcharts/amcharts5/.internal/core/util/Utils'
-import { region } from './stores'
-
-export const colors = {
-  'Canada': color('#EF3340'),
-  'Québec': color('#003DA5'),
-  'Ontario': color('#FFF')
-}
+import { region, colors } from './stores'
 
 export function init(element: HTMLElement, locale: string) {
   let root = Root.new(element)
@@ -195,7 +189,7 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
       fill: color('#EDF5E2')
     })
     legend.valueLabels.template.set("forceHidden", true)
-    let c = colors['Québec'].toHSL()
+    let c = color(colors['Québec']).toHSL()
     legend.data.setAll(Object.keys(subs).map(s => ({
       name: s,
       color: Color.fromHSL(c.h, c.s, subs[s])
@@ -353,7 +347,7 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
       fill: color('#EDF5E2')
     })
     legend.valueLabels.template.set("forceHidden", true)
-    let c = colors['Québec'].toHSL()
+    let c = color(colors['Québec']).toHSL()
     legend.data.setAll(Object.keys(subs).map(s => ({
       name: s,
       color: Color.fromHSL(c.h, c.s, subs[s])

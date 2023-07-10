@@ -10,7 +10,7 @@
   import type { PageData } from './$types'
   export let data: PageData
 
-  let checked: string[] = $query.url.searchParams.get('categories')?.split(',') || []
+  // let checked: string[] = $query.url.searchParams.get('categories')?.split(',') || []
 </script>
 
 <Page page={data.page} hero />

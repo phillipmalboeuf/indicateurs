@@ -1,7 +1,6 @@
 <script lang="ts">
   import { page } from '$app/stores'
-  import { region } from '$lib/stores'
-  import { colors } from '$lib/charts'
+  import { region, colors } from '$lib/stores'
   
   import Tooltip from './Tooltip.svelte'
 

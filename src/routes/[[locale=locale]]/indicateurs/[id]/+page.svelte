@@ -91,7 +91,6 @@
       titreDeLaxe={alt ? data.indicateur.fields.altTitreDeLaxe : data.indicateur.fields.titreDeLaxe}
       bind:exporting small={full} couleur={data.indicateur.fields.categorie.fields.couleur} />
     {/key}
-    <Filters />
     {:else}
     <em class="empty">{$page.params.locale === 'en' ? "To be documented" : "À documenter"}</em>
     {/if}

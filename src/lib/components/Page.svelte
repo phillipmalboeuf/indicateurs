@@ -3,11 +3,15 @@
   import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer'
   import type { TypePageSkeleton } from '$lib/clients/content_types'
 
+  import { page as p } from '$app/stores'
+
   import Contenu from './Contenu.svelte'
   import Dashboard from './Dashboard.svelte'
   import Hero from './Hero.svelte'
   import StickyNav from './StickyNav.svelte'
-    import Document from './document/Document.svelte';
+  import Document from './document/Document.svelte';
+  import Chart from './Chart.svelte'
+  import Icon from './Icon.svelte'
 
 	export let page: Entry<TypePageSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
   export let hero: boolean = false
@@ -37,6 +41,18 @@
   {/if}
 
   {#if page.fields.bouton}<a href={page.fields.bouton.fields.lien} target={page.fields.bouton.fields.externe && '_blank'}><u>{page.fields.bouton.fields.titre}</u></a>{/if}
+
+  {#if page.fields.indicateurVedette}
+  <figure>
+    <Chart {...page.fields.indicateurVedette.fields} couleur={page.fields.indicateurVedette.fields.categorie?.fields?.couleur} />
+    <figcaption>
+      <a href="{$p.params.locale === 'en' ? "/en" : ""}/indicateurs/{page.fields.indicateurVedette.fields.id}">
+        <small>{page.fields.indicateurVedette.fields.titre}</small>
+        <small><u>{$p.params.locale === 'en' ? "Details" : "Détails"}</u> <Icon i="chevron" small /></small>
+      </a>
+    </figcaption>
+  </figure>
+  {/if}
 </Hero>
 {:else}
 <!-- <StickyNav>
@@ -81,6 +97,23 @@
 
   a {
     color: var(--highlight);
+  }
+
+  figure {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40%;
+
+    padding: 0 var(--gutter);
+
+    figcaption {
+      a {
+        display: flex;
+        justify-content: space-between;
+        color: white;
+      }
+    }
   }
 
   // a.button {

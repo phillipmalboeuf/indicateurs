@@ -10,17 +10,18 @@
   import { color, Label, percent } from '@amcharts/amcharts5'
   import { createCourbe, createHistogramme, createPyramide, createTarte, csvToChartData } from '$lib/charts'
   import { Exporting, ExportingMenu } from '@amcharts/amcharts5/plugins/exporting'
+  import type { XYChart, XYSeries } from '@amcharts/amcharts5/xy'
   import type { Chart } from '@amcharts/amcharts5/.internal/core/render/Chart'
-  import type { XYChart } from '@amcharts/amcharts5/xy'
-  import { region } from '$lib/stores'
+  import { region, colors } from '$lib/stores'
   
   import type { TypeCategorieSkeleton } from '$lib/clients/content_types'
 
   let chart: Chart
+  let series: XYSeries[]
   let element: HTMLElement
   let observer: IntersectionObserver
 
-  export let exporting: Exporting
+  export let exporting: Exporting = undefined
 
   export let id: string
   export let titre: string
@@ -34,11 +35,10 @@
   export let couleur: string = undefined
   export let small: boolean = false
 
-  const dataSource = csvToChartData(data)
-
-
   function createChart() {
     observer?.disconnect()
+
+    const dataSource = csvToChartData(data)
 
     switch (type) {
       case 'Histogramme':
@@ -62,6 +62,7 @@
     }
 
     if (chart) {
+      series = [...(chart as XYChart).series]
       exporting = Exporting.new(chart._root, {
         filePrefix: id,
         dataSource
@@ -136,24 +137,24 @@
 
   $: { 
     if (chart && $region) {
-      if ((chart as XYChart).series && (chart as XYChart).series.values.find(serie => serie._settings.name.split('–')[0] === "Québec")) {
+      if (series && series.find(serie => serie._settings.name.split('–')[0] === "Québec")) {
         (chart as XYChart).series.each(serie => {
           if ($region.includes(serie._settings.name.split('–')[0])) {
-            serie.show(0)
-            // serie.getTooltip().setAll({
-            //   forceHidden: false
-            // })
-            // serie.setAll({
-            //   opacity: 1
-            // })
+            // serie.show(0)
+            serie.getTooltip().setAll({
+              forceHidden: false
+            })
+            serie.setAll({
+              opacity: 1
+            })
           } else {
-            // serie.getTooltip().setAll({
-            //   forceHidden: true
-            // })
-            // serie.setAll({
-            //   opacity: 0.1
-            // })
-            serie.hide(0)
+            // serie.hide(0)
+            serie.getTooltip().setAll({
+              forceHidden: true
+            })
+            serie.setAll({
+              opacity: 0.05
+            })
           }
         })
       }

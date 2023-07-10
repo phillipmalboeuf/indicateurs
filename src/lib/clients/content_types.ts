@@ -136,6 +136,7 @@ export interface TypePageFields {
     photo?: EntryFieldTypes.AssetLink;
     description?: EntryFieldTypes.RichText;
     bouton?: EntryFieldTypes.EntryLink<TypeLienDeNavigationSkeleton>;
+    indicateurVedette?: EntryFieldTypes.EntryLink<TypeIndicateurSkeleton>;
     dashboard?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeDashSkeleton>>;
     contenu?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeContenuIndicateurSkeleton | TypeImagesSkeleton | TypeListeSkeleton | TypeLogosSkeleton | TypeTableauSkeleton | TypeTendancesSkeleton | TypeTextSkeleton>>;
 }
