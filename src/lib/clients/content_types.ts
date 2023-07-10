@@ -1,5 +1,14 @@
 import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
 
+export interface TypeAlertFields {
+    text: EntryFieldTypes.Symbol;
+    lien?: EntryFieldTypes.Symbol;
+    couleur?: EntryFieldTypes.Symbol;
+}
+
+export type TypeAlertSkeleton = EntrySkeletonType<TypeAlertFields, "alert">;
+export type TypeAlert<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeAlertSkeleton, Modifiers, Locales>;
+
 export interface TypeCategorieFields {
     titre: EntryFieldTypes.Symbol;
     id: EntryFieldTypes.Symbol;
@@ -25,8 +34,8 @@ export type TypeContenuIndicateur<Modifiers extends ChainModifiers, Locales exte
 
 export interface TypeDashFields {
     titre?: EntryFieldTypes.Symbol;
-    lien?: EntryFieldTypes.Symbol;
     text?: EntryFieldTypes.Text;
+    lien?: EntryFieldTypes.Symbol;
     externe?: EntryFieldTypes.Boolean;
     bleu?: EntryFieldTypes.Boolean;
     emphasis?: EntryFieldTypes.Boolean;
@@ -52,8 +61,8 @@ export type TypeImagesSkeleton = EntrySkeletonType<TypeImagesFields, "images">;
 export type TypeImages<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypeImagesSkeleton, Modifiers, Locales>;
 
 export interface TypeIndicateurFields {
-    titre: EntryFieldTypes.Text;
-    id: EntryFieldTypes.Text;
+    titre: EntryFieldTypes.Symbol;
+    id: EntryFieldTypes.Symbol;
     categorie?: EntryFieldTypes.EntryLink<TypeCategorieSkeleton>;
     lead?: EntryFieldTypes.Symbol;
     description?: EntryFieldTypes.RichText;
@@ -135,6 +144,7 @@ export type TypePageSkeleton = EntrySkeletonType<TypePageFields, "page">;
 export type TypePage<Modifiers extends ChainModifiers, Locales extends LocaleCode> = Entry<TypePageSkeleton, Modifiers, Locales>;
 
 export interface TypeSystemFields {
+    alert?: EntryFieldTypes.EntryLink<TypeAlertSkeleton>;
     piliers?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeCategorieSkeleton>>;
     indicateurs?: EntryFieldTypes.Array<EntryFieldTypes.EntryLink<TypeIndicateurSkeleton>>;
 }

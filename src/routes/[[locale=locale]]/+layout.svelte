@@ -41,7 +41,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id={ga}"></script>
 </svelte:head>
 
-<Header navigation={data.principale} path={$page.url.pathname} />
+<Header navigation={data.principale} alert={data.alert} path={$page.url.pathname} />
 
 <main class:navigating={$navigating} id="main">
 	<slot></slot>

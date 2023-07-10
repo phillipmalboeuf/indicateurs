@@ -91,10 +91,12 @@
     nav:last-child {
       font-size: 0.77rem;
       opacity: 0.5;
+      justify-content: flex-start;
+      padding: calc(var(--gutter) / 2) calc(var(--gutter) * 2);
 
-      div:first-child {
-        width: 50%;
-      }
+      // div:first-child {
+      //   width: 50%;
+      // }
 
       div > :global(a:first-child) {
         font-weight: normal;
