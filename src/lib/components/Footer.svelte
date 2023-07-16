@@ -11,7 +11,7 @@
 	export let path: string
   export let navigation: Entry<TypeNavigationSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
   export let subnavigation: Entry<TypeNavigationSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
-  export let logo: Asset<"WITHOUT_UNRESOLVABLE_LINKS">
+  // export let logo: Asset<"WITHOUT_UNRESOLVABLE_LINKS">
 </script>
 
 <footer>
@@ -23,7 +23,10 @@
       {#if lien.fields.sousLiens}
       {#each lien.fields.sousLiens as l}
       {#if l.fields.lien?.includes('g15plus.quebec')}
-      <a class="g15plus" href={lien.fields.lien} target='_blank'><Picture media={logo} small /> {l.fields.titre}</a>
+      <a class="g15plus" href={lien.fields.lien} target='_blank'>
+        <!-- <Picture media={logo} small /> -->
+        {l.fields.titre}
+      </a>
       {:else}
       <Link lien={l} />
       {/if}

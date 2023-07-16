@@ -3,22 +3,20 @@ import { contentful, entry } from '$lib/clients/contentful'
 
 export async function load({ params }) {
 	const locale = params.locale
-	const [principale, secondaire, tertiaire, system, logo] = await Promise.all([
+	const [principale, secondaire, tertiaire, system] = await Promise.all([
     entry<TypeNavigationSkeleton>('cYD1Ubzf7Lpf7lwJuQuBT', locale),
     entry<TypeNavigationSkeleton>('3oqVtIoSuKLGafP82eHjhs', locale),
     entry<TypeNavigationSkeleton>('5Tp2oC9lSsUrjzxJUqBolq', locale),
 		entry<TypeSystemSkeleton>('3qLoiQqZxJNss30lTE0mdA', locale, { select: 'fields.alert', content_type: 'system' }),
-    contentful.getAsset('6RgOLhZuwpchQqhTPk8Huu')
+    // contentful.getAsset('6RgOLhZuwpchQqhTPk8Huu')
   ])
-
-	console.log(system)
 
   return {
 		principale,
 		secondaire,
 		tertiaire,
 		alert: system.fields.alert,
-		logo
+		// logo
 		// sousNavigation,
 		// contact
 	}

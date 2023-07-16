@@ -48,7 +48,7 @@
 </main>
 
 <Region />
-<Footer navigation={data.secondaire} subnavigation={data.tertiaire} logo={data.logo} path={$page.url.pathname} />
+<Footer navigation={data.secondaire} subnavigation={data.tertiaire} path={$page.url.pathname} />
 
 <style lang="scss">
 	main {
