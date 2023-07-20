@@ -46,8 +46,8 @@
 </script>
 
 
-<section class:noNav>
-  {#if !noNav}
+<section class:noNav={noNav || contenu.filter(c => c.fields.id).length <= 1}>
+  {#if !noNav && contenu.filter(c => c.fields.id).length > 1}
   <nav>
     {#each contenu.filter(c => c.fields.id) as entry}
     <a href="#{entry.fields.id}" class:active={active === entry.fields.id} on:click={show}>{entry.fields.titre}</a>
@@ -95,7 +95,7 @@
     column-gap: var(--gutter);
 
     padding: calc(var(--gutter)*2) var(--gutter);
-    max-width: var(--width);
+    // max-width: var(--width);
     margin: 0 auto;
 
     @media (max-width: 888px) {

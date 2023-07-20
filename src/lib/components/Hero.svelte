@@ -45,6 +45,10 @@
         background: linear-gradient(0deg, var(--dark), transparent);
       }
     }
+
+    @media (max-width: 888px) {
+      min-height: 100vh;
+    }
   }
 
   // figcaption {

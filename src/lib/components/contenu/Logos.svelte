@@ -2,7 +2,7 @@
   import type { Asset, Entry } from 'contentful'
   import Document from '../document/Document.svelte'
   import Picture from '../Picture.svelte'
-    import type { TypeLogosSkeleton } from '$lib/clients/content_types';
+  import type { TypeLogosSkeleton } from '$lib/clients/content_types'
 
   export let entry: Entry<TypeLogosSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
 </script>

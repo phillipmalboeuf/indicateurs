@@ -54,6 +54,10 @@
 	main {
     min-height: 88vh;
     padding: 0 calc(var(--gutter) * 2);
+
+		@media (max-width: 888px) {
+			padding: 0 calc(var(--gutter) * 1);
+		}
 	}
 
 	main:before {

@@ -35,7 +35,7 @@
     margin: var(--gutter) auto 0;
 
     @media (max-width: 1100px) {
-      display: none;
+      // display: none;
     }
   }
 
@@ -128,6 +128,6 @@
       // font-family: var(--alt);
       // font-size: 1.88rem;
       // font-weight: bold;
-      width: 90%;
+      // width: 90%;
     }
 </style>

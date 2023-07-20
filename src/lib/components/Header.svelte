@@ -53,8 +53,9 @@
     {/each}
 
     <a class="locale" href={$page.params.locale === 'en' ? "/" : "/en"} hreflang={$page.params.locale === 'en' ? 'fr' : 'en'}><strong>{$page.params.locale === 'en' ? "FR" : "EN"}</strong></a>
-    <Menu {navigation} {path} />
   </nav>
+
+  <Menu {navigation} {path} />
 </header>
 
 
@@ -85,9 +86,22 @@
           color: var(--emphasis);
         }
       }
+
+      @media (max-width: 888px) {
+        display: block;
+        padding: calc(var(--gutter) / 2.66) calc(var(--gutter) * 1);
+        font-size: 0.88em;
+        overflow-x: auto;
+        
+        aside {
+          width: 200%;
+        }
+      }
     }
 
     @media (max-width: 888px) {
+      padding: var(--gutter) calc(var(--gutter) * 1);
+
       a.locale {
         display: none;
       }

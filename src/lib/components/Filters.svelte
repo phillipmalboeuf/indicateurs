@@ -109,6 +109,15 @@
     > h4 {
       flex: 1;
       margin-bottom: 0;
+
+      @media (max-width: 888px) {
+        display: none;
+      }
+    }
+
+    @media (max-width: 888px) {
+      column-gap: 0;
+      margin: var(--gutter) calc(var(--gutter) * -1) calc(var(--gutter) * 1.5);
     }
 
     &.right {

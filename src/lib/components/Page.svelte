@@ -105,6 +105,7 @@
     right: 0;
     width: 40%;
 
+    margin: 0;
     padding: 0 var(--gutter);
 
     figcaption {
@@ -113,6 +114,12 @@
         justify-content: space-between;
         color: white;
       }
+    }
+
+    @media (max-width: 888px) {
+      position: relative;
+      width: 100%;
+      padding: 0;
     }
   }
 
