@@ -22,6 +22,9 @@
           {#if dash.fields.text}
           <p>{dash.fields.text}</p>
           {/if}
+          {#if dash.fields.cta}
+          <u>{dash.fields.cta}</u>
+          {/if}
         </figcaption>
       </figure>
     </a>
@@ -41,7 +44,7 @@
 
   nav {
     display: grid;
-    min-height: 85vh;
+    min-height: 90vh;
     column-gap: calc(var(--gutter) / 2);
     row-gap: calc(var(--gutter) / 2);
     grid-template-columns: repeat(4, 1fr);
@@ -91,10 +94,19 @@
 
       &:not(.emphasis) {
         text-align: center;
+
+        :global(img),
+        :global(video) {
+          object-position: bottom center;
+        }
+
+        figcaption {
+          margin: 0 auto;
+        }
       }
 
       &.emphasis {
-        background-color: white;
+        background-color: var(--lightish);
         color: black;
 
         a:hover &,
@@ -111,9 +123,9 @@
       right: 0;
       bottom: 0;
       width: 100%;
-      height: 95%;
+      height: 100%;
       object-fit: contain;
-      object-position: bottom right;
+      object-position: bottom left;
       z-index: 0;
 
       @media (max-width: 888px) {
@@ -125,9 +137,22 @@
 
     figcaption {
       position: relative;
+      display: flex;
+      flex-direction: column;
+      // align-items: center;
       // font-family: var(--alt);
       // font-size: 1.88rem;
       // font-weight: bold;
-      // width: 90%;
+      height: 100%;
+      width: 88%;
+
+      p {
+        flex: 1;
+      }
+
+      u {
+        color: var(--highlight);
+        // flex: 1;
+      }
     }
 </style>
