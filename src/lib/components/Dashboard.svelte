@@ -93,15 +93,15 @@
       }
 
       &:not(.emphasis) {
-        text-align: center;
+        // text-align: center;
 
         :global(img),
         :global(video) {
-          object-position: bottom center;
+          // object-position: bottom center;
         }
 
         figcaption {
-          margin: 0 auto;
+          // margin: 0 auto;
         }
       }
 
