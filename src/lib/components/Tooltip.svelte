@@ -5,10 +5,11 @@
   export let right: boolean = false
   export let visible: boolean = false
   export let light: boolean = false
+  export let click: boolean = false
 </script>
 
 
-<span class:visible>
+<span class:visible class:click>
   <slot name="tip" />
 
   <div class:top class:right class:light>
@@ -25,9 +26,9 @@
   span {
     position: relative;
 
-    &:hover,
-    &:focus,
-    &:focus-within,
+    &:not(.click):hover,
+    &:not(.click):focus,
+    &:not(.click):focus-within,
     &.visible {
 
       > div {
@@ -102,7 +103,7 @@
 
       &.right {
         top: auto;
-        bottom: 100%;
+        bottom: -1.5rem;
         left: auto;
         right: 0;
         transform: translateX(0);

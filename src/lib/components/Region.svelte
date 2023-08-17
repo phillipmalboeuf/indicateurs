@@ -14,11 +14,13 @@
     "&nbsp;": ["Royaume-Uni", "Japon", "États-Unis"],
     "WeGov": ["Finlande", "Islande", "Nouvelle-Zélande"]
   }
+
+  let visible = true
 </script>
 
 <nav>
-  <Tooltip right visible>
-    <button type="button" slot="tip" class="filter">{$page.params.locale === 'en' ? "Jurisdictions" : "Juridictions"}</button>
+  <Tooltip right click {visible}>
+    <button type="button" slot="tip" class="filter" on:click={() => visible = true}>{$page.params.locale === 'en' ? "Jurisdictions" : "Juridictions"}</button>
 
     <table class="piliers" slot="tool">
       {#each Object.entries(table) as [title, list]}
@@ -32,6 +34,8 @@
         {/each}
       </tr>
       {/each}
+
+       <button type="button" class="close" on:click={() => visible = false}>{$page.params.locale === 'en' ? "Close" : "Fermer"}</button>
     </table>
   </Tooltip>
 </nav>
@@ -55,6 +59,14 @@
     padding: calc(var(--gutter) / 2) calc(var(--gutter) / 1.5);
     background: var(--dark);
     border: var(--border);
+
+    &.close {
+      position: absolute;
+      font-size: 0.75rem;
+      padding: calc(var(--gutter) / 4) calc(var(--gutter) / 2.5);
+      top: calc(var(--gutter) / -5);
+      right: calc(var(--gutter) / 2);
+    }
   }
 
   table {
