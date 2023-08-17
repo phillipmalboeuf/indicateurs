@@ -1,25 +1,38 @@
 <script lang="ts">
   import { page } from '$app/stores'
-  import { region, colors } from '$lib/stores'
+  import { region, regions } from '$lib/stores'
   
   import Tooltip from './Tooltip.svelte'
 
   function click(e) {
     e.currentTarget.blur()
   }
+
+  const table = {
+    "Juridictions": ["Québec", "Ontario", "Canada"],
+    "G7": ["Allemagne", "France", "Italie"],
+    "&nbsp;": ["Royaume-Uni", "Japon", "États-Unis"],
+    "WeGov": ["Finlande", "Islande", "Nouvelle-Zélande"]
+  }
 </script>
 
 <nav>
-  <Tooltip right>
+  <Tooltip right visible>
     <button type="button" slot="tip" class="filter">{$page.params.locale === 'en' ? "Jurisdictions" : "Juridictions"}</button>
-    <ul class="piliers" slot="tool">
-      {#each ["Québec", "Ontario", "Canada"] as r}
-      <li style="--color: {colors[r]}">
-        <input on:click={click} bind:group={$region} type="checkbox" name={r} id={r} value={r} />
-        <label for={r}>{r}</label>
-      </li>
+
+    <table class="piliers" slot="tool">
+      {#each Object.entries(table) as [title, list]}
+      <tr>
+        <th>{@html title}</th>
+        {#each list as r}
+        <td style="--color: {regions[r]}">
+          <input on:click={click} bind:group={$region} type="checkbox" name={r} id={r} value={r} />
+          <label for={r}><img src="/regions/{r.toLowerCase().replace('é', 'e')}.svg" alt="" /> {r}</label>
+        </td>
+        {/each}
+      </tr>
       {/each}
-    </ul>
+    </table>
   </Tooltip>
 </nav>
 
@@ -44,9 +57,7 @@
     border: var(--border);
   }
 
-  ul {
-    list-style: none;
-    padding-left: 0;
+  table {
     margin: 0;
 
     // li + & {
@@ -54,16 +65,13 @@
     // }
   }
 
-  li {
-    padding: 0.25rem;
-    font-weight: bold;
-  }
-
     .piliers {
       display: flex;
-      justify-content: center;
-      flex-direction: column;
-      column-gap: var(--gutter);
+      // justify-content: center;
+      // flex-direction: column;
+      column-gap: calc(var(--gutter) / 1);
+      min-width: 666px;
+      width: 100%;
       // margin-bottom: calc(var(--gutter) * 2);
 
       // &.columns {
@@ -73,21 +81,54 @@
       // @media (max-width: 888px) {
       //   flex-direction: column;
       // }
-      
-      > li {
-        // color: var(--dark);
-        // background: var(--light);
-        // padding-top: 0.66rem;
-        border-radius: 0.5rem;
 
-        // > ul {
-          
+      > tr {
+        display: block;
 
-        //   > li {
-        //     color: var(--light);
-            
-        //   }
-        // }
+        > th,
+        > td {
+          display: block;
+          text-align: left;
+          font-size: 0.88rem;
+          letter-spacing: 1px;
+        }
+
+        > th {
+          opacity: 0.66;
+          font-weight: normal;
+          font-size: 0.75rem;
+          padding-bottom: 0.5rem;
+        }
       }
     }
+
+input[type="checkbox"] {
+  display: none;
+  
+  & ~ label {
+    display: flex;
+    align-items: center;
+    column-gap: 0.5rem;
+    opacity: 0.5;
+    margin-bottom: 0.1rem;
+
+    &:hover,
+    &:focus {
+      opacity: 1;
+    }
+
+    img {
+      width: 1rem;
+      height: 1rem;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+
+  &:checked {
+    & ~ label {
+      opacity: 1;
+    }
+  }
+}
 </style>

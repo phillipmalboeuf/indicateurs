@@ -138,10 +138,10 @@ label {
   cursor: pointer;
 }
 
-label:hover,
+/* label:hover,
 label:focus {
   color: var(--color);
-}
+} */
 
 button,
 a.button {

@@ -35,16 +35,16 @@
   {#if indicateur.fields.data}
   <Chart {...indicateur.fields} bind:exporting couleur={indicateur.fields.categorie?.fields?.couleur} />
 
-  <aside class="card-footer">
-    <a href="{$page.params.locale === 'en' ? "/en" : ""}/indicateurs/{indicateur.fields.id}"><small>{$page.params.locale === 'en' ? "Details" : "Détails"} <Icon i="chevron" small /></small></a>
+  <aside>
+    <a href="{$page.params.locale === 'en' ? "/en" : ""}/indicateurs/{indicateur.fields.id}"><small>{$page.params.locale === 'en' ? "Details" : "Détails"}&nbsp;<Icon i="chevron" small /></small></a>
     <div>
       <Buttons {indicateur} {exporting} iconsOnly />
     </div>
   </aside>
   {:else}
   <em class="empty">{$page.params.locale === 'en' ? "To be documented" : "À documenter"}</em>
-  <aside class="card-footer">
-    <a href="{$page.params.locale === 'en' ? "/en" : ""}/indicateurs/{indicateur.fields.id}"><small>{$page.params.locale === 'en' ? "Details" : "Détails"} <Icon i="chevron" small /></small></a>
+  <aside>
+    <a href="{$page.params.locale === 'en' ? "/en" : ""}/indicateurs/{indicateur.fields.id}"><small>{$page.params.locale === 'en' ? "Details" : "Détails"}&nbsp;<Icon i="chevron" small /></small></a>
   </aside>
   {/if}
 </article>

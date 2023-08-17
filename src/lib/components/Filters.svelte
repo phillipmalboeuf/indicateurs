@@ -9,7 +9,6 @@
   import Icon from './Icon.svelte'
 
   // import { region } from '$lib/stores'
-  // import { colors } from '$lib/charts'
   import { page } from '$app/stores'
 
   export let categories: Entry<TypeCategorieSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">[]

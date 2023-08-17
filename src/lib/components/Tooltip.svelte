@@ -41,7 +41,7 @@
       z-index: 5;
       top: 100%;
       left: 50%;
-      width: 16rem;
+      min-width: 16rem;
       pointer-events: none;
       opacity: 0;
       padding-top: 0.5rem;

@@ -48,7 +48,7 @@
     <figcaption>
       <a href="{$p.params.locale === 'en' ? "/en" : ""}/indicateurs/{page.fields.indicateurVedette.fields.id}">
         <small>{page.fields.indicateurVedette.fields.titre}</small>
-        <small><u>{$p.params.locale === 'en' ? "Details" : "Détails"}</u> <Icon i="chevron" small /></small>
+        <small><u>{$p.params.locale === 'en' ? "Details" : "Détails"}</u>&nbsp;<Icon i="chevron" small /></small>
       </a>
     </figcaption>
   </figure>
@@ -113,6 +113,11 @@
         display: flex;
         justify-content: space-between;
         color: white;
+
+        small:last-child {
+          min-width: 6rem;
+          text-align: right;
+        }
       }
     }
 

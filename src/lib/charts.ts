@@ -19,7 +19,7 @@ function csvToArray(str: string, delimiter = ",") {
   return arr;
 }
 
-import { Bullet, Circle, Color, color, DataProcessor, Label, Legend, LinearGradient, percent, Picture, Root, Scrollbar, Theme, Tooltip } from '@amcharts/amcharts5'
+import { Bullet, Circle, Color, color, Container, DataProcessor, Label, Legend, LinearGradient, percent, Picture, Root, Scrollbar, Theme, Tooltip } from '@amcharts/amcharts5'
 import { XYChart, ValueAxis, CategoryAxis, AxisRendererX, ColumnSeries, AxisRendererY, LineSeries, AxisLabel, XYCursor, SmoothedXLineSeries } from '@amcharts/amcharts5/xy'
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated"
 import am5themes_Dark from "@amcharts/amcharts5/themes/Dark"
@@ -27,7 +27,7 @@ import am5locales_fr from "@amcharts/amcharts5/locales/fr_FR"
 import am5locales_en from "@amcharts/amcharts5/locales/en_CA"
 import { FunnelSeries, PieChart, PieSeries, PyramidSeries, SlicedChart } from '@amcharts/amcharts5/percent'
 import type { iHSL } from '@amcharts/amcharts5/.internal/core/util/Utils'
-import { region, colors } from './stores'
+import { region, regions as colors } from './stores'
 
 export function init(element: HTMLElement, locale: string) {
   let root = Root.new(element)
@@ -144,6 +144,11 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
       }]
     });
 
+    let tooltip = Tooltip.new(root, {})
+    tooltip.get("background").setAll({
+      strokeOpacity: 0
+    })
+
     let series = chart.series.push(ColumnSeries.new(root, {
       name,
       xAxis,
@@ -151,7 +156,7 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
       valueYField: name,
       categoryXField: "Date",
       // stacked: hsl.h !== color(couleur).toHSL().h,
-      tooltip: Tooltip.new(root, {}),
+      tooltip,
     }))
 
     series.columns.template.setAll({
@@ -266,7 +271,8 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
   const keys = Object.keys(seriesData[0]).filter(key => !['Date', 'Région'].includes(key))
 
   keys.forEach((name, i) => {
-    let hsl: iHSL = color(colors[name.split('–')[0]] || couleur).toHSL()
+    const region = name.split('–')[0]
+    let hsl: iHSL = color(colors[region] || couleur).toHSL()
 
     if (name.includes('–')) {
       const [region, s] = name.split('–')
@@ -284,6 +290,15 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
     } else {
       // hsl.h += i * 0.05
     }
+
+    let tooltip = Tooltip.new(root, {
+      labelText: `${keys.length > 1 ? '{name}, ' : ''}{categoryX}: {valueY}`,
+      animationDuration: 0,
+      pointerOrientation: "horizontal",
+    })
+    tooltip.get("background").setAll({
+      strokeOpacity: 0
+    })
     
     let series = chart.series.push(SmoothedXLineSeries.new(root, {
       name,
@@ -293,9 +308,7 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
       categoryXField: "Date",
       fill: Color.fromHSL(hsl.h, hsl.s, hsl.l),
       stroke: Color.fromHSL(hsl.h, hsl.s, hsl.l),
-      tooltip: Tooltip.new(root, {
-        labelText: `${keys.length > 1 ? '{name}, ' : ''}{categoryX}: {valueY}`
-      }),
+      tooltip,
       connect: false
     }))
 
@@ -303,6 +316,54 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
       // stroke: color(couleur),
       strokeWidth: 3,
     })
+
+    if (colors[region]) {
+    let container = Container.new(root, {
+      x: -1000,
+      y: -1000,
+      layer: 100,
+      mask: Circle.new(root, {
+        radius: 10,
+        fill: color(0x000000),
+        x: percent(0),
+        y: percent(0)
+      })
+    })
+
+    container.children.push(Picture.new(root, {
+      // width: 16*1.625,
+      height: 20,
+      centerX: percent(50),
+      centerY: percent(50),
+      src: `/regions/${region.toLowerCase().replace('é', 'e')}.svg`
+    }))
+
+    let tooltipBullet = chart.plotContainer.children.push(container)
+
+    series.on("tooltipDataItem", function(tooltipDataItem) {
+      var x = -1000;
+      var y = -1000;
+      if (tooltipDataItem) {
+        var point = tooltipDataItem.get("point");
+        if (point) {
+          x = point.x;
+          y = point.y;
+        }
+      }
+      tooltipBullet.setAll({
+        x: x,
+        y: y
+      })
+    })
+
+    tooltip.on("forceHidden", function(hidden){
+      tooltipBullet.set("forceHidden", hidden);
+    })
+
+    tooltip.on("opacity", function(opacity){
+      tooltipBullet.set("opacity", opacity);
+    })
+    }
 
     // series.bullets.push(function() {
     //   return Bullet.new(root, {
@@ -323,6 +384,7 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
 
   chart.set("cursor", XYCursor.new(root, {
     // snapToSeries: chart.series.values
+    tooltipY: percent(-10),
   }))
 
   let cursor = chart.get("cursor")

@@ -12,7 +12,7 @@
   import { Exporting, ExportingMenu } from '@amcharts/amcharts5/plugins/exporting'
   import type { XYChart, XYSeries } from '@amcharts/amcharts5/xy'
   import type { Chart } from '@amcharts/amcharts5/.internal/core/render/Chart'
-  import { region, colors } from '$lib/stores'
+  import { region, regions } from '$lib/stores'
   
   import type { TypeCategorieSkeleton } from '$lib/clients/content_types'
 
