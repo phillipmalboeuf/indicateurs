@@ -49,7 +49,7 @@
     <aside>
       {#if data.categorie.fields.sousCategories}
       <!-- <h5>Sous-catégories</h5> -->
-      <Filters categories={data.categorie.fields.sousCategories} {checked} base={($page.params.locale ? '/en' : '') + `/categories/${data.categorie.fields.id}`} on:update={event => checked = event.detail} />
+      <Filters categories={[data.categorie]} {checked} base={($page.params.locale ? '/en' : '') + `/categories/${data.categorie.fields.id}`} on:update={event => checked = event.detail} />
       {/if}
     </aside>
   </section>
