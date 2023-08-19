@@ -15,17 +15,17 @@
     "WeGov": ["Finlande", "Islande", "Nouvelle-Zélande"]
   }
 
-  let visible = true
+  let visible = false
 </script>
 
 <nav>
   <Tooltip right click {visible}>
     <button type="button" slot="tip" class="filter" on:click={() => visible = true}>{$page.params.locale === 'en' ? "Jurisdictions" : "Juridictions"}</button>
 
-    <table class="piliers" slot="tool">
+    <table class="regions" slot="tool">
       {#each Object.entries(table) as [title, list]}
       <tr>
-        <th>{@html title}</th>
+        <th class:empty={title === '&nbsp;'}>{@html title}</th>
         {#each list as r}
         <td style="--color: {regions[r]}">
           <input on:click={click} bind:group={$region} type="checkbox" name={r} id={r} value={r} />
@@ -53,6 +53,10 @@
     z-index: 20;
     bottom: calc(var(--gutter) * 1.5);
     right: calc(var(--gutter) * 1.5);
+
+    @media (max-width: 888px) {
+      right: calc(var(--gutter) * 0.5);
+    }
   }
 
   button {
@@ -77,11 +81,11 @@
     // }
   }
 
-    .piliers {
+    .regions {
       display: flex;
       // justify-content: center;
       // flex-direction: column;
-      column-gap: calc(var(--gutter) / 1);
+      gap: calc(var(--gutter) / 1);
       min-width: 666px;
       width: 100%;
       // margin-bottom: calc(var(--gutter) * 2);
@@ -110,6 +114,17 @@
           font-weight: normal;
           font-size: 0.75rem;
           padding-bottom: 0.5rem;
+        }
+      }
+
+      @media (max-width: 888px) {
+        min-width: auto;
+        width: 85vw;
+
+        flex-direction: column;
+
+        th.empty {
+          display: none;
         }
       }
     }
