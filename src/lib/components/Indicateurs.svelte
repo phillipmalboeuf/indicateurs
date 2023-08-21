@@ -46,8 +46,8 @@
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: repeat(4, 1fr);
-    column-gap: var(--gutter);
-    row-gap: var(--gutter);
+    column-gap: calc(var(--gutter) / 2);
+    row-gap: calc(var(--gutter) / 2);
     overflow-x: hidden;
 
     li h6 {
