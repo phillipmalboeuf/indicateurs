@@ -266,6 +266,16 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
   })
   xAxis.data.setAll(seriesData)
 
+  let bottomContainer = Container.new(root, {
+    x: percent(100),
+    y: percent(100),
+    centerX: percent(100),
+    centerY: percent(100),
+    layer: 100,
+  })
+
+  chart.plotContainer.children.push(bottomContainer)
+
   let subs = {}
   let regions = {}
   const keys = Object.keys(seriesData[0]).filter(key => !['Date', 'Région'].includes(key))
@@ -318,61 +328,67 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
     })
 
     if (colors[region]) {
-    let container = Container.new(root, {
-      x: -1000,
-      y: -1000,
-      layer: 100,
-      mask: Circle.new(root, {
-        radius: 10,
-        fill: color(0x000000),
-        x: percent(0),
-        y: percent(0)
+      let container = Container.new(root, {
+        x: -1000,
+        y: -1000,
+        layer: 100,
+        mask: Circle.new(root, {
+          radius: 10,
+          fill: color(0x000000),
+          x: percent(0),
+          y: percent(0)
+        })
       })
-    })
 
-    container.children.push(Picture.new(root, {
-      // width: 16*1.625,
-      height: 20,
-      centerX: percent(50),
-      centerY: percent(50),
-      src: `/regions/${region.toLowerCase().replace('é', 'e')}.svg`
-    }))
+      container.children.push(Picture.new(root, {
+        // width: 16*1.625,
+        height: 20,
+        centerX: percent(50),
+        centerY: percent(50),
+        src: `/regions/${region.toLowerCase().replace('é', 'e')}.svg`
+      }))
 
-    let tooltipBullet = chart.plotContainer.children.push(container)
+      let tooltipBullet = chart.plotContainer.children.push(container)
 
-    series.on("tooltipDataItem", function(tooltipDataItem) {
-      var x = -1000;
-      var y = -1000;
-      if (tooltipDataItem) {
-        var point = tooltipDataItem.get("point");
-        if (point) {
-          x = point.x;
-          y = point.y;
+      series.on("tooltipDataItem", function(tooltipDataItem) {
+        var x = -1000;
+        var y = -1000;
+        if (tooltipDataItem && tooltipDataItem.dataContext[region]) {
+          var point = tooltipDataItem.get("point");
+          if (point) {
+            x = point.x;
+            y = point.y;
+          }
         }
-      }
-      tooltipBullet.setAll({
-        x: x,
-        y: y
+        tooltipBullet.setAll({
+          x: x,
+          y: y
+        })
       })
-    })
 
-    tooltip.on("forceHidden", function(hidden){
-      tooltipBullet.set("forceHidden", hidden);
-    })
+      tooltip.on("forceHidden", function(hidden){
+        tooltipBullet.set("forceHidden", hidden);
+      })
 
-    tooltip.on("opacity", function(opacity){
-      tooltipBullet.set("opacity", opacity);
-    })
+      tooltip.on("opacity", function(opacity){
+        tooltipBullet.set("opacity", opacity);
+      })
     }
 
-    // series.bullets.push(function() {
-    //   return Bullet.new(root, {
-    //     sprite: Circle.new(root, {
-    //       radius: 4,
-    //       fill: series.get("fill")
-    //     })
-    //   })
-    // })
+    if (seriesData.filter(data => data[name]).length === 0) {
+      let label = Label.new(root, {
+        text: `Aucune données pour ${name}`,
+        fontSize: 13,
+        opacity: 1,
+        fill: color('#9FA1A8')
+      })
+
+      bottomContainer.children.push(label)
+
+      tooltip.on("forceHidden", function(hidden){
+        label.set("forceHidden", hidden);
+      })
+    }
 
     series.data.processor = DataProcessor.new(root, {
       numericFields: [name],
@@ -384,7 +400,7 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
 
   chart.set("cursor", XYCursor.new(root, {
     // snapToSeries: chart.series.values
-    tooltipY: percent(-10),
+    // tooltipY: percent(-10),
   }))
 
   let cursor = chart.get("cursor")
@@ -403,10 +419,28 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
       fillField: "color",
       x: percent(100),
       centerX: percent(100),
-      clickTarget: "none"
     }))
     legend.labels.template.setAll({
-      fill: color('#EDF5E2')
+      fill: color('#fff'),
+    })
+    legend.itemContainers.template.setAll({
+      cursorOverStyle: "pointer"
+    })
+    legend.itemContainers.template.events.on("click", e => {
+      const visible =  e.target.get("opacity") === 1
+      e.target.setAll({
+        opacity: visible ? 0.25 : 1
+      })
+      chart.series.each(serie => {
+        if (serie.get("opacity") > 0.05 && serie._settings.name.includes((e.target.dataItem.dataContext as {name:string}).name)) {
+          serie.getTooltip().setAll({
+            forceHidden: visible
+          })
+          serie.setAll({
+            opacity: visible ? 0.25 : 1
+          })
+        }
+      })
     })
     legend.valueLabels.template.set("forceHidden", true)
     let c = color(colors['Québec']).toHSL()
