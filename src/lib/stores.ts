@@ -1,6 +1,12 @@
+import { browser } from '$app/environment'
 import { writable } from 'svelte/store'
 
 export const region = writable<string[]>(["Québec", "Canada"])
+
+if (browser) {
+  if (localStorage.getItem('regions')) { region.set(JSON.parse(localStorage.getItem('regions'))) }
+  region.subscribe(regions => localStorage.setItem('regions', JSON.stringify(regions)))
+}
 
 export const regions = {
   'Québec': '#3979d8',
