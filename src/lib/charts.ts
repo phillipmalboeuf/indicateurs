@@ -10,7 +10,7 @@ function csvToArray(str: string, delimiter = ",") {
   const arr = rows.map(function (row) {
     const values = row.split(delimiter)
     const el = headers.reduce(function (object, header, index) {
-      object[header] = values[index]
+      object[header] = values[index] === "" ? null : values[index]
       return object
     }, {})
     return el
@@ -19,7 +19,7 @@ function csvToArray(str: string, delimiter = ",") {
   return arr;
 }
 
-import { Bullet, Circle, Color, color, Container, DataProcessor, Label, Legend, LinearGradient, percent, Picture, Root, Scrollbar, Theme, Tooltip } from '@amcharts/amcharts5'
+import { Bullet, Circle, Color, color, Container, DataProcessor, Label, Legend, LinearGradient, LinePattern, percent, Picture, Root, Scrollbar, Theme, Tooltip } from '@amcharts/amcharts5'
 import { XYChart, ValueAxis, CategoryAxis, AxisRendererX, ColumnSeries, AxisRendererY, LineSeries, AxisLabel, XYCursor, SmoothedXLineSeries } from '@amcharts/amcharts5/xy'
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated"
 import am5themes_Dark from "@amcharts/amcharts5/themes/Dark"
@@ -27,7 +27,7 @@ import am5locales_fr from "@amcharts/amcharts5/locales/fr_FR"
 import am5locales_en from "@amcharts/amcharts5/locales/en_CA"
 import { FunnelSeries, PieChart, PieSeries, PyramidSeries, SlicedChart } from '@amcharts/amcharts5/percent'
 import type { iHSL } from '@amcharts/amcharts5/.internal/core/util/Utils'
-import { region, regions as colors } from './stores'
+import { region, regions as colors, extraRegions } from './stores'
 
 export function init(element: HTMLElement, locale: string) {
   let root = Root.new(element)
@@ -325,6 +325,30 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
     series.strokes.template.setAll({
       // stroke: color(couleur),
       strokeWidth: 3,
+      ...extraRegions[region] && {
+        // strokeDasharray: 10,
+        // strokeDashoffset: -30
+        // strokeGradient: LinearGradient.new(root, {
+        //   rotation: 0,
+        //   stops: [{
+        //     color: color(extraRegions[region])
+        //   }, {
+        //     color: Color.fromHSL(hsl.h, hsl.s, hsl.l)
+        //   }]
+        // })
+        // strokePattern: LinePattern.new(root, {
+        //   fill: Color.fromHSL(hsl.h, hsl.s, hsl.l),
+        //   color: color(extraRegions[region]),
+        //   rotation: 90,
+        //   strokeWidth: 3,
+        //   width: 200,
+        //   height: 200
+        // })
+        shadowColor: color(extraRegions[region]),
+        // shadowBlur: 10,
+        // shadowOffsetX: -3,
+        shadowOffsetY: 3,
+      },
     })
 
     if (colors[region]) {
@@ -392,7 +416,7 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
 
     series.data.processor = DataProcessor.new(root, {
       numericFields: [name],
-      emptyAs: NaN,
+      // emptyAs: null,
     })
     
     series.data.setAll(seriesData)

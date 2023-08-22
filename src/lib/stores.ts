@@ -22,3 +22,16 @@ export const regions = {
   'Islande': '#DC1E35',
   'Nouvelle-Zélande': '#00247D',
 }
+
+export const extraRegions = {
+  'France': '#FFFFFF',
+  // 'Ontario': '#CF142B',
+  'Allemagne': '#DD0000',
+  'Islande': "#02529C",
+  'Italie': "#CE2B37",
+  'Royaume-Uni': "#CF142B",
+  'États-Unis': "#3C3B6E",
+  'Japon': '#FFFFFF',
+  'Nouvelle-Zélande': '#CC142B',
+  'Finlande': '#FFF'
+}
