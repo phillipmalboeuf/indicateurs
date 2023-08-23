@@ -319,7 +319,7 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
       fill: Color.fromHSL(hsl.h, hsl.s, hsl.l),
       stroke: Color.fromHSL(hsl.h, hsl.s, hsl.l),
       tooltip,
-      connect: false
+      connect: true
     }))
 
     series.strokes.template.setAll({
