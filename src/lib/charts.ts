@@ -377,8 +377,8 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
       series.on("tooltipDataItem", function(tooltipDataItem) {
         var x = -1000;
         var y = -1000;
-        if (tooltipDataItem && tooltipDataItem.dataContext[region]) {
-          var point = tooltipDataItem.get("point");
+        if (tooltipDataItem && tooltipDataItem.dataContext[name]) {
+          var point = tooltipDataItem.get("point")
           if (point) {
             x = point.x;
             y = point.y;
