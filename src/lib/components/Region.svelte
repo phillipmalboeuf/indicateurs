@@ -1,8 +1,10 @@
 <script lang="ts">
   import { page } from '$app/stores'
   import { region, regions } from '$lib/stores'
+    import { onMount } from 'svelte';
   
   import Tooltip from './Tooltip.svelte'
+    import { browser } from '$app/environment';
 
   function click(e) {
     e.currentTarget.blur()
@@ -21,6 +23,12 @@
   }
 
   let visible = false
+
+  onMount(() => {
+    if (browser && window.innerWidth > 888) {
+      visible = true
+    }
+  })
 </script>
 
 <nav>
