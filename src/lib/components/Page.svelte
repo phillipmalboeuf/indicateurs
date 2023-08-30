@@ -101,9 +101,10 @@
 
   figure {
     position: absolute;
-    top: 0;
+    top: 50%;
     right: 0;
     width: 40%;
+    transform: translateY(-50%);
 
     margin: 0;
     padding: 0 var(--gutter);
@@ -123,8 +124,10 @@
 
     @media (max-width: 888px) {
       position: relative;
+      top: 0;
       width: 100%;
       padding: 0;
+      transform: none;
     }
   }
 
