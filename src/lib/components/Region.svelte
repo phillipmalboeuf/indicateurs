@@ -12,7 +12,12 @@
     "Juridictions": ["Québec", "Ontario", "Canada"],
     "G7": ["Allemagne", "France", "Italie"],
     "&nbsp;": ["Royaume-Uni", "Japon", "États-Unis"],
-    "WeGov": ["Finlande", "Islande", "Nouvelle-Zélande"]
+    "WEGo": ["Finlande", "Islande", "Nouvelle-Zélande"]
+  }
+
+  const links = {
+    "G7": "https://en.wikipedia.org/wiki/G7",
+    "WEGo": "https://weall.org/wego",
   }
 
   let visible = false
@@ -25,7 +30,13 @@
     <table class="regions" slot="tool">
       {#each Object.entries(table) as [title, list]}
       <tr>
-        <th class:empty={title === '&nbsp;'}>{@html title}</th>
+        <th class:empty={title === '&nbsp;'}>
+          {#if links[title]}
+          <a href={links[title]} rel="external" target="_blank"><u>{@html title}</u></a>
+          {:else}
+          {@html title}
+          {/if}
+        </th>
         {#each list as r}
         <td style="--color: {regions[r]}">
           <input on:click={click} bind:group={$region} type="checkbox" name={r} id={r} value={r} />
