@@ -344,10 +344,11 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
         //   width: 200,
         //   height: 200
         // })
+        strokeWidth: 2,
         shadowColor: color(extraRegions[region]),
         // shadowBlur: 10,
         // shadowOffsetX: -3,
-        shadowOffsetY: 3,
+        shadowOffsetY: 4,
       },
     })
 
