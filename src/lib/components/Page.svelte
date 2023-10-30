@@ -44,10 +44,11 @@
 
   {#if page.fields.indicateurVedette}
   <figure>
+    <strong>{page.fields.indicateurVedette.fields.titre}</strong>
     <Chart {...page.fields.indicateurVedette.fields} couleur={page.fields.indicateurVedette.fields.categorie?.fields?.couleur} />
     <figcaption>
       <a href="{$p.params.locale === 'en' ? "/en" : ""}/indicateurs/{page.fields.indicateurVedette.fields.id}">
-        <small>{page.fields.indicateurVedette.fields.titre}</small>
+      <small></small>
         <small><u>{$p.params.locale === 'en' ? "Details" : "Détails"}</u>&nbsp;<Icon i="chevron" small /></small>
       </a>
     </figcaption>

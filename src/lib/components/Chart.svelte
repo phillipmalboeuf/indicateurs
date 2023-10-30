@@ -69,47 +69,47 @@
         // menu: ExportingMenu.new(chart._root, {})
       })
 
-      if ($page.url.searchParams.has("export")) {
-        chart.setAll({
-          width: percent(90),
-          centerX: percent(0)
-        })
-        if (sources) chart.chartContainer.children.push(Label.new(chart._root, {
-          width: percent(100),
-          centerX: percent(0),
-          text: documentToPlainTextString(sources),
-          fontSize: '0.75em',
-          oversizedBehavior: "wrap",
-          maxWidth: 666,
-          paddingTop: 20
-        }))
+      // if ($page.url.searchParams.has("export")) {
+      //   chart.setAll({
+      //     width: percent(90),
+      //     centerX: percent(0)
+      //   })
+      //   if (sources) chart.chartContainer.children.push(Label.new(chart._root, {
+      //     width: percent(100),
+      //     centerX: percent(0),
+      //     text: documentToPlainTextString(sources),
+      //     fontSize: '0.75em',
+      //     oversizedBehavior: "wrap",
+      //     maxWidth: 666,
+      //     paddingTop: 20
+      //   }))
         
-        chart.chartContainer.children.unshift(Label.new(chart._root, {
-          width: percent(100),
-          centerX: percent(0),
-          text: titre,
-          fontSize: '1.25em',
-          oversizedBehavior: "wrap",
-          paddingBottom: 33,
-        }))
+      //   chart.chartContainer.children.unshift(Label.new(chart._root, {
+      //     width: percent(100),
+      //     centerX: percent(0),
+      //     text: titre,
+      //     fontSize: '1.25em',
+      //     oversizedBehavior: "wrap",
+      //     paddingBottom: 33,
+      //   }))
 
-        chart.chartContainer.children.unshift(Label.new(chart._root, {
-          width: percent(100),
-          centerX: percent(0),
-          text: categorie.fields.titre,
-          fill: color(categorie.fields.couleur),
-          fontSize: '1.5em',
-        }))
+      //   chart.chartContainer.children.unshift(Label.new(chart._root, {
+      //     width: percent(100),
+      //     centerX: percent(0),
+      //     text: categorie.fields.titre,
+      //     fill: color(categorie.fields.couleur),
+      //     fontSize: '1.5em',
+      //   }))
 
-        chart.chartContainer.children.push(Label.new(chart._root, {
-          width: percent(100),
-          centerX: percent(-0),
-          y: percent(95),
-          text: `© indicateurs.quebec/indicateurs/${id}`,
-          fontSize: '0.75em',
-          textAlign: "right"
-        }))
-      }
+      //   chart.chartContainer.children.push(Label.new(chart._root, {
+      //     width: percent(100),
+      //     centerX: percent(-0),
+      //     y: percent(95),
+      //     text: `© indicateurs.quebec/indicateurs/${id}`,
+      //     fontSize: '0.75em',
+      //     textAlign: "right"
+      //   }))
+      // }
     }
   }
   
