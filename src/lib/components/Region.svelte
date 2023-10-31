@@ -18,8 +18,8 @@
   }
 
   const links = {
-    "G7": "https://en.wikipedia.org/wiki/G7",
-    "WEGo": "https://weall.org/wego",
+    "G7": "https://www.international.gc.ca/world-monde/international_relations-relations_internationales/g7/index.aspx?lang=fra",
+    "WEGo": "https://weall.org/hubs",
   }
 
   let visible = false
