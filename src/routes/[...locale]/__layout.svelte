@@ -52,7 +52,7 @@
 </script>
 
 <svelte:head>
-  <script async src="https://www.googletagmanager.com/gtag/js?id={ga}"></script>
+  <script async type="application/plain" data-cookies="performance" src="https://www.googletagmanager.com/gtag/js?id={ga}"></script>
 </svelte:head>
 
 <Header navigation={principale} path={$page.path} />
