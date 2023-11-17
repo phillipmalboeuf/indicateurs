@@ -2,7 +2,7 @@
   "name": "indicateurs",
   "version": "0.0.1",
   "engines": {
-    "node": "14.x"
+    "node": "20.x"
   },
   "scripts": {
     "dev": "svelte-kit dev --open",
