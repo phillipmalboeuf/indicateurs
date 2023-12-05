@@ -26,7 +26,7 @@
 
   onMount(() => {
     if (browser && window.innerWidth > 888) {
-      visible = true
+      // visible = true
     }
   })
 </script>

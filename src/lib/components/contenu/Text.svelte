@@ -10,7 +10,7 @@
 <section id={entry.fields.id}>
   <Document body={entry.fields.corps} />
 
-  <hr>
+  <!-- <hr> -->
 </section>
 
 <style lang="scss">

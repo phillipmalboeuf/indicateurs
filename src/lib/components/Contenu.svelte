@@ -122,28 +122,65 @@
       }
     }
 
-    :global(h2),
-    :global(h4),
-    :global(h6),
-    :global(u) {
-      color: var(--highlight);
+    :global(h2) {
+      @media (min-width: 888px) {
+        font-size: 3rem;
+      }
+      margin-top: 12rem;
+      margin-bottom: 12rem;
+      text-align: center;
     }
 
-    :global(u) {
-      font-weight: bold;
-      text-decoration: none;
+    :global(h3) {
+      @media (min-width: 888px) {
+        font-size: 2.5rem;
+      }
+      margin-top: 6rem;
+      margin-bottom: 6rem;
+      text-align: center;
     }
 
+    :global(table) {
+      margin: 0 -2rem 4rem;
+      @media (max-width: 888px) {
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+      }
+      width: calc(100% + 4rem);
+    }
+
+    :global(blockquote) {
+      padding: 2rem;
+      margin: 4rem -2rem;
+      @media (max-width: 888px) {
+        margin-left: 0;
+        margin-right: 0;
+      }
+      border: 1px solid;
+      border-radius: 1rem;
+    }
+
+    :global(p:has(strong):has(+ table)) {
+      text-align: center;
+      margin-top: 4rem;
+    }
+
+    :global(u),
     :global(strong) {
       color: white;
+    }
+
+    :global(table td:has(strong)) {
+      background-color: #3979d8;
     }
   }
 
   nav {
     position: sticky;
-    top: calc(var(--gutter) * 3);
-    left: 0;
-    align-self: start;
+    bottom: calc(var(--gutter) * 1);
+    margin-left: calc(var(--gutter) * -1);
+    align-self: flex-end;
     grid-column: span 3;
 
     a {
@@ -153,45 +190,45 @@
       &.active {
         color: var(--highlight);
 
-        &:before {
-          content: "•";
-          position: absolute;
-          left: -1rem;
-        }
+        // &:before {
+        //   content: "•";
+        //   position: absolute;
+        //   left: -1rem;
+        // }
       }
     }
 
-    @media (max-width: 888px) {
-      top: 1rem;
-      z-index: 10;
+    // @media (max-width: 888px) {
+    //   top: 1rem;
+    //   z-index: 10;
 
-      :global(span) {
-        left: 200%;
-      }
+    //   :global(span) {
+    //     left: 200%;
+    //   }
       
 
-      a.active {
-        color: currentColor;
-        // font-weight: bold;
-        font-size: 1.5rem;
-        background-color: var(--dark);
-        width: 40vw;
-        height: 2rem;
-        overflow: hidden;
+    //   a.active {
+    //     color: currentColor;
+    //     // font-weight: bold;
+    //     font-size: 1.5rem;
+    //     background-color: var(--dark);
+    //     width: 40vw;
+    //     height: 2rem;
+    //     overflow: hidden;
 
-        &:before {
-          content: none;
-        }
-      }
+    //     &:before {
+    //       content: none;
+    //     }
+    //   }
       
-      a:not(.active) {
-        display: none;
-      }
+    //   a:not(.active) {
+    //     display: none;
+    //   }
 
-      .submenu a {
-        display: block;
-      }
-    }
+    //   .submenu a {
+    //     display: block;
+    //   }
+    // }
 
     @media (max-width: 666px) {
       display: none;

@@ -1,4 +1,7 @@
 <script lang="ts">
+  import Card from '../Card.svelte';
+
+  // import Chart from '../Chart.svelte'
   import Picture from '../Picture.svelte'
   import Mark from './Mark.svelte'
 
@@ -46,6 +49,12 @@
 
 {:else if node.nodeType === 'embedded-asset-block'}
 <Picture media={node.data.target} />
+{:else if node.nodeType === 'embedded-entry-block'}
+{#if node.data.target.sys.contentType.sys.id === 'indicateur'}
+<figure>
+  <Card indicateur={node.data.target} />
+</figure>
+{/if}
 {/if}
 
 <style lang="scss">
@@ -53,8 +62,10 @@
     background: var(--dark);
     border: 1px solid;
     border-radius: 1em;
+    overflow: hidden;
     -webkit-border-horizontal-spacing: 0;
     -webkit-border-vertical-spacing: 0;
+    margin-bottom: 1rem;
   }
 
     td,
@@ -70,8 +81,15 @@
         border-right: none;
       }
 
-      > *:last-child {
+      > :global(*:last-child) {
         margin-bottom: 0;
+      }
+    }
+
+    tr:last-child {
+      :global(td),
+      :global(th) {
+        border-bottom: none !important;
       }
     }
 
@@ -81,5 +99,26 @@
       color: var(--dark);
       background: var(--light);
       padding: 0.5em 1em;
+
+      :global(strong) {
+        color: var(--dark) !important;
+      }
+    }
+
+    figure {
+      margin:  calc(var(--gutter) * 1) -10vw calc(var(--gutter) * 1);
+      
+      :global(figure) {
+        padding-bottom: 33%;
+      }
+
+      @media (max-width: 888px) {
+        margin-left: 0;
+        margin-right: 0;
+
+        :global(figure) {
+          padding-bottom: 66%;
+        }
+      }
     }
 </style>
