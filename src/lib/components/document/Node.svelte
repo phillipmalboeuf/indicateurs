@@ -6,6 +6,7 @@
   import Mark from './Mark.svelte'
 
   export let node
+  export let id: string
 </script>
 
 {#if node.nodeType === 'heading-1'}
@@ -52,7 +53,7 @@
 {:else if node.nodeType === 'embedded-entry-block'}
 {#if node.data.target.sys.contentType.sys.id === 'indicateur'}
 <figure>
-  <Card indicateur={node.data.target} />
+  <Card indicateur={node.data.target} {...id === 'evolution' && { only: 'Québec' }} />
 </figure>
 {/if}
 {/if}

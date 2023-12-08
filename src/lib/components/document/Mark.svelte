@@ -1,4 +1,7 @@
-<script>
+<script lang="ts">
+  import { region, regions, table, links } from '$lib/stores'
+  import RegionTable from '../RegionTable.svelte';
+
   export let mark
 </script>
 
@@ -17,7 +20,11 @@
   {:else if mark.marks[0].type === 'bold'}
   <strong><svelte:self mark={{ ...mark, marks: mark.marks.slice(1) }} /></strong>
   {:else if mark.marks[0].type === 'code'}
+  {#if mark.value === '[juridictions]'}
+  <RegionTable />
+  {:else}
   {@html mark.value}
+  {/if}
   {/if}
 {:else}
 {mark.value}

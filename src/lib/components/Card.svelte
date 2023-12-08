@@ -11,6 +11,7 @@
   // import Donut from './Donut.svelte'
 
   export let indicateur: Entry<TypeIndicateurSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
+  export let only: string = undefined
   let exporting: Exporting
 
   // const beigne = indicateur.fields.id === 'beigne'
@@ -33,7 +34,7 @@
   {/if} -->
 
   {#if indicateur.fields.data}
-  <Chart {...indicateur.fields} bind:exporting couleur={indicateur.fields.categorie?.fields?.couleur} />
+  <Chart {...indicateur.fields} bind:exporting couleur={indicateur.fields.categorie?.fields?.couleur} {only} />
 
   <aside>
     <a href="{$page.params.locale === 'en' ? "/en" : ""}/indicateurs/{indicateur.fields.id}"><small>{$page.params.locale === 'en' ? "Details" : "Détails"}&nbsp;<Icon i="chevron" small /></small></a>

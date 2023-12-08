@@ -8,7 +8,7 @@
 </script>
 
 <section id={entry.fields.id}>
-  <Document body={entry.fields.corps} />
+  <Document id={entry.fields.id} body={entry.fields.corps} />
 
   <!-- <hr> -->
 </section>

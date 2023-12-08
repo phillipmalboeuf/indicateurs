@@ -35,3 +35,15 @@ export const extraRegions = {
   'Nouvelle-Zélande': '#CC142B',
   'Finlande': '#FFF'
 }
+
+export const table = {
+  "Juridictions": ["Québec", "Ontario", "Canada"],
+  "G7": ["Allemagne", "France", "Italie"],
+  "&nbsp;": ["Royaume-Uni", "Japon", "États-Unis"],
+  "WEGo": ["Finlande", "Islande", "Nouvelle-Zélande"]
+}
+
+export const links = {
+  "G7": "https://www.international.gc.ca/world-monde/international_relations-relations_internationales/g7/index.aspx?lang=fra",
+  "WEGo": "https://weall.org/hubs",
+}

@@ -34,27 +34,37 @@
   export let titreDeLaxe: string = undefined
   export let couleur: string = undefined
   export let small: boolean = false
+  export let only: string = undefined
 
   function createChart() {
     observer?.disconnect()
 
     const dataSource = csvToChartData(data)
+    const dataFiltered = only ? dataSource.map(line => ({
+      Date: line['Date'],
+      ...Object.keys(line).filter(key => key.includes(only)).reduce((l, key) => {
+        return {
+          ...l,
+          [key]: line[key]
+        }
+      }, {})
+    })) : dataSource
 
     switch (type) {
       case 'Histogramme':
-        chart = createHistogramme(element, dataSource, minimum, maximum, titreDeLaxe, couleur, $page.params.locale)
+        chart = createHistogramme(element, dataFiltered, minimum, maximum, titreDeLaxe, couleur, $page.params.locale)
         break
 
       case 'Courbe':
-        chart = createCourbe(element, dataSource, minimum, maximum, titreDeLaxe, couleur, $page.params.locale)
+        chart = createCourbe(element, dataFiltered, minimum, maximum, titreDeLaxe, couleur, $page.params.locale)
         break
 
       case 'Pyramide':
-        chart = createPyramide(element, dataSource, minimum, maximum, titreDeLaxe, couleur, $page.params.locale)
+        chart = createPyramide(element, dataFiltered, minimum, maximum, titreDeLaxe, couleur, $page.params.locale)
         break
       
       case 'Tarte':
-        chart = createTarte(element, dataSource, minimum, maximum, titreDeLaxe, couleur, $page.params.locale)
+        chart = createTarte(element, dataFiltered, minimum, maximum, titreDeLaxe, couleur, $page.params.locale)
         break
     
       default:
