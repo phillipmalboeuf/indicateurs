@@ -41,7 +41,7 @@
     {#each node.content as item}<tr>{#each item.content as node}<svelte:self node={node} />{/each}</tr>{/each}
   </table>
 {:else if node.nodeType === 'table-header-cell'}
-  <th>{#each node.content as item}<svelte:self node={item} />{/each}</th>
+  <th data-content="{node.content[0]?.content[0]?.value}">{#each node.content as item}<svelte:self node={item} />{/each}</th>
 {:else if node.nodeType === 'table-cell'}
   <td>{#each node.content as item}<svelte:self node={item} />{/each}</td>
 
@@ -103,6 +103,18 @@
 
       :global(strong) {
         color: var(--dark) !important;
+      }
+
+      &[data-content="Amélioration"] {
+        background-color: rgb(38, 185, 114);
+      }
+
+      &[data-content="Stagnation"] {
+        background-color: #9FA1A8;
+      }
+      
+      &[data-content="Détérioration"] {
+        background-color: rgb(251, 97, 63);
       }
     }
 
