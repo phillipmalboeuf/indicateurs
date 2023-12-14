@@ -5,7 +5,7 @@
   export let click: svelte.JSX.MouseEventHandler<HTMLInputElement> = undefined
 </script>
 
-<table class="regions">
+<table class="regions" class:click>
   {#each Object.entries(table) as [title, list]}
   <tr>
     <th class:empty={title === '&nbsp;'}>
@@ -44,7 +44,7 @@
 
     .regions {
       display: flex;
-      // justify-content: center;
+      &:not(.click) { justify-content: space-around; }
       // flex-direction: column;
       gap: calc(var(--gutter) / 1);
       min-width: 666px;

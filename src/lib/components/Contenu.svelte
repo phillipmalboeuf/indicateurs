@@ -171,7 +171,7 @@
       color: white;
     }
 
-    :global(table td:has(strong)) {
+    :global(table td:has(p > strong)) {
       background-color: #3979d8;
     }
   }
