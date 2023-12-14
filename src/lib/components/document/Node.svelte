@@ -67,6 +67,10 @@
     -webkit-border-horizontal-spacing: 0;
     -webkit-border-vertical-spacing: 0;
     margin-bottom: 1rem;
+
+    :global(a) {
+      text-decoration: none;
+    }
   }
 
     td,
