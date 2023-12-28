@@ -9,8 +9,9 @@
   import Tendances from './contenu/Tendances.svelte'
   import Text from './contenu/Text.svelte'
   import Tooltip from './Tooltip.svelte'
+  import type { TypeTextSkeleton } from '$lib/clients/content_types';
 
-  export let contenu: Entry<any>[]
+  export let contenu: any[]
   export let noNav = false
 
   let active: string
@@ -51,6 +52,12 @@
   <nav>
     {#each contenu.filter(c => c.fields.id) as entry}
     <a href="#{entry.fields.id}" class:active={active === entry.fields.id} on:click={show}>{entry.fields.titre}</a>
+
+      {#each entry.fields.corps.content.filter(node => node.nodeType === 'heading-3') as node}
+        {#each node.content as mark}
+        <a href="#{entry.fields.id}-{mark.value}" class="secondary">{mark.value}</a>
+        {/each}
+      {/each}
     {/each}
 
     {#if showMenu}
@@ -140,6 +147,19 @@
       text-align: center;
     }
 
+    :global(h4) {
+      // @media (min-width: 888px) {
+      //   font-size: 2.5rem;
+      // }
+      color: var(--highlight);
+      margin: 5rem 0 3rem;
+      // text-align: center;
+
+      :global(strong) {
+        color: var(--highlight);
+      }
+    }
+
     :global(table) {
       margin: 0 -2rem 4rem;
       @media (max-width: 888px) {
@@ -159,11 +179,59 @@
       }
       border: 1px solid;
       border-radius: 1rem;
+
+      color: var(--dark);
+      background: var(--light);
+      
+      :global(strong) {
+        color: var(--dark);
+        font-size: 1.25rem;
+      }
     }
 
     :global(p:has(strong):has(+ table)) {
       text-align: center;
       margin-top: 4rem;
+    }
+
+    :global(p:has(strong):has(+ ul)) {
+      padding: 2rem 2rem 0;
+      margin: 4rem -2rem -1px;
+      @media (max-width: 888px) {
+        margin-left: 0;
+        margin-right: 0;
+      }
+      border: 1px solid;
+      border-bottom: none;
+      border-top-left-radius: 1rem;
+      border-top-right-radius: 1rem;
+
+      color: var(--dark);
+      background: var(--light);
+
+      font-size: 1.25rem;
+      text-align: center;
+
+      :global(strong) {
+        color: var(--dark);
+      }
+    }
+
+    :global(p:has(strong) + ul) {
+      padding: 2rem;
+      padding-left: 3rem;
+      margin: 0 -2rem 4rem;
+      @media (max-width: 888px) {
+        margin-left: 0;
+        margin-right: 0;
+      }
+      border: 1px solid;
+      border-top: none;
+      border-bottom-left-radius: 1rem;
+      border-bottom-right-radius: 1rem;
+
+      color: var(--dark);
+      background: var(--light);
     }
 
     :global(u),
@@ -195,6 +263,16 @@
         //   position: absolute;
         //   left: -1rem;
         // }
+      }
+
+      &.secondary {
+        padding-left: 1rem;
+        font-size: 0.9em;
+        // margin-bottom: 0.25rem;
+
+        &:last-child {
+          // margin-bottom: 0.5rem;
+        }
       }
     }
 

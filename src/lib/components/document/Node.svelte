@@ -14,7 +14,7 @@
 {:else if node.nodeType === 'heading-2'}
   <h2>{#each node.content as mark}<Mark mark={mark} />{/each}</h2>
 {:else if node.nodeType === 'heading-3'}
-  <h3>{#each node.content as mark}<Mark mark={mark} />{/each}</h3>
+  <h3 id={`${id}-${node.content.map(mark => mark.value)}`}>{#each node.content as mark}<Mark mark={mark} />{/each}</h3>
 {:else if node.nodeType === 'heading-4'}
   <h4>{#each node.content as mark}<Mark mark={mark} />{/each}</h4>
 {:else if node.nodeType === 'heading-5'}

@@ -2,7 +2,7 @@
   import Node from './Node.svelte'
 
   export let body
-  export let id: string
+  export let id: string = undefined
 </script>
 
 {#if body}
