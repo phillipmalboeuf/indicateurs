@@ -232,6 +232,10 @@
 
       color: var(--dark);
       background: var(--light);
+
+      :global(strong) {
+        color: var(--dark);
+      }
     }
 
     :global(u),
