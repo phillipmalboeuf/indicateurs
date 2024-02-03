@@ -44,14 +44,13 @@
 
   {#if page.fields.indicateurVedette}
   <figure>
-    <strong>{page.fields.indicateurVedette.fields.titre}</strong>
-    <Chart {...page.fields.indicateurVedette.fields} couleur={page.fields.indicateurVedette.fields.categorie?.fields?.couleur} />
     <figcaption>
       <a href="{$p.params.locale === 'en' ? "/en" : ""}/indicateurs/{page.fields.indicateurVedette.fields.id}">
-      <small></small>
+        <strong>{page.fields.indicateurVedette.fields.titre}</strong>
         <small><u>{$p.params.locale === 'en' ? "Details" : "Détails"}</u>&nbsp;<Icon i="chevron" small /></small>
       </a>
     </figcaption>
+    <Chart {...page.fields.indicateurVedette.fields} couleur={page.fields.indicateurVedette.fields.categorie?.fields?.couleur} />
   </figure>
   {/if}
 </Hero>
@@ -105,14 +104,18 @@
     top: 50%;
     right: 0;
     width: 40%;
+    height: 100%;
     transform: translateY(-50%);
 
     margin: 0;
     padding: 0 var(--gutter);
 
     figcaption {
+      margin: calc(var(--gutter) * 1) 0 calc(var(--gutter) * -0.5);
+
       a {
         display: flex;
+        align-items: flex-end;
         justify-content: space-between;
         color: white;
 
