@@ -27,7 +27,7 @@ import am5locales_fr from "@amcharts/amcharts5/locales/fr_FR"
 import am5locales_en from "@amcharts/amcharts5/locales/en_CA"
 import { FunnelSeries, PieChart, PieSeries, PyramidSeries, SlicedChart } from '@amcharts/amcharts5/percent'
 import type { iHSL } from '@amcharts/amcharts5/.internal/core/util/Utils'
-import { region, regions as colors, extraRegions } from './stores'
+import { region, regions as colors, extraRegions, regionsEnglish } from './stores'
 
 export function init(element: HTMLElement, locale: string) {
   let root = Root.new(element)
@@ -402,7 +402,7 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
 
     if (seriesData.filter(data => data[name]).length === 0) {
       let label = Label.new(root, {
-        text: `Aucune données pour ${name}`,
+        text: locale === 'en' ? `No data for ${regionsEnglish[name]}` : `Aucune données pour ${name}`,
         fontSize: 13,
         opacity: 1,
         fill: color('#9FA1A8')

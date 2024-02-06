@@ -1,6 +1,6 @@
 <script lang="ts">
   import { page } from '$app/stores'
-  import { region, regions, table, links } from '$lib/stores'
+  import { region, regions, table, links, regionsEnglish } from '$lib/stores'
 
   export let click: svelte.JSX.MouseEventHandler<HTMLInputElement> = undefined
 </script>
@@ -18,7 +18,7 @@
     {#each list as r}
     <td style="--color: {regions[r]}">
       {#if click}<input on:click={click} bind:group={$region} type="checkbox" name={r} id={r} value={r} />{/if}
-      <label for={r}><img src="/regions/{r.toLowerCase().replace('é', 'e')}.svg" alt="" /> {r}</label>
+      <label for={r}><img src="/regions/{r.toLowerCase().replace('é', 'e')}.svg" alt="" /> {$page.params.locale === 'en' ? regionsEnglish[r] : r}</label>
     </td>
     {/each}
   </tr>

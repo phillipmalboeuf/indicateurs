@@ -43,6 +43,21 @@ export const table = {
   "WEGo": ["Finlande", "Islande", "Nouvelle-Zélande"]
 }
 
+export const regionsEnglish = {
+  'Québec': 'Quebec',
+  'Ontario': 'Ontario',
+  'Canada': 'Canada',
+  'Allemagne': 'Germany',
+  'France': 'France',
+  'Italie': 'Italy',
+  'Royaume-Uni': 'United Kingdom',
+  'Japon': 'Japan',
+  'États-Unis': 'United States',
+  'Finlande': 'Finland',
+  'Islande': 'Iceland',
+  'Nouvelle-Zélande': 'New Zealand',
+}
+
 export const links = {
   "G7": "https://www.international.gc.ca/world-monde/international_relations-relations_internationales/g7/index.aspx?lang=fra",
   "WEGo": "https://weall.org/hubs",
