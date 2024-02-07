@@ -58,7 +58,7 @@
         grid-row-start: auto !important;
         grid-row-end: auto !important;
 
-        min-height: 16vh;
+        min-height: 36vh;
       }
     }
   }
@@ -130,7 +130,7 @@
 
       @media (max-width: 888px) {
         object-fit: contain;
-        width: auto;
+        // width: auto;
       }
     }
   }
