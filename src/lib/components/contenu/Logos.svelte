@@ -35,6 +35,7 @@
     column-gap: var(--gutter);
     row-gap: calc(var(--gutter) / 2);
     flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
     margin: var(--gutter) 0;
 

@@ -9,7 +9,7 @@
   import Dashboard from './Dashboard.svelte'
   import Hero from './Hero.svelte'
   import StickyNav from './StickyNav.svelte'
-  import Document from './document/Document.svelte';
+  import Document from './document/Document.svelte'
   import Chart from './Chart.svelte'
   import Icon from './Icon.svelte'
 
@@ -63,7 +63,7 @@
 </StickyNav> -->
 {/if}
 
-{#if !hero && page.fields.dashboard}
+{#if page.fields.dashboard}
 <Dashboard dashboard={page.fields.dashboard} />
 {/if}
 
