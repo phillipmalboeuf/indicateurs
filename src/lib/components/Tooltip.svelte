@@ -2,15 +2,17 @@
   import Icon from './Icon.svelte'
 
   export let top: boolean = false
+  export let right: boolean = false
   export let visible: boolean = false
   export let light: boolean = false
+  export let click: boolean = false
 </script>
 
 
-<span class:visible>
+<span class:visible class:click>
   <slot name="tip" />
 
-  <div class:top class:light>
+  <div class:top class:right class:light>
     <!-- <Icon i="chevron" /> -->
     <div>
       <slot name="tool" />
@@ -24,9 +26,9 @@
   span {
     position: relative;
 
-    &:hover,
-    &:focus,
-    &:focus-within,
+    &:not(.click):hover,
+    &:not(.click):focus,
+    &:not(.click):focus-within,
     &.visible {
 
       > div {
@@ -40,7 +42,7 @@
       z-index: 5;
       top: 100%;
       left: 50%;
-      width: 16rem;
+      min-width: 16rem;
       pointer-events: none;
       opacity: 0;
       padding-top: 0.5rem;
@@ -85,7 +87,7 @@
         padding-bottom: 0.5rem;
 
         > div {
-          border: 1px solid var(--light);
+          border: var(--border);
         }
 
         > :global(svg) {
@@ -96,6 +98,26 @@
           > :global(path) {
             stroke: var(--light);
           }
+        }
+      }
+
+      &.right {
+        top: auto;
+        bottom: -1.5rem;
+        left: auto;
+        right: 0;
+        transform: translateX(0);
+        // padding-top: 0;
+        padding-bottom: 0.5rem;
+
+        > div {
+          border: var(--border);
+        }
+
+        > :global(svg) {
+          top: auto;
+          bottom: -4px;
+          transform: translateX(0%) rotate(90deg);
         }
       }
     }

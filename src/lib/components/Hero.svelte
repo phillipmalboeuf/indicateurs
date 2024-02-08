@@ -3,7 +3,7 @@
   import { onMount } from 'svelte'
   import Picture from './Picture.svelte'
 
-  export let media: Asset
+  export let media: Asset<"WITHOUT_UNRESOLVABLE_LINKS">
 
   let scrollY: number
   let height: number
@@ -24,10 +24,11 @@
 
 <style lang="scss">
   figure {
-    min-height: 40vh;
+    position: relative;
+    min-height: 66vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    // justify-content: center;
     margin: 0;
 
     &:before {
@@ -43,6 +44,10 @@
       @media (max-width: 888px) {
         background: linear-gradient(0deg, var(--dark), transparent);
       }
+    }
+
+    @media (max-width: 888px) {
+      min-height: 100vh;
     }
   }
 

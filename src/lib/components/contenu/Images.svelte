@@ -1,19 +1,12 @@
 <script lang="ts">
-  import type { Asset, Entry, RichTextContent } from 'contentful'
+  import type { Asset, Entry } from 'contentful'
 
-  import type { Indicateur } from '$routes/indicateurs/[id].svelte'
   import Document from '../document/Document.svelte'
-  import type { Lien } from '../Header.svelte'
   import Indicateurs from '../Indicateurs.svelte'
   import Picture from '../Picture.svelte'
+  import type { TypeImagesSkeleton } from '$lib/clients/content_types'
 
-  export let entry: Entry<{
-    titre: string
-    id: string
-    corps: RichTextContent
-    aprs: RichTextContent
-    images: Asset[]
-  }>
+  export let entry: Entry<TypeImagesSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
 </script>
 
 <section id={entry.fields.id}>

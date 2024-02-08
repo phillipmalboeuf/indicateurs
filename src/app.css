@@ -1,6 +1,6 @@
 :root {
-  /* --width: 1366px; */
-  --width: 1100px;
+  --width: 1366px;
+  /* --width: 1100px; */
 
   --gutter: 2vw;
   --corner: 1rem;
@@ -9,12 +9,13 @@
   --darkish: #2D303C;
   --darkishy: #393C4E;
   --light: #EDF5E2;
+  --lightish: #F7F8F8;
   --muted: #9FA1A8;
   --highlight: #F7D152;
   --emphasis: #0013CF;
 
   --font: "PP Neue Montreal", Helvetica, sans-serif;
-  --alt: "PP Neue Machina", Helvetica, sans-serif;
+  --alt: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 
   --shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
   --border: 1px solid rgba(255, 255, 255, 0.3);
@@ -49,13 +50,14 @@ body {
 
 h1, h2, h3 {
   font-family: var(--alt);
+  font-weight: 600;
   margin: 0 0 0.5em;
   white-space: pre-line;
   word-break: break-word;
 }
 
 h4, h5, h6 {
-  font-weight: bold;
+  font-weight: 400;
   margin: 0 0 1em;
   white-space: pre-line;
 }
@@ -136,10 +138,10 @@ label {
   cursor: pointer;
 }
 
-label:hover,
+/* label:hover,
 label:focus {
   color: var(--color);
-}
+} */
 
 button,
 a.button {

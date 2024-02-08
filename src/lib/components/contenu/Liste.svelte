@@ -1,17 +1,9 @@
 <script lang="ts">
-  import type { Entry, RichTextContent } from 'contentful'
+  import type { Entry } from 'contentful'
   import Document from '../document/Document.svelte'
+  import type { TypeListeSkeleton } from '$lib/clients/content_types'
 
-  export let entry: Entry<{
-    titre: string
-    id: string
-    corps: RichTextContent
-    items: Entry<{
-      titre: string
-      id: string
-      corps: RichTextContent
-    }>[]
-  }>
+  export let entry: Entry<TypeListeSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
 </script>
 
 <section id={entry.fields.id}>

@@ -2,17 +2,10 @@
   import { page } from '$app/stores'
 
   import type { Entry, Asset } from 'contentful'
-  import type { Lien } from './Header.svelte'
   import Picture from './Picture.svelte'
+  import type { TypeDashSkeleton } from '$lib/clients/content_types'
 
-  export let dashboard: Entry<Lien & {
-    image: Asset
-    emphasis: boolean
-    colStart: number
-    colEnd: number
-    rowStart: number
-    rowEnd: number
-  }>[]
+  export let dashboard: Entry<TypeDashSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">[]
 </script>
 
 
@@ -22,9 +15,17 @@
     <a href={((!dash.fields.externe && $page.params.locale === 'en') ? "/en" : "") + dash.fields.lien}
       target={dash.fields.externe && '_blank'}
       style="grid-column-start: {dash.fields.colStart}; grid-column-end: {dash.fields.colEnd}; grid-row-start: {dash.fields.rowStart}; grid-row-end: {dash.fields.rowEnd};">
-      <figure class:emphasis={dash.fields.emphasis}>
+      <figure class:emphasis={dash.fields.emphasis} class:bleu={dash.fields.bleu}>
         {#if dash.fields.image}<Picture media={dash.fields.image} small />{/if}
-        <figcaption>{dash.fields.titre}</figcaption>
+        <figcaption>
+          <h3>{dash.fields.titre}</h3>
+          {#if dash.fields.text}
+          <p>{dash.fields.text}</p>
+          {/if}
+          {#if dash.fields.cta}
+          <u>{dash.fields.cta}</u>
+          {/if}
+        </figcaption>
       </figure>
     </a>
     {/each}
@@ -33,17 +34,17 @@
 
 <style lang="scss">
   section {
-    max-width: var(--width);
+    // max-width: var(--width);
     margin: var(--gutter) auto 0;
 
     @media (max-width: 1100px) {
-      display: none;
+      // display: none;
     }
   }
 
   nav {
     display: grid;
-    min-height: 70vh;
+    min-height: 90vh;
     column-gap: calc(var(--gutter) / 2);
     row-gap: calc(var(--gutter) / 2);
     grid-template-columns: repeat(4, 1fr);
@@ -57,7 +58,7 @@
         grid-row-start: auto !important;
         grid-row-end: auto !important;
 
-        min-height: 16vh;
+        min-height: 36vh;
       }
     }
   }
@@ -67,7 +68,7 @@
     overflow: hidden;
     padding: calc(var(--gutter) / 2);
     background-color: var(--darkish);
-    border-radius: var(--corner);
+    border-radius: calc(var(--corner) / 2);
     margin: 0;
     height: 100%;
 
@@ -78,6 +79,40 @@
       a:hover &,
       a:focus & {
         color: var(--dark);
+      }
+    }
+
+    &:not(.bleu) {
+      padding: calc(var(--gutter) * 1.5) calc(var(--gutter) / 1);
+      color: var(--light);
+      background-color: var(--darkish);
+
+      a:hover &,
+      a:focus & {
+        color: var(--highlight);
+      }
+
+      &:not(.emphasis) {
+        // text-align: center;
+
+        :global(img),
+        :global(video) {
+          // object-position: bottom center;
+        }
+
+        figcaption {
+          // margin: 0 auto;
+        }
+      }
+
+      &.emphasis {
+        background-color: var(--lightish);
+        color: black;
+
+        a:hover &,
+        a:focus & {
+          color: var(--emphasis);
+        }
       }
     }
 
@@ -95,16 +130,29 @@
 
       @media (max-width: 888px) {
         object-fit: contain;
-        width: auto;
+        // width: auto;
       }
     }
   }
 
     figcaption {
       position: relative;
+      display: flex;
+      flex-direction: column;
+      // align-items: center;
       // font-family: var(--alt);
-      font-size: 1.88rem;
-      font-weight: bold;
-      width: 90%;
+      // font-size: 1.88rem;
+      // font-weight: bold;
+      height: 100%;
+      width: 88%;
+
+      p {
+        flex: 1;
+      }
+
+      u {
+        color: var(--highlight);
+        // flex: 1;
+      }
     }
 </style>

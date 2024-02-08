@@ -1,16 +1,17 @@
 <script lang="ts">
   import { fade, fly } from 'svelte/transition'
   import type { Exporting } from '@amcharts/amcharts5/plugins/exporting'
-
-  import type { Indicateur } from '$routes/indicateurs/[id].svelte'
+  
   import type { Entry } from 'contentful'
   import Chart from './Chart.svelte'
   import Icon from './Icon.svelte'
   import Buttons from './Buttons.svelte'
   import { page } from '$app/stores'
+  import type { TypeIndicateurSkeleton } from '$lib/clients/content_types'
   // import Donut from './Donut.svelte'
 
-  export let indicateur: Entry<Indicateur>
+  export let indicateur: Entry<TypeIndicateurSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
+  export let only: string = undefined
   let exporting: Exporting
 
   // const beigne = indicateur.fields.id === 'beigne'
@@ -24,7 +25,7 @@
 {:else}
 <article>
   {#if indicateur.fields.categorie}
-  <em style="color: {indicateur.fields.categorie?.fields.couleur}"><a href="{$page.params.locale === 'en' ? "/en" : ""}/categories/{indicateur.fields.categorie.fields.id}">{indicateur.fields.categorie.fields.titre}</a></em><br />
+  <em style="color: {indicateur.fields.categorie?.fields?.couleur}"><a href="{$page.params.locale === 'en' ? "/en" : ""}/categories/{indicateur.fields.categorie?.fields?.id}">{indicateur.fields.categorie?.fields?.titre}</a></em><br />
   {/if}
   <a class="indicateurs" href="{$page.params.locale === 'en' ? "/en" : ""}/indicateurs/{indicateur.fields.id}">{indicateur.fields.titre}</a>
 
@@ -33,18 +34,18 @@
   {/if} -->
 
   {#if indicateur.fields.data}
-  <Chart {...indicateur.fields} bind:exporting couleur={indicateur.fields.categorie.fields.couleur} />
+  <Chart {...indicateur.fields} bind:exporting couleur={indicateur.fields.categorie?.fields?.couleur} {only} />
 
-  <aside class="card-footer">
-    <a href="{$page.params.locale === 'en' ? "/en" : ""}/indicateurs/{indicateur.fields.id}"><small>{$page.params.locale === 'en' ? "Details" : "Détails"} <Icon i="chevron" small /></small></a>
+  <aside>
+    <a href="{$page.params.locale === 'en' ? "/en" : ""}/indicateurs/{indicateur.fields.id}"><small>{$page.params.locale === 'en' ? "Details" : "Détails"}&nbsp;<Icon i="chevron" small /></small></a>
     <div>
       <Buttons {indicateur} {exporting} iconsOnly />
     </div>
   </aside>
   {:else}
   <em class="empty">{$page.params.locale === 'en' ? "To be documented" : "À documenter"}</em>
-  <aside class="card-footer">
-    <a href="{$page.params.locale === 'en' ? "/en" : ""}/indicateurs/{indicateur.fields.id}"><small>{$page.params.locale === 'en' ? "Details" : "Détails"} <Icon i="chevron" small /></small></a>
+  <aside>
+    <a href="{$page.params.locale === 'en' ? "/en" : ""}/indicateurs/{indicateur.fields.id}"><small>{$page.params.locale === 'en' ? "Details" : "Détails"}&nbsp;<Icon i="chevron" small /></small></a>
   </aside>
   {/if}
 </article>

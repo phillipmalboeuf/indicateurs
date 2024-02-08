@@ -7,11 +7,11 @@
   import { onMount, onDestroy } from 'svelte'
 
   import type { Entry } from 'contentful'
-  import type { Categorie } from '$routes/categories/[id].svelte'
   import { Exporting } from '@amcharts/amcharts5/plugins/exporting'
   import Icon from './Icon.svelte'
+  import type { TypeCategorieSkeleton } from '$lib/clients/content_types'
 
-  export let categories: Entry<Categorie>[] = undefined
+  export let categories: Entry<TypeCategorieSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">[] = undefined
   let root: Root
   let element: HTMLElement
   export let exporting: Exporting = undefined
@@ -58,7 +58,7 @@
   }
 
   onMount(async () => {
-    categories = (await (await fetch(locale === 'en' ? '/en/categories.json' : '/categories.json')).json()).categories
+    categories = (await (await fetch(locale === 'en' ? '/en/categories/json' : '/categories/json')).json()).categories
 
     root = Root.new(element)
     root._logo.dispose()

@@ -1,21 +1,9 @@
 <script lang="ts">
-  import type { Entry, RichTextContent } from 'contentful'
+  import type { Entry } from 'contentful'
   import Document from '../document/Document.svelte'
-  import type { Lien } from '../Header.svelte'
+  import type { TypeTableauSkeleton } from '$lib/clients/content_types'
 
-  export let entry: Entry<{
-    titre: string
-    id: string
-    corps: RichTextContent
-    titreGauche: string
-    titreDroite: string
-    lignes: Entry<{
-      id: string
-      gauche: RichTextContent
-      droite: RichTextContent
-      lien: Entry<Lien>
-    }>[]
-  }>
+  export let entry: Entry<TypeTableauSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
 
   let expanded = {}
 </script>

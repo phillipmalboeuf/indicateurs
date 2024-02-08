@@ -1,17 +1,17 @@
 <script context="module" lang="ts">
   import type { Asset, Entry } from 'contentful'
-  import type { Lien } from './Header.svelte'
 </script>
 
 <script lang="ts">
   import Link from './Link.svelte'
   import Picture from './Picture.svelte'
   import { page } from '$app/stores'
+  import type { TypeNavigationSkeleton } from '$lib/clients/content_types'
 
 	export let path: string
-  export let navigation: Entry<{ liens: Entry<Lien>[] }>
-  export let subnavigation: Entry<{ liens: Entry<Lien>[] }>
-  export let logo: Asset
+  export let navigation: Entry<TypeNavigationSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
+  export let subnavigation: Entry<TypeNavigationSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
+  // export let logo: Asset<"WITHOUT_UNRESOLVABLE_LINKS">
 </script>
 
 <footer>
@@ -23,7 +23,10 @@
       {#if lien.fields.sousLiens}
       {#each lien.fields.sousLiens as l}
       {#if l.fields.lien?.includes('g15plus.quebec')}
-      <a class="g15plus" href={lien.fields.lien} target='_blank'><Picture media={logo} small /> {l.fields.titre}</a>
+      <a class="g15plus" href={lien.fields.lien} target='_blank'>
+        <!-- <Picture media={logo} small /> -->
+        {l.fields.titre}
+      </a>
       {:else}
       <Link lien={l} />
       {/if}
@@ -58,12 +61,12 @@
 
     nav {
       width: 100%;
-      max-width: var(--width);
+      // max-width: var(--width);
       margin: 0 auto;
 
       font-size: 0.88rem;
 
-      padding: var(--gutter);
+      padding: var(--gutter) calc(var(--gutter) * 2);
 
       display: flex;
       justify-content: space-between;
@@ -91,10 +94,12 @@
     nav:last-child {
       font-size: 0.77rem;
       opacity: 0.5;
+      justify-content: flex-start;
+      padding: calc(var(--gutter) / 2) calc(var(--gutter) * 2);
 
-      div:first-child {
-        width: 50%;
-      }
+      // div:first-child {
+      //   width: 50%;
+      // }
 
       div > :global(a:first-child) {
         font-weight: normal;

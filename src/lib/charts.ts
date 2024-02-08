@@ -10,7 +10,7 @@ function csvToArray(str: string, delimiter = ",") {
   const arr = rows.map(function (row) {
     const values = row.split(delimiter)
     const el = headers.reduce(function (object, header, index) {
-      object[header] = values[index]
+      object[header] = values[index] === "" ? null : values[index]
       return object
     }, {})
     return el
@@ -19,7 +19,7 @@ function csvToArray(str: string, delimiter = ",") {
   return arr;
 }
 
-import { Bullet, Circle, Color, color, DataProcessor, Label, Legend, LinearGradient, percent, Root, Scrollbar, Theme, Tooltip } from '@amcharts/amcharts5'
+import { Bullet, Circle, Color, color, Container, DataProcessor, Label, Legend, LinearGradient, LinePattern, percent, Picture, Root, Scrollbar, Theme, Tooltip } from '@amcharts/amcharts5'
 import { XYChart, ValueAxis, CategoryAxis, AxisRendererX, ColumnSeries, AxisRendererY, LineSeries, AxisLabel, XYCursor, SmoothedXLineSeries } from '@amcharts/amcharts5/xy'
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated"
 import am5themes_Dark from "@amcharts/amcharts5/themes/Dark"
@@ -27,13 +27,7 @@ import am5locales_fr from "@amcharts/amcharts5/locales/fr_FR"
 import am5locales_en from "@amcharts/amcharts5/locales/en_CA"
 import { FunnelSeries, PieChart, PieSeries, PyramidSeries, SlicedChart } from '@amcharts/amcharts5/percent'
 import type { iHSL } from '@amcharts/amcharts5/.internal/core/util/Utils'
-import { region } from './stores'
-
-export const colors = {
-  'Canada': color('#EF3340'),
-  'Québec': color('#3979D8'),
-  'Ontario': color('#F3CC00')
-}
+import { region, regions as colors, extraRegions, regionsEnglish } from './stores'
 
 export function init(element: HTMLElement, locale: string) {
   let root = Root.new(element)
@@ -150,6 +144,11 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
       }]
     });
 
+    let tooltip = Tooltip.new(root, {})
+    tooltip.get("background").setAll({
+      strokeOpacity: 0
+    })
+
     let series = chart.series.push(ColumnSeries.new(root, {
       name,
       xAxis,
@@ -157,7 +156,7 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
       valueYField: name,
       categoryXField: "Date",
       // stacked: hsl.h !== color(couleur).toHSL().h,
-      tooltip: Tooltip.new(root, {}),
+      tooltip,
     }))
 
     series.columns.template.setAll({
@@ -195,7 +194,7 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
       fill: color('#EDF5E2')
     })
     legend.valueLabels.template.set("forceHidden", true)
-    let c = colors['Québec'].toHSL()
+    let c = color(colors['Québec']).toHSL()
     legend.data.setAll(Object.keys(subs).map(s => ({
       name: s,
       color: Color.fromHSL(c.h, c.s, subs[s])
@@ -267,12 +266,23 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
   })
   xAxis.data.setAll(seriesData)
 
+  let bottomContainer = Container.new(root, {
+    x: percent(100),
+    y: percent(100),
+    centerX: percent(100),
+    centerY: percent(100),
+    layer: 100,
+  })
+
+  chart.plotContainer.children.push(bottomContainer)
+
   let subs = {}
   let regions = {}
   const keys = Object.keys(seriesData[0]).filter(key => !['Date', 'Région'].includes(key))
 
   keys.forEach((name, i) => {
-    let hsl: iHSL = color(colors[name.split('–')[0]] || couleur).toHSL()
+    const region = name.split('–')[0]
+    let hsl: iHSL = color(colors[region] || couleur).toHSL()
 
     if (name.includes('–')) {
       const [region, s] = name.split('–')
@@ -290,6 +300,15 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
     } else {
       // hsl.h += i * 0.05
     }
+
+    let tooltip = Tooltip.new(root, {
+      labelText: `${keys.length > 1 ? '{name}, ' : ''}{categoryX}: {valueY}`,
+      animationDuration: 0,
+      pointerOrientation: "horizontal",
+    })
+    tooltip.get("background").setAll({
+      strokeOpacity: 0
+    })
     
     let series = chart.series.push(SmoothedXLineSeries.new(root, {
       name,
@@ -299,29 +318,106 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
       categoryXField: "Date",
       fill: Color.fromHSL(hsl.h, hsl.s, hsl.l),
       stroke: Color.fromHSL(hsl.h, hsl.s, hsl.l),
-      tooltip: Tooltip.new(root, {
-        labelText: `${keys.length > 1 ? '{name}, ' : ''}{categoryX}: {valueY}`
-      }),
-      connect: false
+      tooltip,
+      connect: true
     }))
 
     series.strokes.template.setAll({
       // stroke: color(couleur),
       strokeWidth: 3,
+      ...extraRegions[region] && {
+        // strokeDasharray: 10,
+        // strokeDashoffset: -30
+        // strokeGradient: LinearGradient.new(root, {
+        //   rotation: 0,
+        //   stops: [{
+        //     color: color(extraRegions[region])
+        //   }, {
+        //     color: Color.fromHSL(hsl.h, hsl.s, hsl.l)
+        //   }]
+        // })
+        // strokePattern: LinePattern.new(root, {
+        //   fill: Color.fromHSL(hsl.h, hsl.s, hsl.l),
+        //   color: color(extraRegions[region]),
+        //   rotation: 90,
+        //   strokeWidth: 3,
+        //   width: 200,
+        //   height: 200
+        // })
+        strokeWidth: 2,
+        shadowColor: color(extraRegions[region]),
+        // shadowBlur: 10,
+        // shadowOffsetX: -3,
+        shadowOffsetY: 4,
+      },
     })
 
-    // series.bullets.push(function() {
-    //   return Bullet.new(root, {
-    //     sprite: Circle.new(root, {
-    //       radius: 4,
-    //       fill: series.get("fill")
-    //     })
-    //   })
-    // })
+    if (colors[region]) {
+      let container = Container.new(root, {
+        x: -1000,
+        y: -1000,
+        layer: 100,
+        mask: Circle.new(root, {
+          radius: 10,
+          fill: color(0x000000),
+          x: percent(0),
+          y: percent(0)
+        })
+      })
+
+      container.children.push(Picture.new(root, {
+        // width: 16*1.625,
+        height: 20,
+        centerX: percent(50),
+        centerY: percent(50),
+        src: `/regions/${region.toLowerCase().replace('é', 'e')}.svg`
+      }))
+
+      let tooltipBullet = chart.plotContainer.children.push(container)
+
+      series.on("tooltipDataItem", function(tooltipDataItem) {
+        var x = -1000;
+        var y = -1000;
+        if (tooltipDataItem && tooltipDataItem.dataContext[name]) {
+          var point = tooltipDataItem.get("point")
+          if (point) {
+            x = point.x;
+            y = point.y;
+          }
+        }
+        tooltipBullet.setAll({
+          x: x,
+          y: y
+        })
+      })
+
+      tooltip.on("forceHidden", function(hidden){
+        tooltipBullet.set("forceHidden", hidden);
+      })
+
+      tooltip.on("opacity", function(opacity){
+        tooltipBullet.set("opacity", opacity);
+      })
+    }
+
+    if (seriesData.filter(data => data[name]).length === 0) {
+      let label = Label.new(root, {
+        text: locale === 'en' ? `No data for ${regionsEnglish[name]}` : `Aucune données pour ${name}`,
+        fontSize: 13,
+        opacity: 1,
+        fill: color('#9FA1A8')
+      })
+
+      bottomContainer.children.push(label)
+
+      tooltip.on("forceHidden", function(hidden){
+        label.set("forceHidden", hidden);
+      })
+    }
 
     series.data.processor = DataProcessor.new(root, {
       numericFields: [name],
-      emptyAs: NaN,
+      // emptyAs: null,
     })
     
     series.data.setAll(seriesData)
@@ -329,6 +425,7 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
 
   chart.set("cursor", XYCursor.new(root, {
     // snapToSeries: chart.series.values
+    // tooltipY: percent(-10),
   }))
 
   let cursor = chart.get("cursor")
@@ -347,13 +444,31 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
       fillField: "color",
       x: percent(100),
       centerX: percent(100),
-      clickTarget: "none"
     }))
     legend.labels.template.setAll({
-      fill: color('#EDF5E2')
+      fill: color('#fff'),
+    })
+    legend.itemContainers.template.setAll({
+      cursorOverStyle: "pointer"
+    })
+    legend.itemContainers.template.events.on("click", e => {
+      const visible =  e.target.get("opacity") === 1
+      e.target.setAll({
+        opacity: visible ? 0.25 : 1
+      })
+      chart.series.each(serie => {
+        if (serie.get("opacity") > 0.05 && serie._settings.name.includes((e.target.dataItem.dataContext as {name:string}).name)) {
+          serie.getTooltip().setAll({
+            forceHidden: visible
+          })
+          serie.setAll({
+            opacity: visible ? 0.25 : 1
+          })
+        }
+      })
     })
     legend.valueLabels.template.set("forceHidden", true)
-    let c = colors['Québec'].toHSL()
+    let c = color(colors['Québec']).toHSL()
     legend.data.setAll(Object.keys(subs).map(s => ({
       name: s,
       color: Color.fromHSL(c.h, c.s, subs[s])

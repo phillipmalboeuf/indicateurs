@@ -1,11 +1,11 @@
-import { contentful, entries, entry } from '$lib/clients/contentful'
-import type { RequestHandler } from '@sveltejs/kit'
-import type { Entry } from 'contentful'
 
-// @ts-ignore
-export const get: RequestHandler = async ({ params, query }) => {
-  const locale = params.locale
-  const system = await entry<{ piliers: Entry<any>[], indicateurs: Entry<any>[] }>('3qLoiQqZxJNss30lTE0mdA', locale)
+import type { TypeSystemSkeleton } from '$lib/clients/content_types.js'
+import { entry } from '$lib/clients/contentful'
+
+
+export const load = async ({ params }) => {
+	const locale = params.locale
+  const system = await entry<TypeSystemSkeleton>('3qLoiQqZxJNss30lTE0mdA', locale)
   const categories = [
     ...system.fields.piliers,
     ...system.fields.piliers.flatMap(pilier => pilier.fields.sousCategories || [])
@@ -23,11 +23,9 @@ export const get: RequestHandler = async ({ params, query }) => {
 
   if (categorie) {
     return {
-      body: {
-        categorie,
-        indicateurs,
-        pilier
-      }
+      categorie,
+      indicateurs,
+      pilier
     }
   }
-}
+	}
