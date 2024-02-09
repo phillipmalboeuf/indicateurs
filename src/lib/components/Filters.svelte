@@ -99,7 +99,7 @@
     align-items: center;
     column-gap: calc(var(--gutter) / 2);
     padding: calc(var(--gutter) / 2) 0;
-    margin: var(--gutter) 0 calc(var(--gutter) * 1.5);
+    margin: 0 0 calc(var(--gutter) * 1.5);
     // max-width: var(--width);
     border: 1px solid var(--muted);
     border-left: none;

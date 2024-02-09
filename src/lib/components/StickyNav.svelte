@@ -37,9 +37,9 @@
 
     font-size: 0.88rem;
 
-    max-width: var(--width);
+    // max-width: var(--width);
     margin: 0 auto;
-    padding: 1rem calc(var(--gutter) / 1) 0;
+    padding: 1rem 0 0;
 
     @media (max-width: 888px) {
       padding: 1rem 0 0;
