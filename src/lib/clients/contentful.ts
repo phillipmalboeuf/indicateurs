@@ -1,6 +1,6 @@
 import { createClient, type EntrySkeletonType } from 'contentful'
 
-const preview = true
+const preview = !!import.meta.env.VITE_PREVIEW
 
 export const contentful = createClient({
   space: 'hldkryaz0p2i',
