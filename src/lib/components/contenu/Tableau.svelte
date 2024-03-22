@@ -3,6 +3,8 @@
   import Document from '../document/Document.svelte'
   import type { TypeTableauSkeleton } from '$lib/clients/content_types'
 
+  import { page } from '$app/stores'
+
   export let entry: Entry<TypeTableauSkeleton, "WITHOUT_UNRESOLVABLE_LINKS">
 
   let expanded = {}
@@ -33,9 +35,9 @@
         </div>
 
         {#if expanded[i] === true}
-        <button on:click={() => expanded[i] = false}>En lire moins</button>
+        <button on:click={() => expanded[i] = false}>{$page.params.locale === 'en' ? 'Read less' : 'En lire moins'}</button>
         {:else}
-        <button on:click={() => expanded[i] = true}>En lire plus</button>
+        <button on:click={() => expanded[i] = true}>{$page.params.locale === 'en' ? 'Read more' : 'En lire plus'}</button>
         {/if}
       </td>
     </tr>
