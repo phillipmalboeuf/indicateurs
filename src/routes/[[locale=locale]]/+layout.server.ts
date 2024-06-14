@@ -1,5 +1,5 @@
 import type { TypeNavigationSkeleton, TypeSystemSkeleton } from '$lib/clients/content_types.js'
-import { contentful, entry } from '$lib/clients/contentful'
+import { content, entry } from '$lib/clients/contentful'
 
 export async function load({ params }) {
 	const locale = params.locale
@@ -8,7 +8,7 @@ export async function load({ params }) {
     entry<TypeNavigationSkeleton>('3oqVtIoSuKLGafP82eHjhs', locale),
     entry<TypeNavigationSkeleton>('5Tp2oC9lSsUrjzxJUqBolq', locale),
 		entry<TypeSystemSkeleton>('3qLoiQqZxJNss30lTE0mdA', locale, { select: 'fields.alert', content_type: 'system' }),
-    // contentful.getAsset('6RgOLhZuwpchQqhTPk8Huu')
+    // content.getAsset('6RgOLhZuwpchQqhTPk8Huu')
   ])
 
   return {

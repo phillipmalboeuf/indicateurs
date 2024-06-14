@@ -62,7 +62,6 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
     })
   )
 
-
   let yAxis = chart.yAxes.push(
     ValueAxis.new(root, {
       min,
@@ -200,6 +199,8 @@ export function createHistogramme(element: HTMLElement, seriesData: any[], min: 
       color: Color.fromHSL(c.h, c.s, subs[s])
     })))
   }
+
+  chart.zoomOutButton.set("forceHidden", true)
 
   return chart
 }
@@ -474,6 +475,8 @@ export function createCourbe(element: HTMLElement, seriesData: any[], min: numbe
       color: Color.fromHSL(c.h, c.s, subs[s])
     })))
   }
+
+  chart.zoomOutButton.set("forceHidden", true)
 
   return chart
 }

@@ -150,21 +150,21 @@
       if (series && series.find(serie => serie._settings.name.split('–')[0] === "Québec")) {
         (chart as XYChart).series.each(serie => {
           if ($region.includes(serie._settings.name.split('–')[0])) {
-            // serie.show(0)
+            serie.show(0)
             serie.getTooltip().setAll({
               forceHidden: false
             })
-            serie.setAll({
-              opacity: 1
-            })
+            // serie.setAll({
+            //   opacity: 1
+            // })
           } else {
-            // serie.hide(0)
+            serie.hide(0)
             serie.getTooltip().setAll({
               forceHidden: true
             })
-            serie.setAll({
-              opacity: 0.05
-            })
+            // serie.setAll({
+            //   opacity: 0.05
+            // })
           }
         })
       }
