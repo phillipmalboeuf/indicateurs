@@ -185,7 +185,7 @@
       
       :global(strong) {
         color: var(--dark);
-        font-size: 1.25rem;
+        // font-size: 1.25rem;
       }
     }
 
@@ -196,7 +196,7 @@
 
     :global(p:has(strong):has(+ ul)) {
       padding: 2rem 2rem 0;
-      margin: 4rem -2rem -1px;
+      margin: 4rem -1.5rem -1px;
       @media (max-width: 888px) {
         margin-left: 0;
         margin-right: 0;
@@ -220,7 +220,7 @@
     :global(p:has(strong) + ul) {
       padding: 2rem;
       padding-left: 3rem;
-      margin: 0 -2rem 4rem;
+      margin: 0 -1.5rem 4rem;
       @media (max-width: 888px) {
         margin-left: 0;
         margin-right: 0;

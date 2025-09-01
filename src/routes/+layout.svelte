@@ -43,7 +43,7 @@
 
 <Header navigation={data.principale} alert={data.alert} path={page.url.pathname} />
 
-<main class:navigating={navigating} id="main">
+<main class:navigating={navigating} class="{page.route.id?.replaceAll('/', '-').replaceAll('[', '').replaceAll(']', '')} {page.url.pathname.replaceAll('/', '-')}" id="main">
 	<slot></slot>
 </main>
 
@@ -57,6 +57,10 @@
 
 		@media (max-width: 888px) {
 			padding: 0 calc(var(--gutter) * 1);
+		}
+
+		&.-biodiversite {
+			--highlight: rgb(5, 148, 79);
 		}
 	}
 
