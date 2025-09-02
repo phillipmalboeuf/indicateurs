@@ -125,7 +125,7 @@
 
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    align-items: center;
+    // align-items: center;
     column-gap: var(--gutter);
 
     @media (max-width: 888px) {
