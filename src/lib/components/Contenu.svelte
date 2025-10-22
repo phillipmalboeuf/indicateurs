@@ -160,6 +160,19 @@
       }
     }
 
+    :global(h5) {
+      // @media (min-width: 888px) {
+      //   font-size: 2.5rem;
+      // }
+      color: var(--highlight);
+      margin: 3rem 0 1rem;
+      // text-align: center;
+
+      :global(strong) {
+        color: var(--highlight);
+      }
+    }
+
     :global(table) {
       margin: 0 -2rem 4rem;
       @media (max-width: 888px) {
@@ -194,49 +207,49 @@
       margin-top: 4rem;
     }
 
-    :global(p:has(strong):has(+ ul)) {
-      padding: 2rem 2rem 0;
-      margin: 4rem -1.5rem -1px;
-      @media (max-width: 888px) {
-        margin-left: 0;
-        margin-right: 0;
-      }
-      border: 1px solid;
-      border-bottom: none;
-      border-top-left-radius: 1rem;
-      border-top-right-radius: 1rem;
+    // :global(p:has(strong):has(+ ul)) {
+    //   padding: 2rem 2rem 0;
+    //   margin: 4rem -1.5rem -1px;
+    //   @media (max-width: 888px) {
+    //     margin-left: 0;
+    //     margin-right: 0;
+    //   }
+    //   border: 1px solid;
+    //   border-bottom: none;
+    //   border-top-left-radius: 1rem;
+    //   border-top-right-radius: 1rem;
 
-      color: var(--dark);
-      background: var(--light);
+    //   color: var(--dark);
+    //   background: var(--light);
 
-      font-size: 1.25rem;
-      text-align: center;
+    //   font-size: 1.25rem;
+    //   text-align: center;
 
-      :global(strong) {
-        color: var(--dark);
-      }
-    }
+    //   :global(strong) {
+    //     color: var(--dark);
+    //   }
+    // }
 
-    :global(p:has(strong) + ul) {
-      padding: 2rem;
-      padding-left: 3rem;
-      margin: 0 -1.5rem 4rem;
-      @media (max-width: 888px) {
-        margin-left: 0;
-        margin-right: 0;
-      }
-      border: 1px solid;
-      border-top: none;
-      border-bottom-left-radius: 1rem;
-      border-bottom-right-radius: 1rem;
+    // :global(p:has(strong) + ul) {
+    //   padding: 2rem;
+    //   padding-left: 3rem;
+    //   margin: 0 -1.5rem 4rem;
+    //   @media (max-width: 888px) {
+    //     margin-left: 0;
+    //     margin-right: 0;
+    //   }
+    //   border: 1px solid;
+    //   border-top: none;
+    //   border-bottom-left-radius: 1rem;
+    //   border-bottom-right-radius: 1rem;
 
-      color: var(--dark);
-      background: var(--light);
+    //   color: var(--dark);
+    //   background: var(--light);
 
-      :global(strong) {
-        color: var(--dark);
-      }
-    }
+    //   :global(strong) {
+    //     color: var(--dark);
+    //   }
+    // }
 
     :global(u),
     :global(strong) {
