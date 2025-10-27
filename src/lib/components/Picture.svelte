@@ -21,18 +21,18 @@
 {:else}
 <picture>
   {#if small}
-<source srcSet="{media.fields.file.url}?w=400{ar ? `&h=${Math.round(ar * 400)}&fit=fill` : ''}&fm=avif" type="image/avif" media="(max-width: 900px)" />
+{#if !media.fields.file.url.endsWith('.svg')}<source srcSet="{media.fields.file.url}?w=400{ar ? `&h=${Math.round(ar * 400)}&fit=fill` : ''}&fm=avif" type="image/avif" media="(max-width: 900px)" />{/if}
 <source srcSet="{media.fields.file.url}?w=400{ar ? `&h=${Math.round(ar * 400)}&fit=fill` : ''}" media="(max-width: 900px)" />
-<source srcSet="{media.fields.file.url}?w=600{ar ? `&h=${Math.round(ar * 600)}&fit=fill` : ''}&fm=avif" type="image/avif" media="(max-width: 1200px)" />
+{#if !media.fields.file.url.endsWith('.svg')}<source srcSet="{media.fields.file.url}?w=600{ar ? `&h=${Math.round(ar * 600)}&fit=fill` : ''}&fm=avif" type="image/avif" media="(max-width: 1200px)" />{/if}
 <source srcSet="{media.fields.file.url}?w=600{ar ? `&h=${Math.round(ar * 600)}&fit=fill` : ''}" media="(max-width: 1200px)" />
-<source srcSet="{media.fields.file.url}?w=800{ar ? `&h=${Math.round(ar * 800)}&fit=fill` : ''}&fm=avif" type="image/avif" />
+{#if !media.fields.file.url.endsWith('.svg')}<source srcSet="{media.fields.file.url}?w=800{ar ? `&h=${Math.round(ar * 800)}&fit=fill` : ''}&fm=avif" type="image/avif" />{/if}
 <img src="{media.fields.file.url}?w=800{ar ? `&h=${Math.round(ar * 800)}&fit=fill` : ''}" alt="{media.fields.title} {media.fields.description}" />
   {:else}
-<source srcSet="{media.fields.file.url}?w=900{ar ? `&h=${Math.round(ar * 900)}&fit=fill` : ''}&fm=avif" type="image/avif" media="(max-width: 900px)" />
+{#if !media.fields.file.url.endsWith('.svg')}<source srcSet="{media.fields.file.url}?w=900{ar ? `&h=${Math.round(ar * 900)}&fit=fill` : ''}&fm=avif" type="image/avif" media="(max-width: 900px)" />{/if}
 <source srcSet="{media.fields.file.url}?w=900{ar ? `&h=${Math.round(ar * 900)}&fit=fill` : ''}" media="(max-width: 900px)" />
-<source srcSet="{media.fields.file.url}?w=1200{ar ? `&h=${Math.round(ar * 1200)}&fit=fill` : ''}&fm=avif" type="image/avif" media="(max-width: 1200px)" />
+{#if !media.fields.file.url.endsWith('.svg')}<source srcSet="{media.fields.file.url}?w=1200{ar ? `&h=${Math.round(ar * 1200)}&fit=fill` : ''}&fm=avif" type="image/avif" media="(max-width: 1200px)" />{/if}
 <source srcSet="{media.fields.file.url}?w=1200{ar ? `&h=${Math.round(ar * 1200)}&fit=fill` : ''}" media="(max-width: 1200px)" />
-<source srcSet="{media.fields.file.url}?w=1800{ar ? `&h=${Math.round(ar * 1800)}&fit=fill` : ''}&fm=avif" type="image/avif" />
+{#if !media.fields.file.url.endsWith('.svg')}<source srcSet="{media.fields.file.url}?w=1800{ar ? `&h=${Math.round(ar * 1800)}&fit=fill` : ''}&fm=avif" type="image/avif" />{/if}
 <img src="{media.fields.file.url}?w=1800{ar ? `&h=${Math.round(ar * 1800)}&fit=fill` : ''}" alt="{media.fields.title} {media.fields.description}" />
   {/if}
 </picture>

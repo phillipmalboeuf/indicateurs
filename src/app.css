@@ -124,6 +124,14 @@ ul > li > p {
   margin-bottom: 0.5em;
 }
 
+ol > li > picture > img,
+ul > li > picture > img {
+  display: block;
+  padding: 0.5em;
+  max-height: 33vh;
+  object-fit: contain;
+}
+
 a:hover,
 a:focus {
   color: var(--highlight);
