@@ -51,7 +51,7 @@
 {:else if node.nodeType === 'embedded-asset-block'}
 <Picture media={node.data.target} />
 {:else if node.nodeType === 'embedded-entry-block'}
-{#if node.data.target.sys.contentType.sys.id === 'indicateur'}
+{#if node.data.target?.sys?.contentType?.sys?.id === 'indicateur'}
 <figure>
   <Card indicateur={node.data.target} {...id === 'evolution' && { only: 'Québec' }} />
 </figure>
