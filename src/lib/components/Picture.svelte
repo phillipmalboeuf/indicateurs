@@ -15,7 +15,7 @@
   }
 </style>
 
-{#if media}
+{#if media?.fields?.file?.contentType}
 {#if media.fields.file.contentType.startsWith('video/')}
 <video src="{media.fields.file.url}" autoplay muted loop playsinline />
 {:else}
