@@ -16,8 +16,7 @@ const headersHandle: Handle = async ({ event, resolve }) => {
 
 	// response.headers.set('Link', '</fonts/PPNeueMontreal-Book.woff2>; rel="preload"; as="font"; type="font/woff2"; crossorigin="anonymous", </fonts/PPNeueMontreal-Medium.woff2>; rel="preload"; as="font"; type="font/woff2"; crossorigin="anonymous", </fonts/PPNeueMachina-Bold.woff2>; rel="preload"; as="font"; type="font/woff2"; crossorigin="anonymous",')
 	response.headers.set('Vercel-CDN-Cache-Control', 'max-age=3600000');
-  response.headers.set('Cache-Control', 'max-age=3600000');
-	response.headers.set('Etag', `"${process.env.VERCEL_URL || 'dev'}"`);
+	response.headers.set('Vercel-Cache-Tag', process.env.VERCEL_URL || 'dev');
 
 	// if (!request.headers.authorization) {
 	// 	return {
